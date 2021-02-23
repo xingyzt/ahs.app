@@ -50,9 +50,8 @@ async function show_article() {
 	Main.hidden = window.location.pathname==='/'
 	if(Main.hidden) return
 	window.scrollTo(0,0)
-	const [index, ...id_array] = atob(window.location.pathname.split('/')[2])
+	const [index,id] = atob(window.location.pathname.split('/')[2]).split(':')
 	const [location,category] = categories[index].split('/')
-	const id = id_array.join('')
 	let article
 	const articles_maybe = JSON.parse(localStorage.getItem('articles'))
 	if (id in articles_maybe) {
@@ -147,7 +146,7 @@ async function make_snippet(article) {
 		'/' +
 		btoa(
 			categories.indexOf(article.location+'/'+article.category)
-			+article.id
+			+':'+article.id
 		)
 	Snippet.classList.toggle('featured', article.featured)
 	const Image = Snippet.querySelector('.image')
