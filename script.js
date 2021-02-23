@@ -37,12 +37,7 @@ async function main() {
 		.then(load)
 		.then(update_snippets)
 
-	Main.addEventListener('click', event => {
-		Main.hidden = event.target === Main
-		history.pushState({}, '', '/')
-	})
 	Title.addEventListener('click', internal_link)
-
 	window.addEventListener('popstate', show_article)
 	window.addEventListener('resize', safe_center)
 	
