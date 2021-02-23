@@ -19,7 +19,9 @@ const categories = [
 	'bulletin/Clubs', 
 	'bulletin/Colleges', 
 	'bulletin/Reference', 
-	'other/Archive' 
+	'publications/DCI',
+	'publications/Quill',
+	'other/Archive',
 ]
 
 const Main = document.querySelector('main')
@@ -45,7 +47,7 @@ async function main() {
 
 	window.addEventListener('popstate', show_article)
 	window.addEventListener('resize', safe_center)
-	
+
 	Canvas.width = Canvas.height = 1
 	Canvas.ctx.filter = 'saturate(1000%)'
 }
@@ -57,8 +59,9 @@ async function show_article() {
 	const [location,category] = categories[index].split('/')
 	const id = id_array.join('')
 	let article
-	if (localStorage.getItem('cache')) {
-		article = JSON.parse(localStorage.getItem('articles'))[id]
+	const articles_maybe = JSON.parse(localStorage.getItem('articles'))
+	if (id in articles_maybe) {
+		article = articles_maybe[id]
 	} else {
 		const remote = await db(location,category,id)
 		if (!remote) return false
@@ -91,8 +94,9 @@ async function safe_center(){
 	Media.style.alignContent = Media.scrollWidth > window.innerWidth ? 'flex-start' : 'safe center'
 }
 async function load(local) {
-	if (local && localStorage.getItem('cache'))
-		return JSON.parse(localStorage.getItem('articles'))
+	const articles_maybe = JSON.parse(localStorage.getItem('articles'))
+	if (local && articles_maybe)
+		return articles_maybe
 
 	const articles = {}
 	for await (const {data,path} of categories.map(path=>db(...path.split('/'))))
