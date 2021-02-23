@@ -170,6 +170,7 @@ function internal_link(event){
 	event.preventDefault()
 }
 async function gradient_background(element, image) {
+	if(!['i.ibb.co','imgur.com'].includes(image.src.split('/')[2])) return false
 	image.crossOrigin = 'Anonymous'
 	image.addEventListener('load', () => {
 		Canvas.ctx.drawImage(image, 0, 0, 1, 1)
