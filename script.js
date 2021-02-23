@@ -10,6 +10,8 @@ const map = {
 	articleUnixEpoch: 'timestamp',
 	articleDate: 'date',
 }
+
+// DO NOT alter the position of existing paths in this array. Always append new paths at the end.
 const categories = [ 
 	'homepage/General_Info', 
 	'homepage/ASB', 
@@ -22,6 +24,7 @@ const categories = [
 	'publications/DCI',
 	'publications/Quill',
 	'other/Archive',
+	'publications/KiA',
 ]
 
 const Main = document.querySelector('main')
