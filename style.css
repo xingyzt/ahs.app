@@ -162,7 +162,7 @@ main>footer{
 	text-transform: capitalize;
 }
 .category>*{
-	padding: 2rem;
+	padding: 0 2rem;
 }
 .category>h3{
 	margin: 1rem 0;
