@@ -10,6 +10,7 @@ body{
 body * {
 	transition-duration: 100ms;
 	box-sizing: border-box;
+	word-break: break-word;
 }
 
 /* RESET */
@@ -161,7 +162,7 @@ main>footer{
 	text-transform: capitalize;
 }
 .category>*{
-	padding-left: 2rem;
+	padding: 2rem;
 }
 .category>h3{
 	margin: 1rem 0;
