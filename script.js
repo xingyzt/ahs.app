@@ -23,6 +23,7 @@ const categories = [
 ]
 
 const Main = document.querySelector('main')
+const Media = Main.querySelector('.media')
 const Title = document.querySelector('h1>a')
 const Canvas = document.createElement('canvas')
 Canvas.ctx = Canvas.getContext('2d')
@@ -43,6 +44,8 @@ async function main() {
 	Title.addEventListener('click', internal_link)
 
 	window.addEventListener('popstate', show_article)
+	window.addEventListener('resize', safe_center)
+	
 	Canvas.width = Canvas.height = 1
 	Canvas.ctx.filter = 'saturate(1000%)'
 }
@@ -67,20 +70,25 @@ async function show_article() {
 		element.innerHTML = article[property]
 	}
 	
-	const media = Main.querySelector('.media')
 	const media_cache = []
 	console.log(article.videos)
 	if(article.videos) for (const id of article.videos){
 		const embed = clone_template('youtube')
 		embed.src += id
 		media_cache.push(embed)
+		embed.addEventListener('load',safe_center)
 	}
 	if(article.images) for (const url of article.images){
 		const image = clone_template('image')
 		image.src = url
 		media_cache.push(image)
+		image.addEventListener('load',safe_center)
 	}
-	media.replaceChildren(...media_cache)
+	Media.style.alignContent = 'safe center'
+	Media.replaceChildren(...media_cache)
+}
+async function safe_center(){
+	Media.style.alignContent = Media.scrollWidth > window.innerWidth ? 'flex-start' : 'safe center'
 }
 async function load(local) {
 	if (local && localStorage.getItem('cache'))
