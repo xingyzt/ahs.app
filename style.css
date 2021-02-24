@@ -121,6 +121,9 @@ main[hidden]{
 .article>h2{
 	line-height: 1.2;
 }
+.article>h2:focus{
+	outline: 0;
+}
 .article>.carousel{
 	width: 100vw;
 	padding-block: 1rem;

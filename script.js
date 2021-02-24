@@ -57,14 +57,15 @@ async function show_article() {
 	const [index,id] = atob(window.location.pathname.split('/')[2]).split(':')
 	const [location,category] = categories[index].split('/')
 	let article
-	const articles_maybe = JSON.parse(localStorage.getItem('articles'))
-	if (id in articles_maybe) {
-		article = articles_maybe[id]
+	const articles_cache = JSON.parse(localStorage.getItem('articles'))
+	if (id in articles_cache) {
+		article = articles_cache[id]
 	} else {
 		const remote = await db(location,category,id)
 		if (!remote) return false
 		article = article_from_remote(remote.data,...remote.path)
 	}
+	Main.querySelector('h2').focus()
 	for (const property of Object.values(map)) {
 		const element = Main.querySelector('.' + property)
 		if (!element) continue
@@ -92,9 +93,9 @@ async function safe_center(){
 	Media.style.alignContent = Media.scrollWidth > window.innerWidth ? 'flex-start' : 'safe center'
 }
 async function load(local) {
-	const articles_maybe = JSON.parse(localStorage.getItem('articles'))
-	if (local && articles_maybe)
-		return articles_maybe
+	const articles_cache = JSON.parse(localStorage.getItem('articles'))
+	if (local && articles_cache)
+		return articles_cache
 
 	const articles = {}
 	for await (const {data,path} of categories.map(path=>db(...path.split('/'))))
