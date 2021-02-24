@@ -138,13 +138,16 @@ main[hidden]{
 .article>.metadata{
 	font-style: italic;
 }
-.article>metadata>.author:empty{
+.article>.metadata>.author{
+	display: inline;
+}
+.article>.metadata>.author:empty{
 	display: none;
 }
-.article>metadata>.author::before{
+.article>.metadata>.author::before{
 	content: 'by ';
 }
-.article>metadata>.author::after{
+.article>.metadata>.author::after{
 	content: ' · '
 }
 .article>.body{
