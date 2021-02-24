@@ -25,6 +25,7 @@ const categories = [
 	'publications/Quill',
 	'other/Archive',
 	'publications/KiA',
+	'publications/APN',
 ]
 
 const Main = document.querySelector('main')
