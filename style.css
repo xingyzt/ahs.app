@@ -135,13 +135,16 @@ main[hidden]{
 .article>.carousel:empty{
 	display: none;
 }
-.article .author:empty{
+.article>.metadata{
+	font-style: italic;
+}
+.article>metadata>.author:empty{
 	display: none;
 }
-.article .author::before{
+.article>metadata>.author::before{
 	content: 'by ';
 }
-.article .author::after{
+.article>metadata>.author::after{
 	content: ' · '
 }
 .article>.body{
