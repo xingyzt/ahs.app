@@ -54,33 +54,24 @@ async function show_article() {
 	Main.hidden = window.location.pathname==='/'
 	if(Main.hidden) return
 	window.scrollTo(0,0)
-	const [index,id] = atob(window.location.pathname.split('/')[2]).split(':')
-	const [location,category] = categories[index].split('/')
-	let article
-	const articles_cache = JSON.parse(localStorage.getItem('articles'))
-	if (id in articles_cache) {
-		article = articles_cache[id]
-	} else {
-		const remote = await db(location,category,id)
-		if (!remote) return false
-		article = article_from_remote(remote.data,...remote.path)
-	}
+	const id = atob(window.location.pathname.split('/')[2])
+	const article  = await db('articles/'+id)
+	if (!article) return false
 	Main.querySelector('h2').focus()
-	for (const property of Object.values(map)) {
+	for (const property in article) {
 		const element = Main.querySelector('.' + property)
 		if (!element) continue
 		element.innerHTML = article[property]
 	}
 	
 	const media_cache = []
-	console.log(article.videos)
-	if(article.videos) for (const id of article.videos){
+	if(article.videoURLs) for (const id of article.videoURLs){
 		const embed = clone_template('youtube')
 		embed.src = embed.src.replace('$URL$',id)
 		media_cache.push(embed)
 		embed.addEventListener('load',safe_center)
 	}
-	if(article.images) for (const url of article.images){
+	if(article.imageURLs) for (const url of article.imageURLs){
 		const image = clone_template('image')
 		image.src = url
 		media_cache.push(image)
@@ -93,80 +84,45 @@ async function safe_center(){
 	Media.style.alignContent = Media.scrollWidth > window.innerWidth ? 'flex-start' : 'safe center'
 }
 async function load(local) {
-	const articles_cache = JSON.parse(localStorage.getItem('articles'))
-	if (local && articles_cache)
-		return articles_cache
+	const snippets_cache = JSON.parse(localStorage.getItem('snippets'))
+	if (local && snippets_cache)
+		return snippets_cache
 
-	const articles = {}
-	for await (const {data,path} of categories.map(path=>db(...path.split('/'))))
-		for await (
-			const article of
-			Object.entries(data)
-			.map(([id,remote])=>article_from_remote(remote,...path,id))
-		)
-			articles[article.id] = article
-
-	localStorage.setItem('cache', 'true')
-	localStorage.setItem('articles', JSON.stringify(articles))
-	return articles
-}
-
-async function article_from_remote(remote,location,category,id) {
-	const article = { location, category, id }
-	for (const property in remote)
-		article[map[property]] = remote[property]
-	article.date = new Date(article.timestamp * 1000).toLocaleDateString(undefined, {
-		weekday: 'long',
-		month: 'long',
-		day: 'numeric'
-	})
-	return article
+	const snippets = await db('snippets')
+	localStorage.setItem('snippets', JSON.stringify(snippets))
+	return snippets
 }
 
 async function db(...path) {
 	const response = await fetch(`https://arcadia-high-mobile.firebaseio.com/${path.join('/')}.json`)
-	const data = await response.json()
-	return { data, path }
+	return await response.json()
 }
 
-async function update_snippets(articles) {
-	const caches = categories.map(()=>[])
-	for await (const { article, Snippet } of
-		Object.values(articles)
-		.sort((a, b) => b.timestamp - a.timestamp)
-		.map(make_snippet))
-		caches[categories.indexOf(article.location+'/'+article.category)].push(Snippet)
-
-	for (const [index,cache] of caches.entries()){
-		const [ ,category] = categories[index].split('/')
-		document.getElementById('category-'+category)
-			.querySelector('.carousel')
-			.replaceChildren(...cache)
-	}
+async function update_snippets(snippets) {
+	for (const location in snippets)
+		for(const category in snippets[location])
+			Promise
+				.all(snippets[location][category].map(make_snippet))
+				.then(Snippets=>
+					document?.getElementById('category-'+category)
+						?.querySelector('.carousel')
+						?.replaceChildren(...Snippets)
+				)
 }
-async function make_snippet(article) {
+async function make_snippet(snippet) {
 	let Snippet = clone_template('snippet')
-	Snippet.href = '/' +
-		slugify(article.title) +
-		'/' +
-		btoa(
-			categories.indexOf(article.location+'/'+article.category)
-			+':'+article.id
-		)
-	Snippet.classList.toggle('featured', article.featured)
+	Snippet.href = '/'+slugify(snippet.title)+'/'+btoa(snippet.id)
+	Snippet.classList.toggle('featured', snippet.featured)
 	const Image = Snippet.querySelector('.image')
-	if (article.images) {
-		Image.src = article.images[0]
+	if (snippet.thumbURLs) {
+		Image.src = snippet.thumbURLs[0]
 		gradient_background(Snippet, Image)
 	} else {
 		Image.remove()
 	}
-
-	for (const attribute of ['title'])
-		Snippet.querySelector('.' + attribute).innerHTML = article[attribute]
-
+	Snippet.querySelector('.title').textContent = snippet.title
 	Snippet.addEventListener('click', internal_link)
-	return { article, Snippet }
+	return Snippet
 }
 function internal_link(event){
 	history.pushState({}, '', event.target.href)

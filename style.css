@@ -102,7 +102,7 @@ article a:focus{
 	flex-direction: column;
 	flex-wrap: wrap;
 	align-content: flex-start;
-	overflow: scroll hidden;
+	overflow: auto hidden;
 	padding-bottom: 2rem;
 	height: 18rem;
 	width: 100%;
