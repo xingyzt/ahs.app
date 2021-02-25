@@ -182,7 +182,7 @@ async function gradient_background(element, image) {
 		let color = `rgba(${data[0]}, ${data[1]}, ${data[2]}, 0.2)`
 		let gradients = `
 			radial-gradient(circle at 100% 100%,${color},transparent),
-			radial-gradient(circle at 0% 0%,transparent,white)
+			radial-gradient(circle at 0% 0%,transparent,var(--secondary))
 		`
 		element.style.backgroundImage = gradients
 	})
