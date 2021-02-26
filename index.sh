@@ -45,7 +45,7 @@ function rot13() {
 
 url='https://arcadia-high-mobile.firebaseio.com/snippets.json'
 res=$(curl $url)
-time=$(date +"%l:%S&thinsp;%P Pacific Time") # 1-12 hour, 0-59 min, short separator, am/pm
+time=$(date +"%l:%M %P Pacific Time") # 1-12 hour, 0-59 min, short separator, am/pm
 locations=$(echo $res | jq -c '.[]?')
 
 while IFS= read -r location; do
