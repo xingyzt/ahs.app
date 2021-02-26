@@ -92,7 +92,7 @@ for location in $locations; do
 
 			id=$(echo $article | jq -rc '.id' | rot13)
 			title=$(echo $article | jq -rc '.title')
-			slug=$(echo $title | iconv -t ascii//TRANSLIT | sed -r s/[^a-zA-Z0-9]+/-/g | sed -r s/^-+\|-+$//g | tr A-Z a-z)
+			slug=$(echo $title | sed -r s/[^a-zA-Z0-9]+/-/g | sed -r s/^-+\|-+$//g | tr A-Z a-z)
 			featured=$(echo $article | jq -rc '.featured')
 			echo \
 '				<a href="'$slug'/'$id'" featured="'$featured'" class="snippet">
