@@ -16,7 +16,7 @@ jobs:
           ref: netlify
 
       - name: reset with main
-        run: git reset --hard origin/main
+        run: git reset --hard ${{GITHUB_REF}}
 
       - name: build
         run: load.sh > index.html
