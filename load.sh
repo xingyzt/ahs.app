@@ -70,19 +70,19 @@ map[other]='Other'
 
 
 res=$(curl $url)
-locations=$(echo $res | jq -r 'keys | .[]')
+locations='$(echo $res | jq -r 'keys | .[]')'
 
-for location in $locations; do
+while IFS= read -r location; do
 
 	echo \
-'	<nav id="location-'$location'">
+'	<nav class="location" id="location-'$location'">
 		<h2>'${map[$location]}'</h2>'
 
-	categories=$(echo $res | jq -r '.'$location' | keys | .[]')
+	categories=$(echo $res | jq -r '.'$location' | keys[]')
 	for category in $categories; do
 
 		echo \
-'<section id="category-'$category'">
+'		<section class="category" id="category-'$category'">
 			<h3>'${map[$category]}'</h3>
 			<div class="carousel">'
 
@@ -111,7 +111,7 @@ for location in $locations; do
 	done
 	echo \
 '	</nav>'
-done
+done <<< "$locations"
 
 echo \
 '	<template class="template-youtube">

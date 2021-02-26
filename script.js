@@ -1,33 +1,5 @@
 'use strict'
 
-const map = {
-	articleTitle: 'title',
-	articleImages: 'images',
-	articleVideoIDs: 'videos',
-	articleAuthor: 'author',
-	articleBody: 'body',
-	isFeatured: 'featured',
-	articleUnixEpoch: 'timestamp',
-	articleDate: 'date',
-}
-
-// DO NOT alter the position of existing paths in this array. Always append new paths at the end.
-const categories = [ 
-	'homepage/General_Info', 
-	'homepage/ASB', 
-	'homepage/District', 
-	'bulletin/Academics', 
-	'bulletin/Athletics', 
-	'bulletin/Clubs', 
-	'bulletin/Colleges', 
-	'bulletin/Reference', 
-	'publications/DCI',
-	'publications/Quill',
-	'other/Archive',
-	'publications/KiA',
-	'publications/APN',
-]
-
 const Main = document.querySelector('main')
 const Media = Main.querySelector('.media')
 const Title = document.querySelector('h1>a')
@@ -38,10 +10,6 @@ main()
 
 async function main() {
 	show_article()
-	load(true)
-		.then(update_snippets)
-		.then(load)
-		.then(update_snippets)
 
 	Title.addEventListener('click', internal_link)
 	window.addEventListener('popstate', show_article)
@@ -54,7 +22,7 @@ async function show_article() {
 	Main.hidden = window.location.pathname==='/'
 	if(Main.hidden) return
 	window.scrollTo(0,0)
-	const id = atob(window.location.pathname.split('/')[2])
+	const id = rot13(window.location.pathname.split('/')[2])
 	const article  = await db('articles/'+id)
 	if (!article) return false
 	Main.querySelector('h2').focus()
@@ -83,46 +51,9 @@ async function show_article() {
 async function safe_center(){
 	Media.style.alignContent = Media.scrollWidth > window.innerWidth ? 'flex-start' : 'safe center'
 }
-async function load(local) {
-	const snippets_cache = JSON.parse(localStorage.getItem('snippets'))
-	if (local && snippets_cache)
-		return snippets_cache
-
-	const snippets = await db('snippets')
-	localStorage.setItem('snippets', JSON.stringify(snippets))
-	return snippets
-}
-
 async function db(...path) {
 	const response = await fetch(`https://arcadia-high-mobile.firebaseio.com/${path.join('/')}.json`)
 	return await response.json()
-}
-
-async function update_snippets(snippets) {
-	for (const location in snippets)
-		for(const category in snippets[location])
-			Promise
-				.all(snippets[location][category].map(make_snippet))
-				.then(Snippets=>
-					document?.getElementById('category-'+category)
-						?.querySelector('.carousel')
-						?.replaceChildren(...Snippets)
-				)
-}
-async function make_snippet(snippet) {
-	let Snippet = clone_template('snippet')
-	Snippet.href = '/'+slugify(snippet.title)+'/'+btoa(snippet.id)
-	Snippet.classList.toggle('featured', snippet.featured)
-	const Image = Snippet.querySelector('.image')
-	if (snippet.thumbURLs) {
-		Image.src = snippet.thumbURLs[0]
-		gradient_background(Snippet, Image)
-	} else {
-		Image.remove()
-	}
-	Snippet.querySelector('.title').textContent = snippet.title
-	Snippet.addEventListener('click', internal_link)
-	return Snippet
 }
 function internal_link(event){
 	history.pushState({}, '', event.target.href)
@@ -143,18 +74,16 @@ async function gradient_background(element, image) {
 		element.style.backgroundImage = gradients
 	})
 }
-
-function slugify(text) {
-	return text.toString().toLowerCase()
-		.replace(/\s+/g, '-') // Replace spaces with -
-		.replace(/[^\w\-]+/g, '') // Remove all non-word chars
-		.replace(/\-\-+/g, '-') // Replace multiple - with single -
-		.replace(/^-+/, '') // Trim - from start of text
-		.replace(/-+$/, ''); // Trim - from end of text
-}
-
 function clone_template(name) {
 	return document.querySelector('.template-' + name)
 		.content.cloneNode(true)
 		.querySelector('*')
 }
+function rot13(str) {
+	const input     = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+	const output    = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+	const index     = x => input.indexOf(x);
+	const translate = x => index(x) > -1 ? output[index(x)] : x;
+	return str.split('').map(translate).join('');
+}
+  
