@@ -121,7 +121,7 @@ echo \
 			Want to submit an article? Email us at
 			<a href='mailto:hsappdev@students.ausd.net'>HsAppDev@students.ausd.net</a>.
 		</p><p>
-			Articles fetched at $time.
+			Articles fetched at <time>$time</time>.
 		</p>
 	</article></footer>
 	<template class='template-youtube'>
