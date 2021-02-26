@@ -95,7 +95,7 @@ for location in $locations; do
 			slug=$(echo $title | iconv -t ascii//TRANSLIT | sed -r s/[^a-zA-Z0-9]+/-/g | sed -r s/^-+\|-+$//g | tr A-Z a-z)
 			featured=$(echo $article | jq -rc '.featured')
 			echo \
-'				<a href="'$slug'/'$id'" featured="'$featured'">
+'				<a href="'$slug'/'$id'" featured="'$featured'" class="snippet">
 					<h4> '$title' </h4>'
 			thumb=$(echo $article | jq -rc '.thumbURLs[0]')
 			if [ "$thumb" != 'null' ]; then
