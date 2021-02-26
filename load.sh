@@ -95,12 +95,12 @@ while IFS= read -r location; do
 			slug=$(echo $title | sed -r s/[^a-zA-Z0-9]+/-/g | sed -r s/^-+\|-+$//g | tr A-Z a-z)
 			featured=$(echo $article | jq -rc '.featured')
 			echo \
-'				<a href="'$slug'/'$id'" featured="'$featured'" class="snippet">
+'				<a class="snippet" href="'$slug'/'$id'" featured="'$featured'">
 					<h4> '$title' </h4>'
 			thumb=$(echo $article | jq -rc '.thumbURLs[0]')
 			if [ "$thumb" != 'null' ]; then
 				echo \
-'					<img src="'$thumb'" alt="" loading="lazy">'
+'					<img class="image" src="'$thumb'" alt="" loading="lazy">'
 			fi
 			echo \
 '				</a>'
