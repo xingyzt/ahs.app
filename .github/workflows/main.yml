@@ -16,7 +16,7 @@ jobs:
           ref: dev
 
       - name: build
-        run: load.sh > index.html
+        run: bash load.sh > index.html
         
       - name: commit & push
         run: |
