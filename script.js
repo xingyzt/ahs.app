@@ -13,7 +13,7 @@ async function main() {
 
 	document.body
 		.querySelectorAll('[href^="/"]')
-		.forEach(link=>Title.addEventListener('click', internal_link))
+		.forEach(link=>link.addEventListener('click', internal_link))
 	
 	window.addEventListener('popstate', show_article)
 	window.addEventListener('resize', safe_center)
