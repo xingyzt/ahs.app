@@ -1,7 +1,6 @@
 #!/binbash
-
-echo '
-<!DOCTYPE html>
+echo \
+'<!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 <head>
 	<meta charset="utf-8">
@@ -32,8 +31,7 @@ echo '
 			</section>
 		</article>
 		<footer>&vellip;</footer>
-	</main>
-'
+	</main>'
 
 function decode(){
 	echo ${1} | base64 -i --decode | jq -rc '.'
@@ -76,52 +74,47 @@ locations=$(echo $res | jq -r 'keys | .[]')
 
 for location in $locations; do
 
-	echo '
-	<nav id="location-'$location'">
-		<h2>'${map[$location]}'</h2>
-	'
+	echo \
+'	<nav id="location-'$location'">
+		<h2>'${map[$location]}'</h2>'
 
 	categories=$(echo $res | jq -r '.'$location' | keys | .[]')
 	for category in $categories; do
 
-		echo '
-		<section id="category-'$category'">
+		echo \
+'<section id="category-'$category'">
 			<h3>'${map[$category]}'</h3>
-			<div class="carousel">
-		'
+			<div class="carousel">'
 
-		articles=$(echo $res | jq -rc '.'$location.$category'[0]')
-		for article in "$articles"; do
+		articles=$(echo $res | jq -c '.'$location.$category'[]')
+
+		while IFS= read -r article; do
 
 			id=$(echo $article | jq -rc '.id' | rot13)
 			title=$(echo $article | jq -rc '.title')
 			slug=$(echo $title | iconv -t ascii//TRANSLIT | sed -r s/[^a-zA-Z0-9]+/-/g | sed -r s/^-+\|-+$//g | tr A-Z a-z)
 			featured=$(echo $article | jq -rc '.featured')
-			echo '
-				<a href="'$slug'/'$id'" featured="'$featured'">
-					<title> '$title' </title>
-			'
+			echo \
+'				<a href="'$slug'/'$id'" featured="'$featured'">
+					<h4> '$title' </h4>'
 			thumb=$(echo $article | jq -rc '.thumbURLs[0]')
 			if [ "$thumb" != 'null' ]; then
-				echo '
-					<img src="'$thumb'" alt="" loading="lazy">
-				'
+				echo \
+'					<img src="'$thumb'" alt="" loading="lazy">'
 			fi
-			echo '
-				</a>
-			'
-		done
-		echo '
-			</div></section>
-		'
+			echo \
+'				</a>'
+		done <<< "$articles"
+		echo \
+'			</div>
+		</section>'
 	done
-	echo '
-		</nav>
-	'
+	echo \
+'	</nav>'
 done
 
-echo '
-	<template class="template-youtube">
+echo \
+'	<template class="template-youtube">
 		<iframe class="youtube"
 			src="https://www.youtube-nocookie.com/embed/$URL$?modestbranding=1&rel=0"
 			frameborder="0"
@@ -134,5 +127,4 @@ echo '
 	</template>
 	<script src="/script.js"></script>
 </body>
-</html>
-'
+</html>'
