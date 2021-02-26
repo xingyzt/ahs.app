@@ -12,11 +12,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: netlify
 
       - name: reset with main
-        run: |
-          git switch netlify
-          git reset --hard origin/main
+        run: git reset --hard origin/main
 
       - name: build
         run: load.sh > index.html
