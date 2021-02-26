@@ -56,7 +56,7 @@ map[bulletin]='Bulletin'
 	map[Athletics]='Athletics'
 	map[Academics]='Academics'
 	map[Clubs]='Clubs'
-	map[clubs]='Colleges'
+	map[Colleges]='Colleges'
 	map[Reference]='Reference'
 
 map[publication]='Bulletin'
