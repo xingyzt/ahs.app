@@ -15,6 +15,10 @@ async function main() {
 		.querySelectorAll('[href^="/"]')
 		.forEach(link=>link.addEventListener('click', internal_link))
 	
+	document.body
+		.querySelectorAll('.snippet>.image')
+		.forEach(gradient_background)
+	
 	window.addEventListener('popstate', show_article)
 	window.addEventListener('resize', safe_center)
 
@@ -63,8 +67,7 @@ function internal_link(event){
 	show_article()
 	event.preventDefault()
 }
-async function gradient_background(element, image) {
-	if(!['i.ibb.co','imgur.com'].includes(image.src.split('/')[2])) return false
+async function gradient_background(image) {
 	image.crossOrigin = 'Anonymous'
 	image.addEventListener('load', () => {
 		Canvas.ctx.drawImage(image, 0, 0, 1, 1)
@@ -74,7 +77,7 @@ async function gradient_background(element, image) {
 			radial-gradient(circle at 100% 100%,${color},transparent),
 			radial-gradient(circle at 0% 0%,transparent,var(--secondary))
 		`
-		element.style.backgroundImage = gradients
+		image.parentNode.style.backgroundImage = gradients
 	})
 }
 function clone_template(name) {
