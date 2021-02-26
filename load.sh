@@ -1,4 +1,5 @@
-#!/binbash
+#!/bin/bash
+
 echo \
 '<!DOCTYPE html>
 <html lang="en-US" dir="ltr">
@@ -33,12 +34,6 @@ echo \
 		<footer>&vellip;</footer>
 	</main>'
 
-function decode(){
-	echo ${1} | base64 -i --decode | jq -rc '.'
-}
-function titlecase() {
-	sed 's/.*/\L&/; s/[a-z]*/\u&/g' <<< "$1"    
-}
 function rot13() {    
 	cat | tr "$(echo -n {A..Z} {a..z} | tr -d ' ')" "$(echo -n {N..Z} {A..M} {n..z} {a..m} | tr -d ' ')" 
 }
