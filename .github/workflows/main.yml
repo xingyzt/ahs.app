@@ -22,5 +22,6 @@ jobs:
         run: |
           git config --global user.name 'FlyOrBoom'
           git config --global user.email 'FlyOrBoom@users.noreply.github.com'
-          git commit -am "automated build"
+          git add .
+          git commit --allow-empty -am "automated build"
           git push
