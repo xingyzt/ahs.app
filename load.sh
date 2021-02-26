@@ -59,7 +59,7 @@ map[bulletin]='Bulletin'
 	map[Colleges]='Colleges'
 	map[Reference]='Reference'
 
-map[publication]='Bulletin'
+map[publications]='Publications'
 	map[DCI]='DCI'
 	map[KiA]='Keepin it Arcadia'
 	map[APN]='Apache News'
