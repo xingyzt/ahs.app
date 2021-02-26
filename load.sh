@@ -70,7 +70,7 @@ map[other]='Other'
 
 
 res=$(curl $url)
-locations='$(echo $res | jq -r 'keys | .[]')'
+locations=$(echo $res | jq -r 'keys[]')
 
 while IFS= read -r location; do
 
@@ -95,15 +95,15 @@ while IFS= read -r location; do
 			slug=$(echo $title | sed -r s/[^a-zA-Z0-9]+/-/g | sed -r s/^-+\|-+$//g | tr A-Z a-z)
 			featured=$(echo $article | jq -rc '.featured')
 			echo \
-'				<a class="snippet" href="'$slug'/'$id'" featured="'$featured'">
-					<h4> '$title' </h4>'
+'				<a class="snippet" href="'$slug'/'$id'" featured="'$featured'">'
 			thumb=$(echo $article | jq -rc '.thumbURLs[0]')
 			if [ "$thumb" != 'null' ]; then
 				echo \
 '					<img class="image" src="'$thumb'" alt="" loading="lazy">'
 			fi
 			echo \
-'				</a>'
+'					<h4> '$title' </h4>
+				</a>'
 		done <<< "$articles"
 		echo \
 '			</div>
