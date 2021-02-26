@@ -114,7 +114,7 @@ while IFS= read -r location; do
 done <<< "$locations"
 
 echo \
-'	<footer>
+'	<footer><article>
 		<strong>ahs.app</strong>
 		<p>
 			is a web app designed and programmed by <a href='https://x-ing.space'>Xing</a> of the AHS App Development Team.
@@ -131,7 +131,7 @@ echo \
 			Want to submit an article? Email us at
 			<a href='mailto:hsappdev@students.ausd.net'>HsAppDev@students.ausd.net</a>.
 		</p>
-	</footer>
+	</article></footer>
 	<template class="template-youtube">
 		<iframe class="youtube"
 			src="https://www.youtube-nocookie.com/embed/$URL$?modestbranding=1&rel=0"
