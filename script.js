@@ -11,7 +11,10 @@ main()
 async function main() {
 	show_article()
 
-	Title.addEventListener('click', internal_link)
+	document.body
+		.querySelectorAll('[href^="/"]')
+		.forEach(link=>Title.addEventListener('click', internal_link))
+	
 	window.addEventListener('popstate', show_article)
 	window.addEventListener('resize', safe_center)
 
@@ -33,7 +36,7 @@ async function show_article() {
 	}
 	
 	const media_cache = []
-	if(article.videoURLs) for (const id of article.videoURLs){
+	if(article.videoIDs) for (const id of article.videoIDs){
 		const embed = clone_template('youtube')
 		embed.src = embed.src.replace('$URL$',id)
 		media_cache.push(embed)
