@@ -117,19 +117,19 @@ echo \
 '	<footer><article>
 		<strong>ahs.app</strong>
 		<p>
-			is a web app designed and programmed by <a href='https://x-ing.space'>Xing</a> of the AHS App Development Team.
+			is a web app designed and programmed by <a href="https://x-ing.space">Xing</a> of the AHS App Development Team.
 		</p><p>
 			Get our native app, Arcadia High Mobile, on
-			<a href='https://apps.apple.com/us/app/id1305220468'>iOS</a>
+			<a href="https://apps.apple.com/us/app/id1305220468">iOS</a>
 			and
-			<a href='https://play.google.com/store/apps/details?id=com.hsappdev.ahs'>Android</a>.
+			<a href="https://play.google.com/store/apps/details?id=com.hsappdev.ahs">Android</a>.
 		</p><p>
 			This website does not collect data from you and does not track you.
 			View its source code on
-			<a href='https://github.com/FlyOrBoom/ahs.app'>GitHub</a>.
+			<a href="https://github.com/FlyOrBoom/ahs.app">GitHub</a>.
 		</p><p>			
 			Want to submit an article? Email us at
-			<a href='mailto:hsappdev@students.ausd.net'>HsAppDev@students.ausd.net</a>.
+			<a href="mailto:hsappdev@students.ausd.net">HsAppDev@students.ausd.net</a>.
 		</p>
 	</article></footer>
 	<template class="template-youtube">
