@@ -47,6 +47,7 @@ url='https://arcadia-high-mobile.firebaseio.com/snippets.json'
 res=$(curl $url)
 time=$(date +"%l:%S&thinsp;%P Pacific Time") # 1-12 hour, 0-59 min, short separator, am/pm
 locations=$(echo $res | jq -c '.[]?')
+echo $locations > 1
 
 while IFS= read -r location; do
 
