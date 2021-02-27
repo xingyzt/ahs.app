@@ -1,4 +1,4 @@
-duration="&0"
+duration=$1
 while true
 do
 	git fetch --all
