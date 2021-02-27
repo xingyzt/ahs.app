@@ -28,8 +28,9 @@ async function reset(){
 	document.title = 'ahs.app'	
 }
 async function show_article() {
+	reset()
 	Main.hidden = window.location.pathname==='/'
-	if(Main.hidden) return reset()
+	if(Main.hidden) return
 	window.scrollTo(0,0)
 	const id = rot13(window.location.pathname.split('/').slice(-1)[0])
 	const article  = await db('articles/'+id)
