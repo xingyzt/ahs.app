@@ -1,4 +1,27 @@
-#!/binbash
+#!/bin/bash
+
+function decode(){
+	echo ${1} | base64 -i --decode | jq -rc '.'
+}
+function titlecase() {
+	sed 's/.*/\L&/; s/[a-z]*/\u&/g' <<< "$1"    
+}
+function rot13() {    
+	cat | tr "$(echo -n {A..Z} {a..z} | tr -d ' ')" "$(echo -n {N..Z} {A..M} {n..z} {a..m} | tr -d ' ')" 
+}
+
+auth=$(curl "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=$FIREBASE_API_KEY" \
+-H "Content-Type: application/json" \
+--data-binary "{\"email\":\"$EMAIL\",\"password\":\"$PASSWORD\",\"returnSecureToken\":true}")
+echo $auth
+access_token=$(echo $auth | jq -rc '.idToken')
+echo $access_token
+
+url="https://ahs-app.firebaseio.com/snippets.json?access_token=$access_token"
+res=$(curl $url)
+time=$(date +"%l:%M %P Pacific Time") # 1-12 hour, 0-59 min, short separator, am/pm
+locations=$(echo $res | jq -c '.[]?')
+
 echo \
 "<!DOCTYPE html>
 <html lang='en-US' dir='ltr'>
@@ -34,21 +57,6 @@ echo \
 		</article>
 		<footer>&vellip;</footer>
 	</main>"
-
-function decode(){
-	echo ${1} | base64 -i --decode | jq -rc '.'
-}
-function titlecase() {
-	sed 's/.*/\L&/; s/[a-z]*/\u&/g' <<< "$1"    
-}
-function rot13() {    
-	cat | tr "$(echo -n {A..Z} {a..z} | tr -d ' ')" "$(echo -n {N..Z} {A..M} {n..z} {a..m} | tr -d ' ')" 
-}
-
-url='https://arcadia-high-mobile.firebaseio.com/snippets.json'
-res=$(curl $url)
-time=$(date +"%l:%M %P Pacific Time") # 1-12 hour, 0-59 min, short separator, am/pm
-locations=$(echo $res | jq -c '.[]?')
 
 while IFS= read -r location; do
 
