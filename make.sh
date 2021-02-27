@@ -5,5 +5,5 @@ do
 	git reset --hard origin/main
 	bash index.sh > public/index.html
 	firebase deploy
-	sleep << $duration
+	sleep ${duration}
 done
