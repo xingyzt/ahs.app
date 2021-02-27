@@ -31,6 +31,7 @@ async function show_article() {
 	const id = rot13(window.location.pathname.split('/').slice(-1)[0])
 	const article  = await db('articles/'+id)
 	if (!article) return false
+	document.title = article.title+' - ahs.app'
 	Main.querySelector('h2').focus()
 	for (const property in article) {
 		const element = Main.querySelector('.' + property)
@@ -85,10 +86,10 @@ function clone_template(name) {
 		.querySelector('*')
 }
 function rot13(str) {
-	const input     = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-	const output    = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
-	const index     = x => input.indexOf(x);
-	const translate = x => index(x) > -1 ? output[index(x)] : x;
-	return str.split('').map(translate).join('');
+	const input	= 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+	const output	= 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
+	const index	= x => input.indexOf(x)
+	const translate	= x => index(x) > -1 ? output[index(x)] : x
+	return str.split('').map(translate).join('')
 }
   
