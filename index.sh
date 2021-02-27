@@ -8,7 +8,7 @@ access_token=$(echo $auth | jq -rc '.idToken')
 
 url="https://ahs-app.firebaseio.com/snippets.json?auth=$access_token"
 res=$(curl $url)
-time=$(date +"%l:%M %P Pacific Time") # 1-12 hour, 0-59 min, short separator, am/pm
+time=$(TZ=":America/Los_Angeles" date +"%l:%M %P Pacific Time") # 1-12 hour, 0-59 min, short separator, am/pm
 locations=$(echo $res | jq -c '.[]?')
 
 echo \
