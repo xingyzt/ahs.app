@@ -28,7 +28,7 @@ async function show_article() {
 	Main.hidden = window.location.pathname==='/'
 	if(Main.hidden) return
 	window.scrollTo(0,0)
-	const id = rot13(window.location.pathname.split('/').slice(-1))
+	const id = rot13(window.location.pathname.split('/').slice(-1)[0])
 	const article  = await db('articles/'+id)
 	if (!article) return false
 	Main.querySelector('h2').focus()
