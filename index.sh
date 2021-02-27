@@ -73,7 +73,7 @@ while IFS= read -r location; do
 
 			title=$( echo $article | jq -rc '.title' )
 			id=$( echo $article | jq -rc '.id' | tr A-Za-z N-ZA-Mn-za-m )
-			slug=$( echo $title | sed -r s/[^a-zA-Z0-9]+/-/g | sed -r s/^-+\|-+$//g | tr A-Z a-z )
+			slug=$( echo $title | sed -r s/[^a-zA-Z0-9]+/-/g | sed -r s/^-+\|-+$//g )
 			featured=$( echo $article | jq -rc '.featured' )
 			thumb=$( echo $article | jq -rc '.thumbURLs[0]' )
 
