@@ -2,7 +2,6 @@
 
 const Main = document.querySelector('main')
 const Media = Main.querySelector('.media')
-const Title = document.querySelector('h1>a')
 const Canvas = document.createElement('canvas')
 Canvas.ctx = Canvas.getContext('2d')
 
@@ -59,7 +58,7 @@ async function safe_center(){
 	Media.style.alignContent = Media.scrollWidth > window.innerWidth ? 'flex-start' : 'safe center'
 }
 async function db(...path) {
-	const response = await fetch(`https://arcadia-high-mobile.firebaseio.com/${path.join('/')}.json`)
+	const response = await fetch(`https://ahs-app.firebaseio.com/${path.join('/')}.json`)
 	return await response.json()
 }
 function internal_link(event){
