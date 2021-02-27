@@ -135,7 +135,7 @@ echo \
 	</article></footer>
 	<template class='template-youtube'>
 		<iframe class='youtube'
-			src='https://www.youtube-nocookie.com/embed/$URL$?modestbranding=1&rel=0'
+			src='https://www.youtube-nocookie.com/embed/[URL]?modestbranding=1&rel=0'
 			frameborder='0'
 			allow='clipboard-write; encrypted-media; picture-in-picture'
 			allowfullscreen

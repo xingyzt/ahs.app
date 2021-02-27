@@ -41,7 +41,7 @@ async function show_article() {
 	const media_cache = []
 	if(article.videoIDs) for (const id of article.videoIDs){
 		const embed = clone_template('youtube')
-		embed.src = embed.src.replace('$URL$',id)
+		embed.src = embed.src.replace('[URL]',id)
 		media_cache.push(embed)
 		embed.addEventListener('load',safe_center)
 	}
