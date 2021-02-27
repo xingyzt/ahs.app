@@ -17,10 +17,12 @@ echo \
 </head>
 <body>
 	<h1><a href='/'> ahs.app </a></h1>
-	<noscript> Please enable JavaScript in order to load articles. </noscript>
 	<main hidden>
 		<article class='article'>
-			<h2 class='title heading' tabindex='0'> Loading article&hellip; </h2>
+			<h2 class='title heading' tabindex='0'>
+				Loading article&hellip;
+				<noscript> Please enable JavaScript in order to load the full article. </noscript>
+			</h2>
 			<section class='media carousel'></section>
 			<section class='metadata'>
 				<address class='author'></address>
