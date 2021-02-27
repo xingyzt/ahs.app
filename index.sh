@@ -1,15 +1,5 @@
 #!/bin/bash
 
-function decode(){
-	echo ${1} | base64 -i --decode | jq -rc '.'
-}
-function titlecase() {
-	sed 's/.*/\L&/; s/[a-z]*/\u&/g' <<< "$1"    
-}
-function rot13() {    
-	cat | tr "$(echo -n {A..Z} {a..z} | tr -d ' ')" "$(echo -n {N..Z} {A..M} {n..z} {a..m} | tr -d ' ')" 
-}
-
 . .env
 auth=$(curl "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=$FIREBASE_API_KEY" \
 -H "Content-Type: application/json" \
@@ -82,7 +72,7 @@ while IFS= read -r location; do
 		while IFS= read -r article; do
 
 			title=$( echo $article | jq -rc '.title' )
-			id=$( echo $article | jq -rc '.id' | rot13 )
+			id=$( echo $article | jq -rc '.id' | tr A-Za-z N-ZA-Mn-za-m )
 			slug=$( echo $title | sed -r s/[^a-zA-Z0-9]+/-/g | sed -r s/^-+\|-+$//g | tr A-Z a-z )
 			featured=$( echo $article | jq -rc '.featured' )
 			thumb=$( echo $article | jq -rc '.thumbURLs[0]' )
