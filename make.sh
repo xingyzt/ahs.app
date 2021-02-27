@@ -4,8 +4,8 @@ do
 	git fetch --all
 	git reset --hard origin/main
 	bash index.sh > public/index.html
-	yui-compressor style.css > style.css
-	yui-compressor script.js > script.js
+	yui-compressor style.css -o style.css
+	yui-compressor script.js -o script.js
 	firebase deploy
 	sleep ${duration}
 done
