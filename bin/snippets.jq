@@ -1,11 +1,10 @@
 def n: join("\n");
 def slug: gsub(" ";"-") | gsub("[^-\\w]";"");
-def rot13: explode
-	| map( if 65 <= . and . <= 90 then ((. - 52) % 26) + 65
+def rot13: explode | map(
+	if 65 <= . and . <= 90 then ((. - 52) % 26) + 65
         elif 97 <= . and . <= 122 then (. - 84) % 26 + 97
-        else .
-   end)
-	| implode;
+        else . end
+) | implode;
 
 map([
 	("<nav id=location-"+.id+" class=location>"),
