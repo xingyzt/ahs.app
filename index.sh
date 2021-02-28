@@ -26,6 +26,7 @@ echo \
 	
 	<link rel='icon' type='image/png' href='/icon.png'>
 	<link rel='stylesheet' href='/style.css'>
+	<link rel='preconnect' href='https://ahs-app.firebaseio.com'>
 </head>
 <body>
 	<h1><a href='/'> ahs.app </a></h1>
