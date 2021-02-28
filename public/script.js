@@ -35,7 +35,7 @@ async function show_article() {
 	const id = window.location.pathname
 		.split('/')
 		.pop() // Last portion of the path is the ciphered ID
-		.replace(/./g,c=>'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm-'['ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-'.indexOf(c)]) // ROT13
+		.replace(/[a-z]/gi,c=>'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'['ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.indexOf(c)]) // ROT13
 	const article  = await db('articles/'+id)
 	if (!article) return false
 	document.title = article.title
