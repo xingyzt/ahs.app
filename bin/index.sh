@@ -3,13 +3,11 @@
 auth=$(curl "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=$FIREBASE_API_KEY" \
 -H "Content-Type: application/json" \
 --data-binary "{\"email\":\"$EMAIL\",\"password\":\"$PASSWORD\",\"returnSecureToken\":true}")
-access_token=$(echo $auth | jq -rc '.idToken')
+access_token=$(jq -rc '.idToken' <<< $auth)
 
-url="https://ahs-app.firebaseio.com/snippets.json?auth=$access_token"
-res=$(curl $url)
-snippets=$(jq -fr snippets.jq <<< $res)
-time=$(TZ=":America/Los_Angeles" date +"%l:%M %P Pacific Time") # 1-12 hour, 0-59 min, short separator, am/pm
-locations=$(echo $res | jq -c '.[]?')
+database=$(curl "https://ahs-app.firebaseio.com/snippets.json?auth=$access_token")
+snippets=$(jq -fr snippets.jq <<< $database) # JSON database to HTML
+time=$(TZ=":America/Los_Angeles" date +"%l:%M %P Pacific Time") # l: hour, M: min, P: am/pm
 
 echo \
 "<!DOCTYPE html>
