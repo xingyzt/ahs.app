@@ -32,7 +32,10 @@ async function show_article() {
 	Main.hidden = window.location.pathname==='/'
 	if(Main.hidden) return
 	window.scrollTo(0,0)
-	const id = rot13(window.location.pathname.split('/').slice(-1)[0])
+	const id = window.location.pathname
+		.split('/')
+		.pop() // Last portion of the path is the ciphered ID
+		.replace(/./g,c=>'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm-'['ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-'.indexOf(c)]) // ROT13
 	const article  = await db('articles/'+id)
 	if (!article) return false
 	document.title = article.title
@@ -88,12 +91,4 @@ function clone_template(name) {
 	return document.querySelector('.template-' + name)
 		.content.cloneNode(true)
 		.querySelector('*')
-}
-function rot13(str) {
-	const input	= 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
-	const output	= 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
-	const index	= x => input.indexOf(x)
-	const translate	= x => index(x) > -1 ? output[index(x)] : x
-	return str.split('').map(translate).join('')
-}
-  
+} 
