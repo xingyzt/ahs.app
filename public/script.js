@@ -35,7 +35,7 @@ async function show_article() {
 	const id = rot13(window.location.pathname.split('/').slice(-1)[0])
 	const article  = await db('articles/'+id)
 	if (!article) return false
-	document.title = article.title+' - ahs.app'
+	document.title = article.title
 	Main.querySelector('h2').focus()
 	for (const property in article) {
 		const element = Main.querySelector('.' + property)
