@@ -5,10 +5,13 @@ do
 	git reset --hard origin/main
 
 	mkdir public
-	bash bin/index.sh > public/index.html
-	yui-compressor bin/style.css -o public/style.css
-	terser --compress --mangle --toplevel bin/script.js -o public/script.js
-	cp bin/icon.png public/icon.png
+	(
+		cd public
+		bash index.sh > ../public/index.html
+		yui-compressor style.css -o ../public/style.css
+		terser --compress --mangle --toplevel script.js -o ../public/script.js
+		cp icon.png ../public/icon.png
+	)
 
 	firebase deploy
 	sleep ${duration}
