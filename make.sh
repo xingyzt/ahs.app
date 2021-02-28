@@ -5,7 +5,7 @@ do
 	git reset --hard origin/main
 
 	mkdir public
-	cd public
+	cd bin
 		bash index.sh > ../public/index.html
 		yui-compressor style.css -o ../public/style.css
 		terser --compress --mangle --toplevel script.js -o ../public/script.js
