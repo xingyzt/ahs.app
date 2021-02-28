@@ -4,6 +4,7 @@ do
 	git fetch --all
 	git reset --hard origin/main
 
+	mkdir public
 	bash bin/index.sh > public/index.html
 	yui-compressor bin/style.css -o public/style.css
 	terser --compress --mangle --toplevel bin/script.js -o public/script.js
