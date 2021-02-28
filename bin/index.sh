@@ -1,6 +1,5 @@
-#!/bin/bash
-
 . .env
+
 auth=$(curl "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=$FIREBASE_API_KEY" \
 -H "Content-Type: application/json" \
 --data-binary "{\"email\":\"$EMAIL\",\"password\":\"$PASSWORD\",\"returnSecureToken\":true}")
@@ -8,6 +7,7 @@ access_token=$(echo $auth | jq -rc '.idToken')
 
 url="https://ahs-app.firebaseio.com/snippets.json?auth=$access_token"
 res=$(curl $url)
+snippets=$(jq -fr snippets.jq <<< $res)
 time=$(TZ=":America/Los_Angeles" date +"%l:%M %P Pacific Time") # 1-12 hour, 0-59 min, short separator, am/pm
 locations=$(echo $res | jq -c '.[]?')
 
@@ -46,65 +46,9 @@ echo \
 			</section>
 		</article>
 		<footer>&vellip;</footer>
-	</main>"
-
-while IFS= read -r location; do
-
-	title=$( jq -rc '.title' <<< $location )
-	id=$( jq -rc '.id' <<< $location )
-	categories=$(echo $location | jq -c '.categories[]?')
-
-	echo \
-"	<nav class='location' id='location-$id'>
-		<h2> $title </h2>"
-
-	while IFS= read -r category; do
-
-		title=$( jq -rc '.title' <<< $category )
-		id=$( jq -rc '.id' <<< $category )
-		articles=$( jq -rc '.articles[]?' <<< $category )
-		
-		echo \
-"		<section class='category' id='category-$id'>
-			<h3> $title </h3>
-			<div class='carousel'>"
-
-
-		while IFS= read -r article; do
-
-			title=$( echo $article | jq -rc '.title' )
-			id=$( echo $article | jq -rc '.id' | tr A-Za-z N-ZA-Mn-za-m )
-			slug=$( echo $title | sed -r s/[^a-zA-Z0-9]+/-/g | sed -r s/^-+\|-+$//g )
-			featured=$( echo $article | jq -rc '.featured' )
-			thumb=$( echo $article | jq -rc '.thumbURLs[0]' )
-
-			echo \
-"				<a class='snippet' href='/$slug/$id' featured='$featured'>"
-
-			if [ "$thumb" != 'null' ]; then
-				echo \
-"					<img class='image' src='$thumb' alt='' loading='lazy'>"
-			fi
-
-			echo \
-"					<h4> $title </h4>
-				</a>"
-
-		done <<< "$articles"
-		
-		echo \
-"			</div>
-		</section>"
-
-	done <<< "$categories"
-
-	echo \
-"	</nav>"
-
-done <<< "$locations"
-
-echo \
-"		<footer><article>
+	</main>
+	$snippets
+	<footer><article>
 		<strong>ahs.app</strong>
 		<p>
 			is a web app designed and programmed by <a href='https://x-ing.space'>Xing</a> of the AHS App Development Team.
