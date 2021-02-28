@@ -8,7 +8,7 @@ do
 	bash bin/index.sh > public/index.html
 	yui-compressor bin/style.css -o public/style.css
 	terser --compress --mangle --toplevel bin/script.js -o public/script.js
-	cp bin/icon.png > public/icon.png
+	cp bin/icon.png public/icon.png
 
 	firebase deploy
 	sleep ${duration}
