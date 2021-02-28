@@ -61,7 +61,9 @@ echo \
 			<a href='https://github.com/FlyOrBoom/ahs.app'>GitHub</a>.
 		</p><p>			
 			Want to submit an article? Email us at
-			<a href='mailto:hsappdev@students.ausd.net'>HsAppDev@students.ausd.net</a>.
+			<a href='mailto:hsappdev@students.ausd.net?subject=Article%20request%3A%20%28Write%20topic%20of%20article%20here%29&body=Title%3F%20%28Try%20to%20keep%20it%20below%208%20words%29.%0A%0AAuthor%3F%20%28Name%20of%20your%20writer%20or%20organization%29.%0A%0ABody%3F%20%28Any%20length.%20We%27ll%20handle%20the%20formatting%29%0A%0ANotification%3F%20%28Yes%20or%20no%29.%0A%0AAttach%20images%20below.'>
+				HsAppDev@students.ausd.net
+			</a>
 		</p><p>
 			Articles fetched at <time>$time</time>.
 		</p>
