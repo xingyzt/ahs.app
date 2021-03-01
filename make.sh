@@ -2,7 +2,7 @@ duration=$1
 while true
 do
 	git fetch --all
-	git reset --hard origin/main
+	git reset --hard origin/editor
 
 	mkdir public
 	cd bin
