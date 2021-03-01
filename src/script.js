@@ -1,7 +1,6 @@
 'use strict'
 
 const Main = document.querySelector('main')
-const Media = Main.querySelector('.media')
 const Canvas = document.createElement('canvas')
 Canvas.ctx = Canvas.getContext('2d')
 
@@ -24,13 +23,14 @@ async function main() {
 	Canvas.width = Canvas.height = 1
 	Canvas.ctx.filter = 'saturate(1000%)'
 }
-async function reset(){
-	document.title = 'ahs.app'	
-}
 async function show_article() {
-	reset()
+
+	const Article = clone_template('article')
+	Main.replaceChild(Article,Main.firstChild)
+	
 	Main.hidden = window.location.pathname==='/'
 	if(Main.hidden) return
+
 	window.scrollTo(0,0)
 	const id = window.location.pathname
 		.split('/')
@@ -38,14 +38,17 @@ async function show_article() {
 		.replace(/[a-z]/gi,c=>'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'['ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.indexOf(c)]) // ROT13
 	const article  = await db('articles/'+id)
 	if (!article) return false
+
 	document.title = article.title
-	Main.querySelector('h2').focus()
+
+	Article.querySelector('h2').focus()
 	for (const property in article) {
-		const element = Main.querySelector('.' + property)
+		const element = Article.querySelector('.' + property)
 		if (!element) continue
 		element.innerHTML = article[property]
 	}
 	
+	const Media = Article.querySelector('.media')
 	const media_cache = []
 	if(article.videoIDs) for (const id of article.videoIDs){
 		const embed = clone_template('youtube')

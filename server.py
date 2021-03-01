@@ -8,8 +8,11 @@ import http.server
 import socketserver
 import re
 from pathlib import Path
+import os
 
-HOST = ('0.0.0.0', 8000)
+os.chdir(os.path.join(os.path.dirname(__file__),'dist'))
+
+HOST = ('0.0.0.0', 8080)
 pattern = re.compile('.png|.jpg|.jpeg|.js|.css|.ico|.gif|.svg', re.IGNORECASE)
 
 

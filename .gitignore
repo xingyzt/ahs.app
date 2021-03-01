@@ -1,3 +1,4 @@
 .env
+.firebase
 *.swp
-dist/*
+dist
