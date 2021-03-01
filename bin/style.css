@@ -188,13 +188,13 @@ main>footer{
 .carousel>.snippet{
 	width: 12rem;
 }
-.carousel>.snippet[featured=true]{
+.carousel>.snippet[featured]{
 	width: 28rem;
 }
-.carousel>.snippet[featured=true]>h4{
+.carousel>.snippet[featured]>h4{
 	font-size: 1.4rem;
 }
-.carousel>.snippet[featured=true]>.image{
+.carousel>.snippet[featured]>.image{
 	width: 50%;
 	height: 100%;
 	float: right;
