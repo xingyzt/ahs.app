@@ -73,7 +73,6 @@ article a:focus{
 	text-decoration: underline;
 }
 /* SNIPPET */
-
 .snippet{
 	display: block;
 	position: relative;
@@ -124,9 +123,6 @@ main[hidden]{
 .article{
 	display: flex;
 	flex-direction: column;
-}
-.article:focus{
-	outline: 0;
 }
 .article>*{
 	margin-inline: auto;
@@ -192,13 +188,13 @@ main>footer{
 .carousel>.snippet{
 	width: 12rem;
 }
-.carousel>.snippet.featured{
+.carousel>.snippet[featured=true]{
 	width: 28rem;
 }
-.carousel>.snippet.featured>h4{
+.carousel>.snippet[featured=true]>h4{
 	font-size: 1.4rem;
 }
-.carousel>.snippet.featured>.image{
+.carousel>.snippet[featured=true]>.image{
 	width: 50%;
 	height: 100%;
 	float: right;
