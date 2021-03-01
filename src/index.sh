@@ -28,7 +28,7 @@ echo \
 	<meta name='color-scheme' content='light dark'>
 	
 	<link rel='icon' type='image/png' href='/icon.png'>
-	<link rel='stylesheet' href='/style.css'>
+	<link rel='stylesheet' href='/index.css'>
 	<link rel='preconnect' href='https://ahs-app.firebaseio.com'>
 </head>
 <body>
@@ -85,6 +85,6 @@ echo \
 		</article>
 		<footer>&vellip;</footer>
 	</template>
-	<script src='/script.js'></script>
+	<script src='/index.js'></script>
 </body>
 </html>"
