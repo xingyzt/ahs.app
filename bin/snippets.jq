@@ -7,23 +7,27 @@ def rot13: explode | map(
 ) | implode;
 
 map([
-	("<nav id=location-"+.id+" class=location>"),
-	("<h2>"+.title+"</h2>"),
-	(.categories | map([
-		("<section id=category-"+.id+" class=category>"),
-		("<h3>"+.title+"</h3>"),
-		("<div class=carousel>"),
+	( "<nav id=location-"+.id+" class=location>" ),
+	( "<h2>"+.title+"</h2>" ),
+	( .categories | map([
+		( "<section id=category-"+.id+" class=category>" ),
+		( "<h3>"+.title+"</h3>" ),
+		( "<div class=carousel>" ),
 		( .articles | map([
-			("<a href=/"+(.title|slug)+"/"+(.id|rot13)+" class=snippet>"),
-			( if (.thumbURLs)
-				then "<img src="+.thumbURLs[0]+" class=image>"
-				else empty end
+			( "<a href=/"
+				+ (.title|slug)+"/"+(.id|rot13)
+				+ (if .featured then " featured" else "" end )
+				+ " class=snippet>"
 			),
-			("<h4>"+.title+"</h4>"),
-			("</a>")
+			( if .thumbURLs
+				then "<img src="+.thumbURLs[0]+" class=image>"
+				else "" end
+			),
+			( "<h4>"+.title+"</h4>" ),
+			( "</a>" )
 		] |n) |n),
-		("</div>"),
-		("</section>")
+		( "</div>" ),
+		( "</section>" )
 	] |n) |n),
-	("</nav>")
+	( "</nav>" )
 ] |n) |n
