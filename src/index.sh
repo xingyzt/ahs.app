@@ -34,8 +34,7 @@ echo \
 <body>
 	<h1><a href='/'> ahs.app </a></h1>
 	<noscript> Please enable JavaScript in order to load full articles. </noscript>
-	<main hidden>
-	</main>
+	<main hidden><article></article></main>
 	$snippets
 	<footer><article>
 		<strong>ahs.app</strong>
@@ -70,7 +69,6 @@ echo \
 	<template class='template-image'>
 		<img class='image'>
 	</template>
-	<script src='/script.js'></script>
 	<template class='template-article'>
 		<article class='article'>
 			<h2 class='title heading' tabindex='0'>
@@ -87,5 +85,6 @@ echo \
 		</article>
 		<footer>&vellip;</footer>
 	</template>
+	<script src='/script.js'></script>
 </body>
 </html>"

@@ -27,7 +27,7 @@ async function show_article() {
 
 	const Article = clone_template('article')
 	Main.replaceChild(Article,Main.firstChild)
-	
+
 	Main.hidden = window.location.pathname==='/'
 	if(Main.hidden) return
 
