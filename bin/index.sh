@@ -5,8 +5,11 @@ auth=$(curl "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPasswo
 --data-binary "{\"email\":\"$EMAIL\",\"password\":\"$PASSWORD\",\"returnSecureToken\":true}")
 access_token=$(jq -rc '.idToken' <<< $auth)
 
-database=$(curl "https://ahs-app.firebaseio.com/snippets.json?auth=$access_token")
-snippets=$(jq -fr snippets.jq <<< $database) # JSON database to HTML
+curl "https://ahs-app.firebaseio.com/snippets.json?auth=$access_token" > snippets.json
+curl "https://ahs-app.firebaseio.com/layout.json?auth=$access_token" > layout.json
+
+snippets=$(jq -sfr snippets.jq layout.json snippets.json)
+
 time=$(TZ=":America/Los_Angeles" date +"%l:%M %P Pacific Time") # l: hour, M: min, P: am/pm
 
 echo \
