@@ -80,5 +80,6 @@ echo \
 		<img class='image'>
 	</template>
 	<script src='/script.js'></script>
+	<script src='/editor.js'></script>
 </body>
 </html>"
