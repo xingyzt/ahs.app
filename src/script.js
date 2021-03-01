@@ -25,7 +25,7 @@ async function main() {
 	Canvas.ctx.filter = 'saturate(1000%)'
 }
 async function reset(){
-	document.title = 'editor.ahs.app'	
+	document.title = 'ahs.app'	
 }
 async function show_article() {
 	reset()

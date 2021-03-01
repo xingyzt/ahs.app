@@ -1,14 +1,5 @@
 {
   "projects": {
     "default": "xing-ahs-app"
-  },
-  "targets": {
-    "xing-ahs-app": {
-      "hosting": {
-        "editor": [
-          "editor-ahs-app"
-        ]
-      }
-    }
   }
 }
