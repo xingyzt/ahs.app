@@ -6,22 +6,24 @@ def rot13: explode | map(
         else . end
 ) | implode;
 
-map([
+.[0] as $layout
+| .[1] as $snippets
+| $layout | map([
 	( "<nav id=location-"+.id+" class=location>" ),
 	( "<h2>"+.title+"</h2>" ),
 	( .categories | map([
 		( "<section id=category-"+.id+" class=category>" ),
 		( "<h3>"+.title+"</h3>" ),
 		( "<div class=carousel>" ),
-		( .articles | map([
+		( .articles | map( . as $id | $snippets[.] | [
 			( "<a href=/"
-				+ (.title|slug)+"/"+(.id|rot13)
+				+ (.title|slug)+"/"+($id|rot13)
 				+ (if .featured then " featured" else "" end )
 				+ " class=snippet>"
 			),
 			( if .thumbURLs
 				then "<img src="+.thumbURLs[0]+" class=image>"
-				else "" end
+				else empty end
 			),
 			( "<h4>"+.title+"</h4>" ),
 			( "</a>" )

@@ -1,7 +1,7 @@
 {
   "hosting": {
     "target": "editor",
-    "public": "public",
+    "public": "dist",
     "trailingSlash": false,
     "ignore": [
       "firebase.json",
