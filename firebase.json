@@ -1,6 +1,5 @@
 {
   "hosting": {
-    "target": "editor",
     "public": "dist",
     "trailingSlash": false,
     "ignore": [
