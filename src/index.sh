@@ -31,22 +31,8 @@ echo \
 </head>
 <body>
 	<h1><a href='/'> ahs.app </a></h1>
+	<noscript> Please enable JavaScript in order to load full articles. </noscript>
 	<main hidden>
-		<article class='article'>
-			<h2 class='title heading' tabindex='0'>
-				Loading article&hellip;
-				<noscript> Please enable JavaScript in order to load the full article. </noscript>
-			</h2>
-			<section class='media carousel'></section>
-			<section class='metadata'>
-				<address class='author'></address>
-				<time class='date'></time>
-			</section>
-			<section class='body'>
-				<p> If it's taking too long, you may have been sent a broken link. </p>
-			</section>
-		</article>
-		<footer>&vellip;</footer>
 	</main>
 	$snippets
 	<footer><article>
@@ -83,5 +69,21 @@ echo \
 		<img class='image'>
 	</template>
 	<script src='/script.js'></script>
+	<template class='template-article'>
+		<article class='article'>
+			<h2 class='title heading' tabindex='0'>
+				Loading article&hellip;
+			</h2>
+			<section class='media carousel'></section>
+			<section class='metadata'>
+				<address class='author'></address>
+				<time class='date'></time>
+			</section>
+			<section class='body'>
+				<p> If it's taking too long, you may have been sent a broken link. </p>
+			</section>
+		</article>
+		<footer>&vellip;</footer>
+	</template>
 </body>
 </html>"
