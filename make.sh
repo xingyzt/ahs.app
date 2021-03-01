@@ -1,9 +1,6 @@
 duration=$1
 while true
 do
-	git fetch --all
-	git reset --hard origin/main
-
 	cd src
 		bash index.sh > ../dist/index.html
 		yui-compressor style.css -o ../dist/style.css
