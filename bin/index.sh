@@ -15,7 +15,7 @@ echo \
 <head>
 	<meta charset='utf-8'>
 
-	<title>ahs.app</title>
+	<title>editor.ahs.app</title>
 	<meta name='description' content='We keep you up to date with Arcadia High.'>
 	<meta name='author' content='Arcadia High Mobile Team'>
 	<meta name='web-author' content='Xing Liu'>
@@ -27,7 +27,7 @@ echo \
 	<link rel='preconnect' href='https://ahs-app.firebaseio.com'>
 </head>
 <body>
-	<h1><a href='/'> ahs.app </a></h1>
+	<h1><a href='/'> editor.ahs.app </a></h1>
 	<main hidden>
 		<article class='article'>
 			<h2 class='title heading' tabindex='0'>
@@ -47,7 +47,7 @@ echo \
 	</main>
 	$snippets
 	<footer><article>
-		<strong>ahs.app</strong>
+		<strong>editor.ahs.app</strong>
 		<p>
 			is a web app designed and programmed by <a href='https://x-ing.space'>Xing</a> of the AHS App Development Team.
 		</p><p>
