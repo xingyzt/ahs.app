@@ -1,11 +1,11 @@
 :root{
-	--primary: white;
-	--secondary: #f8f8f8;
-	--highlight: white;
+	--primary: #f8f8f8;
+	--secondary: white;
+	--highlight: #f0f0f0;
 	--text: black;
 	--link: #44a;
 }
-@media screen and (prefers-color-scheme: dark){
+@media screen and (prefers-color-scheme: light){
 	:root{
 		--primary: #112;
 		--secondary: #223;
@@ -96,7 +96,6 @@ article a:focus{
 	height: 50%;
 }
 .carousel{
-	filter: drop-shadow(0 0 .5rem #0004);
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
