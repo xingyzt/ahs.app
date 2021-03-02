@@ -31,7 +31,6 @@ async function show_article() {
 	Main.hidden = window.location.pathname==='/'
 	if(Main.hidden) return
 
-	window.scrollTo(0,0)
 	const id = window.location.pathname
 		.split('/')
 		.pop() // Last portion of the path is the ciphered ID

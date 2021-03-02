@@ -29,7 +29,6 @@ body{
 }
 body * {
 	box-sizing: border-box;
-	word-break: break-word;
 }
 
 /* RESET */
@@ -78,7 +77,7 @@ article a:focus{
 	position: relative;
 	text-decoration: none;
 	color: inherit;
-	overflow: hidden;
+	overflow: wrap hidden;
 	padding: 0.5rem;
 	opacity: 0.8;
 	user-select: none;
