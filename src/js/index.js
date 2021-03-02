@@ -7,7 +7,6 @@ Canvas.ctx = Canvas.getContext('2d')
 main()
 
 async function main() {
-	window.history.scrollRestoration = 'Manual'
 	show_article()
 
 	document.body
