@@ -5,7 +5,7 @@
 	--text: black;
 	--link: #44a;
 }
-@media screen and (prefers-color-scheme: light){
+@media screen and (prefers-color-scheme: dark){
 	:root{
 		--primary: #112;
 		--secondary: #223;
