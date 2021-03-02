@@ -34,7 +34,10 @@ echo \
 <body>
 	<h1><a href='/'> ahs.app </a></h1>
 	<noscript> Please enable JavaScript in order to load full articles. </noscript>
-	<main hidden><article></article></main>
+	<main hidden>
+		<article></article>
+		<footer>&vellip;</footer>
+	</main>
 	$snippets
 	<footer><article>
 		<strong>ahs.app</strong>
@@ -83,7 +86,6 @@ echo \
 				<p> If it's taking too long, you may have been sent a broken link. </p>
 			</section>
 		</article>
-		<footer>&vellip;</footer>
 	</template>
 	<script src='/index.js'></script>
 </body>
