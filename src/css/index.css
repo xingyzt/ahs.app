@@ -122,7 +122,7 @@ main[hidden]{
 .article{
 	display: flex;
 	flex-direction: column;
-	animation: fade-in 400ms;
+	animation: fade-in 200ms ease-out 200ms both;
 }
 @keyframes fade-in{
 	from { opacity: 0 }
