@@ -12,7 +12,7 @@ import os
 
 os.chdir(os.path.join(os.path.dirname(__file__),'dist'))
 
-HOST = ('0.0.0.0', 8080)
+HOST = ('0.0.0.0', 8000)
 pattern = re.compile('.png|.jpg|.jpeg|.js|.css|.ico|.gif|.svg', re.IGNORECASE)
 
 
