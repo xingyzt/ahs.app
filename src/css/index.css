@@ -88,8 +88,8 @@ article a:focus{
 .snippet:hover{
 	opacity: 1;
 }
-.snippet>*{
-	position: relative;
+.snippet>h4,
+.snippet>.image{
 	pointer-events: none;
 }
 .snippet>.image{
