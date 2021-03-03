@@ -31,11 +31,8 @@ async function show_article() {
 	Main.hidden = window.location.pathname==='/'
 	if(Main.hidden) return
 
-	const id = await window.location.pathname
-		.split('/')
-		.pop() // Last portion of the path is the ciphered ID
-		.then(rot13)
-		
+	const id = rot13(window.location.pathname.split('/').pop()) // Last portion of the path is the ciphered ID
+
 	const article  = await db('articles/'+id)
 	if (!article) return false
 
@@ -95,7 +92,7 @@ function clone_template(name) {
 		.content.cloneNode(true)
 		.querySelector('*')
 } 
-async function rot13(str){
+function rot13(str){
 	return str.replace( /[a-z]/gi, c =>
 		'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'[
 			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.indexOf(c)
