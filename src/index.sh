@@ -39,7 +39,9 @@ echo \
 		<article></article>
 		<footer>&vellip;</footer>
 	</main>
-	$snippets
+	<nav>
+$snippets
+	</nav>
 	<footer><article>
 		<strong>ahs.app</strong>
 		<p>

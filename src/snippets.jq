@@ -9,7 +9,7 @@ def rot13: explode | map(
 .[0] as $layout
 | .[1] as $snippets
 | $layout | map([
-	( "<nav id=location-"+.id+" class=location>" ),
+	( "<section id=location-"+.id+" class=location>" ),
 	( "<h2>"+.title+"</h2>" ),
 	( .categories | map([
 		( "<section id=category-"+.id+" class=category>" ),
@@ -31,5 +31,5 @@ def rot13: explode | map(
 		( "</div>" ),
 		( "</section>" )
 	] |n) |n),
-	( "</nav>" )
+	( "</section>" )
 ] |n) |n
