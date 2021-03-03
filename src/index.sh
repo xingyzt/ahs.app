@@ -30,7 +30,7 @@ echo \
 	<link rel='icon' type='image/png' href='/icon.png'>
 	<link rel='stylesheet' href='/index.css'>
 	<link rel='preconnect' href='https://ahs-app.firebaseio.com'>
-	<link rel='preconnect' herf='https://firebasestorage.googleapis.com'>
+	<link rel='preconnect' href='https://firebasestorage.googleapis.com'>
 </head>
 <body>
 	<h1><a href='/'> ahs.app </a></h1>
