@@ -15,7 +15,7 @@ def rot13: explode | map(
 		( "<section id=category-"+.id+" class=category>" ),
 		( "<h3>"+.title+"</h3>" ),
 		( "<div class=carousel>" ),
-		( .articles | map( . as $id | $snippets[.] | [
+		( .articleIDs | map( . as $id | $snippets[.] | [
 			( "<a href=/"
 				+ (.title|slug)+"/"+($id|rot13)
 				+ (if .featured then " featured" else "" end )
