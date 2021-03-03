@@ -4,6 +4,7 @@
 	--highlight: #f0f0f0;
 	--text: black;
 	--link: #44a;
+	--fade: 0.7;
 }
 @media screen and (prefers-color-scheme: dark){
 	:root{
@@ -12,6 +13,7 @@
 		--highlight: #445;
 		--text: #eee;
 		--link: #aaf;
+		--fade: 0.8;
 	}
 }
 /*//////////////////*/
@@ -79,7 +81,7 @@ article a:focus{
 	color: inherit;
 	overflow: wrap hidden;
 	padding: 0.5rem;
-	opacity: 0.8;
+	opacity: var(--fade);
 	user-select: none;
 	transition: opacity 100ms;
 }
