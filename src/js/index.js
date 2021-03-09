@@ -33,11 +33,7 @@ async function show_article() {
 
 	const id = rot13(window.location.pathname.split('/').pop()) // Last portion of the path is the ciphered ID
 
-	const article  = await db('articles/'+id)
-	if (!article) return false
-
-	document.title = article.title
-	write_article(Article,article)
+	return write_article(Article,id)
 }
 async function safe_center(){
 	Media.style.alignContent = Media.scrollWidth > window.innerWidth ? 'flex-start' : 'safe center'

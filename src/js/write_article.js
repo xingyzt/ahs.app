@@ -1,5 +1,10 @@
-async function write_article(Article,article){
-    Article.querySelector('h2').focus()
+async function write_article(Article,id){
+
+	const article = await db('articles/'+id)
+	if (!article) return false
+
+	document.title = article.title
+	Article.querySelector('h2').focus()
 	for (const property in article) {
 		const element = Article.querySelector('.' + property)
 		if (!element) continue
