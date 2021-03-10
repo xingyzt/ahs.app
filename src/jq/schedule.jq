@@ -1,7 +1,6 @@
 def n: join("\n");
 
-"<td id=0 hidden=true></td>"
-+ .[0] as $schedule
+"<td id=0></td>" + .[0] as $schedule
 | ( $schedule[-1] - $schedule[0] ) as $total
 | $schedule | to_entries | map([
 	( "<td" ),
