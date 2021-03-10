@@ -45,20 +45,25 @@ async function db(...path) {
 	return await response.json()
 }
 async function highlight_schedule(Cell){
+	const Schedule = document.querySelector('.schedule')
+
 	const class_name = 'highlighted-period'
+
 	const date = new Date()
 	const minutes = date.getHours()*60 + date.getMinutes()
 	const seconds = minutes*60 + date.getSeconds()
-	if(!Cell){
-		Cell = Array.from(document.querySelectorAll('.schedule td'))
+
+	if(!Cell) Cell = Array.from(Schedule.querySelectorAll('td'))
 			.reverse()
-			.find(x=>parseInt(x.id)<minutes)
+			.find(x=>parseInt(x.id)<=minutes)
+
+	if(Cell) {
+		Cell.classList.add(class_name)
+		const Prev = Cell.previousElementSibling
+		if(Prev) Prev.classList.remove(class_name)
 	}
-	if(!Cell) return
-	Cell.classList.add(class_name)
-	const Prev = Cell.previousElementSibling
+
 	const Next = Cell.nextElementSibling
-	if(Prev) Prev.classList.remove(class_name)
 	if(Next) setTimeout(
 		highlight_schedule,
 		(Next.id*60 - seconds)*1000,

@@ -191,10 +191,10 @@ main>footer{
 	transform: translateX(-50%);
 	font-weight: bold;
 }
-.schedule td:nth-child(odd){
+.schedule td:nth-child(even){
 	background: var(--highlight);
 }
-.schedule td:nth-child(odd) time{
+.schedule td:nth-child(even) time{
 	transform: translate(-50%, -100%);
 }
 .schedule td.highlighted-period{
