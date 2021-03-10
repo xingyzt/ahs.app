@@ -1,3 +1,7 @@
+#!/bin/bash
+
+# auth
+
 . .env
 
 auth=$(curl "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=$FIREBASE_API_KEY" \
@@ -7,13 +11,25 @@ auth=$(curl "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPasswo
 access_token=$(jq -rc '.idToken' <<< $auth)
 host="https://ahs-app.firebaseio.com"
 
+# format snippets
+
 curl "$host/snippets.json?auth=$access_token" > /tmp/snippets.json
 curl "$host/layout.json?auth=$access_token" > /tmp/layout.json
 
-snippets=$(jq -sfr snippets.jq /tmp/layout.json /tmp/snippets.json)
+snippets=$(jq -sfr jq/snippets.jq /tmp/layout.json /tmp/snippets.json)
 
-time=$(TZ=":America/Los_Angeles" date +"%l:%M %P Pacific Time") # l: hour, M: min, P: am/pm
+# format schedule
 
+curl "$host/schedules/$(( ($day+5)/7 )).json?auth=$access_token" > /tmp/schedule.json
+
+schedule=$(jq -sfr jq/schedule.jq /tmp/schedule.json)
+
+# format time
+
+## l: hour, M: min, P: am/pm
+time=$(TZ=":America/Los_Angeles" date +"%l:%M %P Pacific Time")
+
+# make html
 echo \
 "<!DOCTYPE html>
 <html lang='en-US' dir='ltr'>
@@ -39,9 +55,14 @@ echo \
 		<article></article>
 		<footer>&vellip;</footer>
 	</main>
-	<nav>
-$snippets
-	</nav>
+	<aside class='location' id='location-tools'>
+		<h2>Tools</h2>
+		<section class='category' id='category-schedule'>
+			<h3>Schedule</h3>
+			<table class='schedule'>$schedule</table>
+		</section>
+	</aside>
+	<nav>$snippets</nav>
 	<footer><article>
 		<strong>ahs.app</strong>
 		<p>

@@ -20,6 +20,8 @@ async function main() {
 	window.addEventListener('popstate', show_article)
 	window.addEventListener('resize', safe_center)
 
+	highlight_schedule()
+
 	Canvas.width = Canvas.height = 1
 	Canvas.ctx.filter = 'saturate(1000%)'
 }
@@ -41,6 +43,27 @@ async function safe_center(){
 async function db(...path) {
 	const response = await fetch(`https://ahs-app.firebaseio.com/${path.join('/')}.json`)
 	return await response.json()
+}
+async function highlight_schedule(Cell){
+	const class_name = 'highlighted-period'
+	const date = new Date()
+	const minutes = date.getHours()*60 + date.getMinutes()
+	const seconds = minutes*60 + date.getSeconds()
+	if(!Cell){
+		Cell = Array.from(document.querySelectorAll('.schedule td'))
+			.reverse()
+			.find(x=>parseInt(x.id)<minutes)
+	}
+	if(!Cell) return
+	Cell.classList.add(class_name)
+	const Prev = Cell.previousElementSibling
+	const Next = Cell.nextElementSibling
+	if(Prev) Prev.classList.remove(class_name)
+	if(Next) setTimeout(
+		highlight_schedule,
+		(Next.id*60 - seconds)*1000,
+		Next
+	)
 }
 function internal_link(event){
 	history.pushState({}, '', event.target.href)

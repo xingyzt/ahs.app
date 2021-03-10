@@ -179,6 +179,30 @@ main>footer{
 /*//////////////////*/
 /*//////////////////*/
 /*//////////////////*/
+.schedule{
+	width: 94%;
+	margin: 3rem 3%;
+}
+.schedule td{
+	height: 1pt;
+}
+.schedule time{
+	position: absolute;
+	transform: translateX(-50%);
+	font-weight: bold;
+}
+.schedule td:nth-child(odd){
+	background: var(--highlight);
+}
+.schedule td:nth-child(odd) time{
+	transform: translate(-50%, -100%);
+}
+.schedule td.highlighted-period{
+	background: var(--text)
+}
+/*//////////////////*/
+/*//////////////////*/
+/*//////////////////*/
 .location>h2{
 	text-align: center;
 	text-transform: capitalize;
