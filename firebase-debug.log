@@ -1,0 +1,45 @@
+[debug] [2021-03-11T21:13:00.547Z] ----------------------------------------------------------------------
+[debug] [2021-03-11T21:13:00.555Z] Command:       /usr/bin/node /usr/bin/firebase deploy
+[debug] [2021-03-11T21:13:00.556Z] CLI Version:   9.5.0
+[debug] [2021-03-11T21:13:00.557Z] Platform:      linux
+[debug] [2021-03-11T21:13:00.557Z] Node Version:  v14.9.0
+[debug] [2021-03-11T21:13:00.559Z] Time:          Thu Mar 11 2021 13:13:00 GMT-0800 (Pacific Standard Time)
+[debug] [2021-03-11T21:13:00.559Z] ----------------------------------------------------------------------
+[debug] [2021-03-11T21:13:00.560Z] 
+[debug] [2021-03-11T21:13:00.582Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-03-11T21:13:00.584Z] > authorizing via signed-in user
+[debug] [2021-03-11T21:13:00.585Z] [iam] checking project xing-ahs-app for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2021-03-11T21:13:00.593Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/xing-ahs-app:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2021-03-11T21:13:00.972Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Thu, 11 Mar 2021 21:13:00 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=142","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-03-11T21:13:00.980Z] > refreshing access token with scopes: []
+[debug] [2021-03-11T21:13:00.981Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-03-11T21:14:44.587Z] ----------------------------------------------------------------------
+[debug] [2021-03-11T21:14:44.595Z] Command:       /usr/bin/node /usr/bin/firebase deploy
+[debug] [2021-03-11T21:14:44.596Z] CLI Version:   9.5.0
+[debug] [2021-03-11T21:14:44.597Z] Platform:      linux
+[debug] [2021-03-11T21:14:44.597Z] Node Version:  v14.9.0
+[debug] [2021-03-11T21:14:44.599Z] Time:          Thu Mar 11 2021 13:14:44 GMT-0800 (Pacific Standard Time)
+[debug] [2021-03-11T21:14:44.599Z] ----------------------------------------------------------------------
+[debug] [2021-03-11T21:14:44.600Z] 
+[debug] [2021-03-11T21:14:44.622Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-03-11T21:14:44.624Z] > authorizing via signed-in user
+[debug] [2021-03-11T21:14:44.624Z] [iam] checking project xing-ahs-app for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2021-03-11T21:14:44.632Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/xing-ahs-app:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2021-03-11T21:14:44.912Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Thu, 11 Mar 2021 21:14:44 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=59","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-03-11T21:14:44.920Z] > refreshing access token with scopes: []
+[debug] [2021-03-11T21:14:44.921Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-03-11T21:14:45.191Z] <<< HTTP RESPONSE 200 {"cache-control":"no-cache, no-store, max-age=0, must-revalidate","date":"Thu, 11 Mar 2021 21:14:45 GMT","pragma":"no-cache","expires":"Mon, 01 Jan 1990 00:00:00 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-03-11T21:14:45.232Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/xing-ahs-app [none]
+[debug] [2021-03-11T21:14:45.506Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/xing-ahs-app 200
+[debug] [2021-03-11T21:14:45.507Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/xing-ahs-app {"projectId":"xing-ahs-app","projectNumber":"295063116684","displayName":"ahs-app","name":"projects/xing-ahs-app","resources":{"hostingSite":"xing-ahs-app"},"state":"ACTIVE"}
+[info] 
+[info] === Deploying to 'xing-ahs-app'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2021-03-11T21:14:45.522Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-03-11T21:14:45.523Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>

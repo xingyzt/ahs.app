@@ -6,3 +6,6 @@ cd src
 	cat js/* > ../dist/index.js
 	cp media/* ../dist/
 cd ..
+
+echo
+echo built site
