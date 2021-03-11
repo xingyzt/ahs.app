@@ -8,21 +8,16 @@ auth=$(curl "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPasswo
 -H "Content-Type: application/json" \
 --data-binary "{\"email\":\"$EMAIL\",\"password\":\"$PASSWORD\",\"returnSecureToken\":true}")
 
+# fetch resources
+
 access_token=$(jq -rc '.idToken' <<< $auth)
 host="https://ahs-app.firebaseio.com"
 
-# format snippets
+curl -Z "$host/{snippets,layout,schedules}.json?auth=$access_token" -o "/tmp/#1.json"
 
-curl "$host/snippets.json?auth=$access_token" > /tmp/snippets.json
-curl "$host/layout.json?auth=$access_token" > /tmp/layout.json
+snippets=$(jq -sfr snippets.jq /tmp/layout.json /tmp/snippets.json)
 
-snippets=$(jq -sfr jq/snippets.jq /tmp/layout.json /tmp/snippets.json)
-
-# format schedule
-day=$(date "+%u")
-curl "$host/schedules/$(( (day+5)/7 )).json?auth=$access_token" > /tmp/schedule.json
-
-schedule=$(jq -sfr jq/schedule.jq /tmp/schedule.json)
+schedule=$(jq --arg x 0 -sfr schedule.jq /tmp/schedules.json)
 
 # format time
 
