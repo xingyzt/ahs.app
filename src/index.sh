@@ -19,8 +19,8 @@ curl "$host/layout.json?auth=$access_token" > /tmp/layout.json
 snippets=$(jq -sfr jq/snippets.jq /tmp/layout.json /tmp/snippets.json)
 
 # format schedule
-
-curl "$host/schedules/$(( ($day+5)/7 )).json?auth=$access_token" > /tmp/schedule.json
+day=$(date "+%u")
+curl "$host/schedules/$(( (day+5)/7 )).json?auth=$access_token" > /tmp/schedule.json
 
 schedule=$(jq -sfr jq/schedule.jq /tmp/schedule.json)
 
