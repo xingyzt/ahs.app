@@ -15,9 +15,9 @@ host="https://ahs-app.firebaseio.com"
 
 curl -Z "$host/{snippets,layout,schedules}.json?auth=$access_token" -o "/tmp/#1.json"
 
-snippets=$(jq -sfr snippets.jq /tmp/layout.json /tmp/snippets.json)
+snippets=$(jq -sfr jq/snippets.jq /tmp/layout.json /tmp/snippets.json)
 
-schedule=$(jq --arg x 0 -sfr schedule.jq /tmp/schedules.json)
+schedule=$(jq -sfr jq/schedule.jq /tmp/schedules.json)
 
 # format time
 
