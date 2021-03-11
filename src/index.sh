@@ -55,12 +55,9 @@ echo \
 		<article></article>
 		<footer>&vellip;</footer>
 	</main>
-	<aside class='location' id='location-tools'>
-		<h2>Tools</h2>
-		<section class='category' id='category-schedule'>
-			<h3>Schedule</h3>
-			<table class='schedule'>$schedule</table>
-		</section>
+	<aside class='category' id='category-schedule'>
+		<h3>Schedule</h3>
+		<table class='schedule'>$schedule</table>
 	</aside>
 	<nav>$snippets</nav>
 	<footer><article>
