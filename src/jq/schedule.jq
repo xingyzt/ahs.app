@@ -1,6 +1,9 @@
 def n: join(" ");
 
-.[0] as $schedule
+.[0][ now
+	| strftime("%u") | inside("167")
+	| if . then 1 else 0 end
+] as $schedule
 | ( $schedule[-1] - $schedule[0] ) as $total
 | $schedule | to_entries
 | ["<td id=0></td>"] + map([
@@ -11,7 +14,7 @@ def n: join(" ");
 		/ $total * 10000
 		| floor / 100
 		| tostring + "%"
-	) + ">" ),
+	) + ">" ), 
 	( "<time>" ),
 	( .value*60 | strftime("%l:%M" ) ),
 	( "</time></td>" )
