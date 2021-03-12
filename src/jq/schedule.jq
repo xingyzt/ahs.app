@@ -1,7 +1,7 @@
 def n: join(" ");
 
 .[0][ now
-	| strftime("%u") | inside("167")
+	| strflocaltime("%u") | inside("167")
 	| if . then 0 else 1 end
 ] as $schedule
 | ( $schedule[-1] - $schedule[0] ) as $total
