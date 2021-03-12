@@ -1,4 +1,4 @@
-def n: join(" ");
+def n: join("");
 
 .[0][ now
 	| strflocaltime("%u") | inside("167")
@@ -7,15 +7,8 @@ def n: join(" ");
 | ( $schedule[-1] - $schedule[0] ) as $span
 | $schedule | to_entries
 | ["<td id=0></td>"] + map([
-	( "<td" ),
-	( "id=" + ( .value | tostring ) ),
-	( "width=" + ( 
+	"<td id=",.value," width=",( 
 		( ($schedule + [.value])[.key+1] - .value )
-		/ $span * 100 * 100
-		| floor / 100
-		| tostring + "%"
-	) + ">" ), 
-	( "<time>" ),
-	( .value*60 | strftime("%l:%M" ) ),
-	( "</time></td>" )
+		/ $span * 100 * 100 | floor / 100
+	),"%><time>",( .value*60 | strftime("%l:%M" ) ),"</time></td>"
 ] |n ) |n
