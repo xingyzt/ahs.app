@@ -22,7 +22,7 @@ def rot13: explode | map(
 				+ " class=snippet>"
 			),
 			( if .thumbURLs
-				then "<img src="+.thumbURLs[0]+" class=image>"
+				then "<img src="+.thumbURLs[0]+" class=image loading=lazy>"
 				else empty end
 			),
 			( "<h4>"+.title+"</h4>" ),
