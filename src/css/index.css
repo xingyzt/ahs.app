@@ -79,7 +79,6 @@ article a:focus{
 	flex-direction: column;
 	text-decoration: none;
 	color: inherit;
-	overflow: wrap hidden;
 	padding: 0.5rem;
 	opacity: var(--fade);
 	user-select: none;
@@ -99,7 +98,7 @@ article a:focus{
 .snippet>.image{
 	margin: 0 0 0.5rem 0;
 	width: 100%;
-	height: 100%;
+	height: 50%;
 }
 .snippet[featured]{
 	width: 28rem;
@@ -110,6 +109,8 @@ article a:focus{
 }
 .snippet[featured]>.image{
 	margin: 0 0 0 0.5rem;
+	width: 50%;
+	height: 100%;
 }
 .carousel{
 	display: flex;
