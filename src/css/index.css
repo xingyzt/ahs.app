@@ -75,8 +75,8 @@ article a:focus{
 }
 /* SNIPPET */
 .snippet{
-	display: block;
-	position: relative;
+	display: flex;
+	flex-direction: column;
 	text-decoration: none;
 	color: inherit;
 	overflow: wrap hidden;
@@ -84,16 +84,32 @@ article a:focus{
 	opacity: var(--fade);
 	user-select: none;
 	transition: opacity 100ms;
+	width: 12rem;
 }
 .snippet:hover{
 	opacity: 1;
 }
 .snippet>*{
 	pointer-events: none;
+	flex-basis: 50%;
+}
+.snippet>h4{
+	overflow-wrap: break-word;
 }
 .snippet>.image{
+	margin: 0 0 0.5rem 0;
 	width: 100%;
-	height: 50%;
+	height: 100%;
+}
+.snippet[featured]{
+	width: 28rem;
+	flex-direction: row-reverse;
+}
+.snippet[featured]>h4{
+	font-size: 1.4rem;
+}
+.snippet[featured]>.image{
+	margin: 0 0 0 0.5rem;
 }
 .carousel{
 	display: flex;
@@ -211,21 +227,6 @@ main>footer{
 }
 .category>h3{
 	margin: 1rem 0;
-}
-.carousel>.snippet{
-	width: 12rem;
-}
-.carousel>.snippet[featured]{
-	width: 28rem;
-}
-.carousel>.snippet[featured]>h4{
-	font-size: 1.4rem;
-}
-.carousel>.snippet[featured]>.image{
-	width: 50%;
-	height: 100%;
-	float: right;
-	margin-left: 0.5rem;
 }
 /*//////////////////*/
 /*//////////////////*/
