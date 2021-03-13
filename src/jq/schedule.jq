@@ -3,7 +3,7 @@ def n: join("");
 .[1][
 	.[0][
 		now
-		| strftime("%w")
+		| strlocalftime("%w")
 		| tonumber
 	]
 ] as $schedule
