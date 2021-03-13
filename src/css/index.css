@@ -90,7 +90,6 @@ article a:focus{
 }
 .snippet>*{
 	pointer-events: none;
-	flex-basis: 50%;
 }
 .snippet>h4{
 	overflow-wrap: break-word;
