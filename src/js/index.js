@@ -29,13 +29,40 @@ async function show_article() {
 
 	const Article = clone_template('article')
 	Main.replaceChild(Article,Main.firstChild)
+	window.scrollTo(0,0)
 
 	Main.hidden = window.location.pathname==='/'
 	if(Main.hidden) return
 
 	const id = rot13(window.location.pathname.split('/').pop()) // Last portion of the path is the ciphered ID
 
-	return write_article(Article,id)
+	const article = await db('articles/'+id)
+	if (!article) return false
+
+	document.title = article.title
+	Article.querySelector('h2').focus({preventScroll:true})
+	for (const property in article) {
+		const element = Article.querySelector('.' + property)
+		if (!element) continue
+		element.innerHTML = article[property]
+	}
+	
+	const Media = Article.querySelector('.media')
+	const media_cache = []
+	if(article.videoIDs) for (const id of article.videoIDs){
+		const embed = clone_template('youtube')
+		embed.src = embed.src.replace('[URL]',id)
+		media_cache.push(embed)
+		embed.addEventListener('load',safe_center)
+	}
+	if(article.imageURLs) for (const url of article.imageURLs){
+		const image = clone_template('image')
+		image.src = url
+		media_cache.push(image)
+		image.addEventListener('load',safe_center)
+	}
+	Media.style.alignContent = 'safe center'
+	Media.replaceChildren(...media_cache)
 }
 async function safe_center(){
 	Media.style.alignContent = Media.scrollWidth > window.innerWidth ? 'flex-start' : 'safe center'

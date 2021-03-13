@@ -195,6 +195,9 @@ main>footer{
 /*//////////////////*/
 /*//////////////////*/
 /*//////////////////*/
+#category-schedule>p {
+	text-align: center;
+}
 .schedule{
 	width: 94%;
 	margin: 3rem 3%;

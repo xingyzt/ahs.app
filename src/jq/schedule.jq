@@ -1,12 +1,11 @@
 def n: join("");
 
-.[1][
-	.[0][
-		now
-		| strflocaltime("%w")
-		| tonumber
-	]
-] as $schedule
+.[0][
+	now
+	| strflocaltime("%w")
+	| tonumber
+] as $key
+| .[1][$key] as $schedule
 | if $schedule then 
 ( $schedule
 | ( .[-1] - .[0] ) as $span
@@ -28,4 +27,4 @@ def n: join("");
 	( "</td>" )
 ] | n )
 + [ "</table>" ]
-|n ) else "" end
+|n ) else "<p>"+$key+"</p>" end
