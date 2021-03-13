@@ -3,7 +3,7 @@ def n: join("");
 .[1][
 	.[0][
 		now
-		| strftime("%w")
+		| strflocaltime("%w")
 		| tonumber
 	]
 ] as $schedule
@@ -11,7 +11,8 @@ def n: join("");
 ( $schedule
 | ( .[-1] - .[0] ) as $span
 | to_entries
-| [ "<td id=0></td>" ] + map([
+| [ "<table class=schedule><td id=0></td>" ]
++ map([
 	( "<td id=" ),
 	( .value ),
 	( " width=" ),
@@ -25,5 +26,6 @@ def n: join("");
 	( .value*60 | strftime("%l:%M" ) ),
 	( "</time>" ),
 	( "</td>" )
-] | n ) |n
-) else "" end
+] | n )
++ [ "</table>" ]
+|n ) else "" end

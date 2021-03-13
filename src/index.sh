@@ -51,7 +51,7 @@ echo \
 		<footer>&vellip;</footer>
 	</main>
 	<aside class='category' id='category-schedule'>
-		<table class='schedule'>$schedule</table>
+		$schedule
 	</aside>
 	<nav>$snippets</nav>
 	<footer><article>
