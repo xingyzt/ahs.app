@@ -6,16 +6,18 @@ def rot13: explode | map(
         else . end
 ) | implode;
 
-.[0] as $layout
-| .[1] as $snippets
-| $layout | map([
-	( "<section id=location-"+.id+" class=location>" ),
+.[0] as $locationIDs
+| .[1] as $locations
+| .[2] as $categories
+| .[3] as $snippets
+| $locationIDs | map( . as $id | $locations[.] | [
+	( "<section id=location-"+$id+" class=location>" ),
 	( "<h2>"+.title+"</h2>" ),
-	( .categories | map([
-		( "<section id=category-"+.id+" class=category>" ),
+	( .categoryIDs | map( . as $id | $categories[.] | [
+		( "<section id=category-"+$id+" class=category>" ),
 		( "<h3>"+.title+"</h3>" ),
 		( "<div class=carousel>" ),
-		( .articleIDs | map( . as $id | $snippets[.] | [
+		( .articleIDs | .? | map( . as $id | $snippets[.] | [
 			( "<a href=/"
 				+ (.title|slug)+"/"+($id|rot13)
 				+ (if .featured then " featured" else "" end )

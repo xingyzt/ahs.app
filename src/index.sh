@@ -13,9 +13,9 @@ auth=$(curl "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPasswo
 access_token=$(jq -rc '.idToken' <<< $auth)
 host="https://ahs-app.firebaseio.com"
 
-curl -Z "$host/{layout,snippets,week,schedules}.json?auth=$access_token" -o "/tmp/#1.json"
+curl -Z "$host/{locationIDs,locations,categories,snippets,week,schedules}.json?auth=$access_token" -o "/tmp/#1.json"
 
-snippets=$(jq -sfr jq/snippets.jq /tmp/layout.json /tmp/snippets.json)
+snippets=$(jq -sfr jq/snippets.jq /tmp/locationIDs.json /tmp/locations.json /tmp/categories.json /tmp/snippets.json)
 
 schedule=$(jq -sfr jq/schedule.jq /tmp/week.json /tmp/schedules.json)
 
