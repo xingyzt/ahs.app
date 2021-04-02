@@ -20,7 +20,7 @@ def n: join("");
 		/ $span * 100 * 100
 		| floor / 100
 	),
-	( "%>" ),
+	( "%%>" ),
 	( "<time>" ),
 	( .value*60 | strftime("%l:%M" ) ),
 	( "</time>" ),

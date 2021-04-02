@@ -238,3 +238,7 @@ main>footer{
 body>footer{
 	margin: 50vh 0;
 }
+
+#category-Featured,#category-Debug{
+	display: none;
+}
