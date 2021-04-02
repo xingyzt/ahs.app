@@ -25,4 +25,6 @@ cd ..
 
 printf "${html}" "${css}" "${schedule}" "${snippets}" "${time}" "${js}" > dist/index.html
 
-echo "built site"
+echo "
+built site
+"
