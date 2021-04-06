@@ -1,3 +1,5 @@
+#!/bin/bash
+	
 cd src
 
 html=$(cat index.html)
@@ -14,8 +16,7 @@ time=$(TZ=":America/Los_Angeles" date +"%l:%M %P Pacific Time")
 
 cd ..
 
-printf "${html}" "${css}" "${schedule}" "${snippets}" "${time}" "${js}" > dist/index.html
+printf "$html" "$css" "$schedule" "$snippets" "$time" "$js" > dist/index.html
 
 echo "
-built site
-"
+built site"
