@@ -6,7 +6,6 @@
 import urllib.parse
 import http.server
 import socketserver
-import re
 from pathlib import Path
 import os
 import sys
@@ -14,7 +13,6 @@ import sys
 os.chdir(os.path.join(os.path.dirname(__file__),'dist'))
 port = int(sys.argv[1]) or 8000
 HOST = ('0.0.0.0', port)
-
 
 class Handler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
@@ -25,7 +23,6 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.path = 'index.html'
 
         return http.server.SimpleHTTPRequestHandler.do_GET(self)
-
 
 httpd = socketserver.TCPServer(HOST, Handler)
 print('Serving ahs.app at http://localhost:'+str(port))
