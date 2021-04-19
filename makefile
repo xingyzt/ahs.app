@@ -1,4 +1,4 @@
 build:
 	sh build.sh
-deploy:
+deploy: build
 	firebase deploy
