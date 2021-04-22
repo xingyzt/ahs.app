@@ -1,4 +1,4 @@
 .env
 .firebase
 *.swp
-dist
+dist/index.html
