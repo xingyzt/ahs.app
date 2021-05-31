@@ -1,11 +1,13 @@
 def n: join("");
 
-.[0][
+.[0] as $weekID
+| .[1][$weekID] as $week
+| $week[
 	now
 	| strflocaltime("%w")
 	| tonumber
-] as $key
-| .[1][$key] as $schedule
+] as $scheduleID
+| .[2][$scheduleID] as $schedule
 | if $schedule then 
 ( $schedule
 | ( .[-1] - .[0] ) as $span
@@ -27,4 +29,4 @@ def n: join("");
 	( "</td>" )
 ] | n )
 + [ "</table>" ]
-|n ) else "<p>"+$key+"</p>" end
+|n ) else "<p>"+$scheduleID+"</p>" end
