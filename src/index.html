@@ -1,33 +1,29 @@
 <!DOCTYPE html>
-<html lang='en-US' dir='ltr'>
+<html lang=en-US dir=ltr>
 <head>
-	<meta charset='utf-8'>
+	<meta charset=utf-8>
 
 	<title>ahs.app</title>
-	<meta name='description' content='We keep you up to date with Arcadia High.'>
-	<meta name='author' content='Arcadia High Mobile Team'>
-	<meta name='web-author' content='Xing Liu'>
-	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-	<meta name='color-scheme' content='light dark'>
+	<meta name=description content='We keep you up to date with Arcadia High.'>
+	<meta name=author content='Arcadia High Mobile Team'>
+	<meta name=web-author content='Xing Liu'>
+	<meta name=viewport content='width=device-width, initial-scale=1.0'>
+	<meta name=color-scheme content='light dark'>
 	
-	<link rel='icon' type='image/png' href='/icon.png'>
-	<link rel='preconnect' href='https://ahs-app.firebaseio.com'>
-	<link rel='preconnect' href='https://firebasestorage.googleapis.com'>
-
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
+	<link rel=icon type=image/png href=/icon.png>
+	<link rel=preconnect href=https://ahs-app.firebaseio.com>
 	<style>
 %s
 	</style>
 </head>
 <body>
-	<h1><a href='/'> ahs.app </a></h1>
+	<h1><a href=/> ahs.app </a></h1>
 	<noscript> Please enable JavaScript in order to load full articles. </noscript>
 	<main hidden>
 		<article></article>
 		<footer>&vellip;</footer>
 	</main>
-	<aside class='category' id='category-schedule'>
+	<aside class=category id=category-schedule>
 		%s
 	</aside>
 	<nav>
@@ -46,6 +42,12 @@
 			This website does not collect data from you and does not track you.
 			View its source code on
 			<a href='https://github.com/FlyOrBoom/ahs.app'>GitHub</a>.
+		</p><p>
+			By using the YouTube players embedded in some of our articles,
+			you agree to
+			<a href='https://policies.google.com/privacy?hl=en'>Google’s Privacy Policy</a>
+			and
+			<a href='https://www.youtube.com/static?template=terms'>YouTube’s Terms of Use</a>.
 		</p><p>			
 			Want to submit an article? Email us at
 			<a href='mailto:hsappdev@students.ausd.net'>
@@ -55,29 +57,29 @@
 			Articles fetched at <time>%s</time>.
 		</p>
 	</article></footer>
-	<template class='template-youtube'>
-		<iframe class='youtube'
+	<template class=template-youtube>
+		<iframe class=youtube
 			src='https://www.youtube-nocookie.com/embed/[URL]?modestbranding=1&rel=0'
-			frameborder='0'
+			frameborder=0
 			allow='clipboard-write; encrypted-media; picture-in-picture'
 			allowfullscreen
 		></iframe>
 	</template>
-	<template class='template-image'>
+	<template class=template-image>
 		<img class='image'>
 	</template>
-	<template class='template-article'>
-		<article class='article'>
-			<h2 class='title heading' tabindex='0'>
+	<template class=template-article>
+		<article class=article>
+			<h2 class=title heading tabindex=0>
 				Loading article&hellip;
 			</h2>
 			<section class='media carousel'></section>
-			<section class='metadata'>
-				<address class='author'></address>
-				<time class='date'></time>
+			<section class=metadata>
+				<address class=author></address>
+				<time class=date></time>
 			</section>
-			<section class='body'>
-				<p> If it's taking too long, you may have been sent a broken link. </p>
+			<section class=body>
+				<p> If it’s taking too long, you may have been sent a broken link. </p>
 			</section>
 		</article>
 	</template>
