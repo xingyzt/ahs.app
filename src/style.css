@@ -1,3 +1,4 @@
+/** COLORS **/
 :root{
 	--primary: #f8f8f8;
 	--secondary: white;
@@ -16,7 +17,7 @@
 		--fade: 0.8;
 	}
 }
-/*//////////////////*/
+/** FONTS **/
 @font-face {
 	font-family: besley;
 	src: url('/fonts/besley-700.ttf');
@@ -59,12 +60,11 @@
 	font-style: italic;
 	font-display: swap;
 }
-/*//////////////////*/
-/*//////////////////*/
+/** BASICS **/
 html{
-	font-family: 'Crimson Text', serif;
+	font-family: crimson, serif;
 	font-weight: 400;
-	font-size: 14pt;
+	font-size: calc(1vmin + 8pt);
 	margin: 0;
 }
 body{
@@ -74,6 +74,7 @@ body{
 }
 body * {
 	box-sizing: border-box;
+	overflow-wrap: break-word;
 }
 em {
 	font-style: italic;
@@ -102,6 +103,11 @@ h3{
 h4{
 	font-size: 1rem;
 }
+.schedule,
+.snippets,
+.footer {
+	padding: 0 6vmin;
+}
 footer{
 	text-align: center;
 }
@@ -123,50 +129,7 @@ article a:focus{
 	color: inherit;
 	text-decoration: underline;
 }
-/* SNIPPET */
-.snippet{
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: auto auto 1fr;
-	grid-gap: 1rem;
-	max-width: calc(100vw - 4rem);
-	justify-items: center;
-	text-decoration: none;
-	color: inherit;
-	opacity: var(--fade);
-	user-select: none;
-	transition: opacity 100ms;
-	overflow: hidden;
-}
-.snippet:hover{
-	opacity: 1;
-}
-.snippet>*{
-	pointer-events: none;
-}
-.snippet>h4{
-	overflow-wrap: break-word;
-}
-.snippet>h4,
-.snippet>p {
-	width: 100%;
-	margin: 0;
-}
-.snippet>.image{
-	max-width: 12rem;
-}
-/* .snippet[featured]{
-	width: 28rem;
-	flex-direction: row-reverse;
-}
-.snippet[featured]>h4{
-	font-size: 1.4rem;
-}
-.snippet[featured]>.image{
-	margin: 0 0 0 0.5rem;
-	width: 50%;
-	height: 100%;
-} */
+
 .carousel{
 	display: flex;
 	flex-direction: column;
@@ -204,7 +167,7 @@ main[hidden]{
 	margin-inline: auto;
 	margin-bottom: 1rem;
 	padding: 0 2rem;
-	width: 30rem;
+	width: 40rem;
 	max-width: 100vw;
 }
 .article>h2{
@@ -256,16 +219,17 @@ main>footer{
 	text-align: center;
 }
 .schedule{
-	width: 94%;
-	margin: 3rem 3%;
+	margin: 3rem 0;
 }
 .schedule td{
+	position: relative;
 	height: 1pt;
 }
 .schedule time{
 	position: absolute;
+	top: 2pt;
 	transform: translateX(-50%);
-	font-weight: bold;
+	font-weight: 600;
 }
 .schedule td:nth-child(even){
 	background: var(--highlight);
@@ -276,52 +240,74 @@ main>footer{
 .schedule td.highlighted-period{
 	background: var(--text)
 }
-/*//////////////////*/
-/*//////////////////*/
-/*//////////////////*/
+/** BROWSER **/
 .location>h2{
 	text-align: center;
 }
 .category>.snippets{
-	padding: 0 2rem;
 	display: grid;
-	grid-gap: 1rem;
+	grid-gap: 4vmin;
 	grid-auto-rows: auto;
 }
 .category>h3{
-	border-left: 1rem solid var(--color);
-	padding: 0 1rem;
+	border-left: 2vmin solid var(--color);
+	padding: 0 4vmin;
 	margin: 2rem 0;
 }
-/*//////////////////*/
-/*//////////////////*/
-/*//////////////////*/
+/* SNIPPET */
+.snippet{
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: auto auto 1fr;
+	grid-gap: 2vmin;
+	max-width: calc(100vw - 12vmin);
+	text-decoration: none;
+	color: inherit;
+	opacity: var(--fade);
+	user-select: none;
+	transition: opacity 100ms;
+	overflow: hidden;
+}
+.snippet:hover{
+	opacity: 1;
+}
+.snippet>*{
+	pointer-events: none;
+	margin: 0;
+}
+.snippet>.image{
+	max-width: 100%;
+	max-height: 100%;
+	justify-self: center;
+	align-self: center;
+}
+/** LAYOUT SPECIFIC STYLING **/
 [layout=splash]>.snippets{
 	grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
 }
 [layout=splash] .snippet{
 	display: grid;
 	width: 100%;
-	grid-template-columns: 10rem 1fr;
+	grid-template-columns: 1fr 2fr;
 	grid-template-rows: min-content 1fr;
 	grid-template-areas:
 	  'img .'
 	  'img .';
-	border-right: .5rem solid var(--color);
+	border-right: 0.5vmin solid var(--color);
 	padding-right: 1rem;
 }
 [layout=splash] .snippet>img{
 	grid-area: img;
 }
 [layout=splash] .snippet>h4{
-	font-size: 1.4rem;
+	font-size: 1.3rem;
 }
 [layout=splash] .snippet>p{
-	font-size: 1.2rem;
+	font-size: 1.1rem;
 }
 /*//////////////////*/
 [layout=list]>.snippets {
-	grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr))
+	grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
 }
 [layout=list] .snippet>.image{
 	display: none;
@@ -334,6 +320,10 @@ main>footer{
 /*//////////////////*/
 [layout=row]>.snippets {
 	grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr))
+}
+[layout=row] .snippet{
+	padding-bottom: 2vmin;
+	border-bottom: 0.5vmin solid var(--color);
 }
 /*//////////////////*/
 /*//////////////////*/
