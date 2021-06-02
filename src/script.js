@@ -23,7 +23,7 @@ async function main() {
 	highlight_schedule()
 
 	Canvas.width = Canvas.height = 1
-	Canvas.ctx.filter = 'saturate(1000%)'
+	Canvas.ctx.filter = 'saturate(500%)'
 }
 async function show_article() {
 
@@ -107,12 +107,7 @@ async function gradient_background(image) {
 	image.addEventListener('load', () => {
 		Canvas.ctx.drawImage(image, 0, 0, 1, 1)
 		const data = Canvas.ctx.getImageData(0, 0, 1, 1).data
-		let color = `rgba(${data[0]}, ${data[1]}, ${data[2]}, 0.2)`
-		let gradients = `
-			radial-gradient(circle at 100% 100%,${color},transparent),
-			radial-gradient(circle at 0% 0%,transparent,var(--secondary))
-		`
-		image.parentNode.style.backgroundImage = gradients
+		image.parentElement.style.setProperty('--color',`rgb(${data[0]}, ${data[1]}, ${data[2]})`)
 	})
 }
 function clone_template(name) {

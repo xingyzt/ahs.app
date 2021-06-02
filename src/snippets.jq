@@ -13,10 +13,10 @@ def rot13: explode | map(
 | $locationIDs | map( . as $id | $locations[.] | [
 	( "<section id=location-"+$id+" class=location>" ),
 	( "<h2>"+.title+"</h2>" ),
-	( .categoryIDs | map( . as $id | $categories[.] | [
-		( "<section id=category-"+$id+" class=category>" ),
+	( .categoryIDs | map( . as $id | $categories[.] | select( .visible ) | [
+		( "<section id=category-"+$id+" class=category style=--color:"+.color+" layout="+.layout+">" ),
 		( "<h3>"+.title+"</h3>" ),
-		( "<div class=carousel>" ),
+		( "<section class=snippets>" ),
 		( .articleIDs | .? | map( . as $id | $snippets[.] | [
 			( "<a href=/"
 				+ (.title|slug)+"/"+($id|rot13)
@@ -28,9 +28,13 @@ def rot13: explode | map(
 				else empty end
 			),
 			( "<h4>"+.title+"</h4>" ),
+			( if .blurb
+				then "<p>"+.blurb+"</p>"
+				else empty end
+			),
 			( "</a>" )
 		] |n) |n),
-		( "</div>" ),
+		( "</section>" ),
 		( "</section>" )
 	] |n) |n),
 	( "</section>" )
