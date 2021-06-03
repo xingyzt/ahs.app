@@ -40,8 +40,8 @@
 	font-display: swap;
 }
 @font-face {
-	font-family: besley;
-	src: url('/fonts/besley-400-i.ttf');
+	font-family: crimson;
+	src: url('/fonts/crimson-400-i.ttf');
 	font-weight: 400;
 	font-style: italic;
 	font-display: swap;
@@ -54,8 +54,8 @@
 	font-display: swap;
 }
 @font-face {
-	font-family: besley;
-	src: url('/fonts/besley-600-i.ttf');
+	font-family: crimson;
+	src: url('/fonts/crimson-600-i.ttf');
 	font-weight: 600;
 	font-style: italic;
 	font-display: swap;
@@ -64,7 +64,7 @@
 html{
 	font-family: crimson, serif;
 	font-weight: 400;
-	font-size: calc(1vmin + 8pt);
+	font-size: calc(2vmin + 2pt);
 	margin: 0;
 }
 body{
@@ -106,7 +106,7 @@ h4{
 .schedule,
 .snippets,
 .footer {
-	padding: 0 6vmin;
+	padding: 0 2rem;
 }
 footer{
 	text-align: center;
@@ -246,12 +246,12 @@ main>footer{
 }
 .category>.snippets{
 	display: grid;
-	grid-gap: 4vmin;
+	grid-gap: 1.5rem;
 	grid-auto-rows: auto;
 }
 .category>h3{
-	border-left: 2vmin solid var(--color);
-	padding: 0 4vmin;
+	border-left: 0.5rem solid var(--color);
+	padding: 0 1.5rem;
 	margin: 2rem 0;
 }
 /* SNIPPET */
@@ -259,8 +259,8 @@ main>footer{
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: auto auto 1fr;
-	grid-gap: 2vmin;
-	max-width: calc(100vw - 12vmin);
+	grid-gap: 0.5rem;
+	max-width: calc(100vw - 4rem);
 	text-decoration: none;
 	color: inherit;
 	opacity: var(--fade);
@@ -293,8 +293,8 @@ main>footer{
 	grid-template-areas:
 	  'img .'
 	  'img .';
-	border-right: 0.5vmin solid var(--color);
-	padding-right: 1rem;
+	border-right: 0.2rem solid var(--color);
+	padding-right: 0.5rem;
 }
 [layout=splash] .snippet>img{
 	grid-area: img;
@@ -322,12 +322,30 @@ main>footer{
 	grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr))
 }
 [layout=row] .snippet{
-	padding-bottom: 2vmin;
-	border-bottom: 0.5vmin solid var(--color);
+	padding-bottom: 0.5rem;
+	border-bottom: 0.2rem solid var(--color);
 }
 /*//////////////////*/
 /*//////////////////*/
 /*//////////////////*/
 body>footer{
 	margin: 50vh 0;
+}
+@media print {
+	:root {
+		--fade: 1;
+	}
+	html {
+		font-size: 10pt;
+	}
+	body {
+		background-color: transparent;
+	}
+	.schedule {
+		display: none;
+	}
+	.category>h3,
+	.category .snippet {
+		border-color: transparent;
+	}
 }
