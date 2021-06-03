@@ -1,0 +1,46 @@
+[debug] [2021-06-03T15:52:11.991Z] ----------------------------------------------------------------------
+[debug] [2021-06-03T15:52:11.992Z] Command:       /opt/nodejs/14.15.1/bin/node /home/codespace/.npm-global/bin/firebase deploy
+[debug] [2021-06-03T15:52:11.993Z] CLI Version:   9.12.1
+[debug] [2021-06-03T15:52:11.993Z] Platform:      linux
+[debug] [2021-06-03T15:52:11.993Z] Node Version:  v14.15.1
+[debug] [2021-06-03T15:52:11.993Z] Time:          Thu Jun 03 2021 15:52:11 GMT+0000 (Coordinated Universal Time)
+[debug] [2021-06-03T15:52:11.993Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-06-03T15:52:12.001Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-06-03T15:52:12.002Z] > authorizing via signed-in user (fly.or.boom@gmail.com)
+[debug] [2021-06-03T15:52:12.002Z] [iam] checking project xing-ahs-app for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2021-06-03T15:52:12.003Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-06-03T15:52:12.004Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-06-03T15:52:12.082Z] <<< HTTP RESPONSE 200 {"cache-control":"no-cache, no-store, max-age=0, must-revalidate","date":"Thu, 03 Jun 2021 15:52:12 GMT","pragma":"no-cache","expires":"Mon, 01 Jan 1990 00:00:00 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-06-03T15:52:12.118Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/xing-ahs-app:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2021-06-03T15:52:12.174Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Thu, 03 Jun 2021 15:52:12 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=34","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-06-03T15:52:12.176Z] > refreshing access token with scopes: []
+[debug] [2021-06-03T15:52:12.176Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-06-03T15:52:12.226Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","date":"Thu, 03 Jun 2021 15:52:12 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","expires":"Mon, 01 Jan 1990 00:00:00 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-06-03T15:52:12.261Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/xing-ahs-app [none]
+[debug] [2021-06-03T15:52:12.407Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/xing-ahs-app 200
+[debug] [2021-06-03T15:52:12.407Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/xing-ahs-app {"projectId":"xing-ahs-app","projectNumber":"295063116684","displayName":"ahs-app","name":"projects/xing-ahs-app","resources":{"hostingSite":"xing-ahs-app"},"state":"ACTIVE"}
+[info] 
+[info] === Deploying to 'xing-ahs-app'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2021-06-03T15:52:12.410Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-06-03T15:52:12.411Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-06-03T15:52:12.448Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","cache-control":"no-cache, no-store, max-age=0, must-revalidate","date":"Thu, 03 Jun 2021 15:52:12 GMT","expires":"Mon, 01 Jan 1990 00:00:00 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-06-03T15:52:12.483Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/xing-ahs-app/versions  
+ {"config":{"rewrites":[{"glob":"**","path":"/index.html"}],"trailingSlashBehavior":"REMOVE"},"labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2021-06-03T15:52:13.295Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Thu, 03 Jun 2021 15:52:13 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  hosting[xing-ahs-app]: beginning deploy... 
+[info] i  hosting[xing-ahs-app]: found 10 files in dist 
+[debug] [2021-06-03T15:52:13.311Z] > refreshing access token with scopes: []
+[debug] [2021-06-03T15:52:13.311Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-06-03T15:52:13.313Z] [hosting] hash cache [ZGlzdA] stored for 10 files
+[debug] [2021-06-03T15:52:13.313Z] [hosting][hash queue][FINAL] {"max":5,"min":0,"avg":0.5,"active":0,"complete":10,"success":10,"errored":0,"retried":0,"total":10,"elapsed":8}
+[debug] [2021-06-03T15:52:13.381Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","date":"Thu, 03 Jun 2021 15:52:13 GMT","expires":"Mon, 01 Jan 1990 00:00:00 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-06-03T15:52:13.420Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/sites/xing-ahs-app/versions/3ee28bb8839d2b73:populateFiles [none]
+[debug] [2021-06-03T15:52:13.420Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/sites/xing-ahs-app/versions/3ee28bb8839d2b73:populateFiles {"files":{"/icon.png":"2432cd1534614f8a7db63c9917b994f35c394de0cea36bfc088ace75d17bce52","/fonts/besley-500.ttf":"d3fcb6f108ce77baf21ba09734ae19408f67384f62b5b7d1115972659526188a","/fonts/besley-700.ttf":"02e96d4cb55bd4b585e828548949e6bea30848afd18a03a38b1d13c4bb65de45","/fonts/besley-LICENSE":"ef0552b5b721900c26e6232f5fa918833e0be45a7613cb7b90df054591e58469","/fonts/crimson-400-i.ttf":"26d82b661b15d42306c6bca51f21dcde25cd048f636a918a89ec132c92e1e352","/fonts/crimson-400.ttf":"0bc91eda5579155570ee1f1ef73b94c9c558622e3d70d10645fe222d342ea901","/fonts/crimson-600-i.ttf":"b757b3f6128fb29d069fb164e6c1bb3bd6df66c4e7a51a3ee7c11bfa1692c484","/fonts/crimson-600.ttf":"54f615e6e779f9295aa4ab06bc994424e640d0c9436319bbfd5ef099c220be8d","/fonts/crimson-LICENSE":"c9aa9df6724786561614ed02977378880c077a93429145698633bcbb1dc5ad2d","/index.html":"901012fb0a311e0c06d525824df1de3229e179f2d293ecdd6a3c680423b8b179"}}

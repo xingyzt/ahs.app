@@ -25,19 +25,22 @@ async function main() {
 	Canvas.width = Canvas.height = 1
 	Canvas.ctx.filter = 'saturate(500%)'
 }
+async function reset_title() {
+	document.title = 'ahs.app'
+}
 async function show_article() {
 
-	const Article = clone_template('article')
+	const Article = await clone_template('article')
 	Main.replaceChild(Article,Main.firstChild)
 	window.scrollTo(0,0)
 
 	Main.hidden = window.location.pathname==='/'
-	if(Main.hidden) return
+	if(Main.hidden) return reset_title()
 
-	const id = rot13(window.location.pathname.split('/').pop()) // Last portion of the path is the ciphered ID
+	const id = await rot13(window.location.pathname.split('/').pop()) // Last portion of the path is the ciphered ID
 
 	const article = await db('articles/'+id)
-	if (!article) return false
+	if (!article) return reset_title()
 
 	document.title = article.title
 	Article.querySelector('h2').focus({preventScroll:true})
@@ -50,19 +53,20 @@ async function show_article() {
 	const Media = Article.querySelector('.media')
 	const media_cache = []
 	if(article.videoIDs) for (const id of article.videoIDs){
-		const embed = clone_template('youtube')
+		const embed = await clone_template('youtube')
 		embed.src = embed.src.replace('[URL]',id)
 		media_cache.push(embed)
 		embed.addEventListener('load',safe_center)
 	}
 	if(article.imageURLs) for (const url of article.imageURLs){
-		const image = clone_template('image')
+		const image = await clone_template('image')
 		image.src = url
 		media_cache.push(image)
 		image.addEventListener('load',safe_center)
 	}
 	Media.style.alignContent = 'safe center'
 	Media.replaceChildren(...media_cache)
+	return true
 }
 async function safe_center(){
 	Media.style.alignContent = Media.scrollWidth > window.innerWidth ? 'flex-start' : 'safe center'
@@ -97,9 +101,10 @@ async function highlight_schedule(Cell){
 		Next
 	)
 }
-function internal_link(event){
+async function internal_link(event){
 	history.pushState({}, '', event.target.href)
 	show_article()
+	document.activeElement.blur()
 	event.preventDefault()
 }
 async function gradient_background(image) {
@@ -110,12 +115,12 @@ async function gradient_background(image) {
 		image.parentElement.style.setProperty('--color',`rgb(${data[0]}, ${data[1]}, ${data[2]})`)
 	})
 }
-function clone_template(name) {
+async function clone_template(name) {
 	return document.querySelector('.template-' + name)
 		.content.cloneNode(true)
 		.querySelector('*')
 } 
-function rot13(str){
+async function rot13(str){
 	return str.replace( /[a-z]/gi, c =>
 		'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'[
 			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.indexOf(c)
