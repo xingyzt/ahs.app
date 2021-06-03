@@ -11,18 +11,14 @@ def rot13: explode | map(
 | .[2] as $categories
 | .[3] as $snippets
 | $locationIDs | map( . as $id | $locations[.] | [
-	( "<section id=location-"+$id+" class=location>" ),
-	( "<h2><a href=#location-"+$id+">"+.title+"</a></h2>" ),
+	( "<section id=L-"+$id+" class=location>" ),
+	( "<h2><a href=#L-"+$id+">"+.title+"</a></h2>" ),
 	( .categoryIDs | map( . as $id | $categories[.] | select( .visible ) | [
-		( "<section id=category-"+$id+" class=category style=--color:"+.color+" layout="+.layout+">" ),
-		( "<h3><a href=#category-"+$id+">"+.title+"</a></h3>" ),
+		( "<section id=C-"+$id+" class=category style=--color:"+.color+" layout="+.layout+">" ),
+		( "<h3><a href=#C-"+$id+">"+.title+"</a></h3>" ),
 		( "<section class=snippets>" ),
 		( .articleIDs | .? | map( . as $id | $snippets[.] | [
-			( "<a href=/"
-				+ (.title|slug)+"/"+($id|rot13)
-				+ (if .featured then " featured" else "" end )
-				+ " class=snippet>"
-			),
+			( "<a href=/"+(.title|slug)+"/"+($id|rot13)+" class=snippet>" ),
 			( if .thumbURLs
 				then "<img src="+.thumbURLs[0]+" class=image loading=lazy>"
 				else empty end
