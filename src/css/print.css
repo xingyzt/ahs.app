@@ -1,0 +1,41 @@
+@media print {
+	:root {
+		--fade: 1;
+	}
+	html {
+		font-size: 10pt;
+	}
+	body {
+		background-color: transparent;
+	}
+	.schedule {
+		display: none;
+	}
+	a::after{
+		content: ' (' attr(href) ') ';
+		font-size: 80%;
+		font-style: italic;
+		font-weight: normal;
+	}
+	a[href^=\/]::after{
+		content: ' (https://ahs.app' attr(href) ') ';
+	}
+	.category>h3,
+	.category .snippet {
+		border-color: transparent;
+	}
+	[layout]>.snippets {
+		grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)) !important;
+	}
+	[layout] .snippet {
+		display: flex;
+		flex-direction: column;
+	}
+	[layout] .snippet>.image{
+		display: none;
+	}
+	[layout] .snippet>h4{
+		font-weight: normal;
+		font-size: 1.1rem;
+	}
+}

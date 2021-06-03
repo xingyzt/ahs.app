@@ -1,0 +1,69 @@
+
+main[hidden]{
+	display: none;
+}
+.article{
+	display: flex;
+	flex-direction: column;
+	animation: fade-in 200ms ease-out 200ms both;
+}
+@keyframes fade-in{
+	from { opacity: 0 }
+	to { opacity: 1 }
+}
+.article>*{
+	margin-inline: auto;
+	margin-bottom: 1rem;
+	padding: 0 2rem;
+	width: 40rem;
+	max-width: 100vw;
+}
+.article>h2{
+	line-height: 1.2;
+}
+.article>h2:focus{
+	outline: 0;
+}
+.article>.carousel{
+	width: 100vw;
+	padding-block: 1rem;
+	align-content: safe center;
+}
+.article>.carousel>.youtube{
+	width: 28.44rem;
+}
+.article>.carousel:empty{
+	display: none;
+}
+.article>.metadata{
+	font-style: italic;
+}
+.article>.metadata>.author{
+	display: inline;
+}
+.article>.metadata>.author:empty{
+	display: none;
+}
+.article>.metadata>.author::before{
+	content: 'by ';
+}
+.article>.metadata>.author::after{
+	content: ' · '
+}
+.article>.body{
+	font-size: 1.15rem;
+	line-height: 1.4;
+}
+.article>header{
+	display: none;
+}
+main>footer{
+	margin: 10rem 0;
+}
+article a{
+	color: var(--link);
+}
+article a:hover,
+article a:focus{
+	color: inherit;
+}

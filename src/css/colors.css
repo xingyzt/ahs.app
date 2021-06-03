@@ -1,0 +1,18 @@
+:root{
+	--primary: #f8f8f8;
+	--secondary: white;
+	--highlight: #e0e0e0;
+	--text: black;
+	--link: #44a;
+	--fade: 0.8;
+}
+@media screen and (prefers-color-scheme: dark){
+	:root{
+		--primary: #112;
+		--secondary: #223;
+		--highlight: #445;
+		--text: #eee;
+		--link: #aaf;
+		--fade: 0.8;
+	}
+}

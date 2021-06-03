@@ -1,0 +1,47 @@
+@font-face {
+	font-family: besley;
+	src: url('/fonts/besley-700.ttf');
+	font-weight: bold;
+	font-display: swap;
+}
+@font-face {
+	font-family: besley;
+	src: url('/fonts/besley-500.ttf');
+	font-weight: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: crimson;
+	src: url('/fonts/crimson-400.ttf');
+	font-weight: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: crimson;
+	src: url('/fonts/crimson-400-i.ttf');
+	font-weight: normal;
+	font-style: italic;
+	font-display: swap;
+}
+@font-face {
+	font-family: crimson;
+	src: url('/fonts/crimson-600.ttf');
+	font-weight: bold;
+	font-display: swap;
+}
+@font-face {
+	font-family: crimson;
+	src: url('/fonts/crimson-600-i.ttf');
+	font-weight: bold;
+	font-style: italic;
+	font-display: swap;
+}
+html{
+	font-family: crimson, serif;
+	font-size: calc(1vmin + 8pt);
+}
+h1, h2, h3, h4, h5, h6 {
+	font-family: besley, monospace;
+	font-weight: bold;
+	line-height: 1.3;
+}

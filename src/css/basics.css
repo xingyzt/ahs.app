@@ -1,0 +1,22 @@
+body{
+	margin: 2rem 0;
+	background: var(--primary);
+	color: var(--text);
+}
+body * {
+	box-sizing: border-box;
+	overflow-wrap: break-word;
+	transition-property: color, border-color, opacity;
+	transition-duration: 100ms;
+}
+.schedule,
+.snippets,
+.footer {
+	padding: 0 2rem;
+}
+footer{
+	text-align: center;
+}
+body>footer{
+	margin: 50vh 0;
+}
