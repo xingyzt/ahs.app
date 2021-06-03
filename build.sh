@@ -2,14 +2,12 @@
 
 export TZ=US/Pacific date
 
-cd src
-
 # merge scripts and styles into single files
 cat src/css/* > dist/style.css
 cat src/js/* > dist/script.js
 
 # copy static assets
-cp src/static/* dist/
+cp -R src/static/* dist/
 
 # insert data into HTML
 html=$(cat src/index.html)
