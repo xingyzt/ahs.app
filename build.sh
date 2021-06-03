@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export TZ=US/Pacific date
+
 cd src
 
 html=$(cat index.html)
@@ -11,7 +13,7 @@ curl -ZL "db.ahs.app/{locationIDs,locations,categories,snippets,weekID,weeks,sch
 snippets=$(jq -sfr snippets.jq /tmp/locationIDs.json /tmp/locations.json /tmp/categories.json /tmp/snippets.json)
 schedule=$(jq -sfr schedule.jq /tmp/weekID.json /tmp/weeks.json /tmp/schedules.json)
 
-time=$(TZ=":America/Los_Angeles" date +"%l:%M %P Pacific Time")
+time=$(date +"%l:%M %P Pacific Time")
 
 cd ..
 
