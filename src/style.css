@@ -21,49 +21,44 @@
 @font-face {
 	font-family: besley;
 	src: url('/fonts/besley-700.ttf');
-	font-weight: 700;
-	font-style: oblique;
+	font-weight: bold;
 	font-display: swap;
 }
 @font-face {
 	font-family: besley;
 	src: url('/fonts/besley-500.ttf');
-	font-weight: 500;
-	font-style: oblique;
+	font-weight: normal;
 	font-display: swap;
 }
 @font-face {
 	font-family: crimson;
 	src: url('/fonts/crimson-400.ttf');
-	font-weight: 400;
-	font-style: oblique;
+	font-weight: normal;
 	font-display: swap;
 }
 @font-face {
 	font-family: crimson;
 	src: url('/fonts/crimson-400-i.ttf');
-	font-weight: 400;
+	font-weight: normal;
 	font-style: italic;
 	font-display: swap;
 }
 @font-face {
 	font-family: crimson;
 	src: url('/fonts/crimson-600.ttf');
-	font-weight: 600;
-	font-style: oblique;
+	font-weight: bold;
 	font-display: swap;
 }
 @font-face {
 	font-family: crimson;
 	src: url('/fonts/crimson-600-i.ttf');
-	font-weight: 600;
+	font-weight: bold;
 	font-style: italic;
 	font-display: swap;
 }
 /** BASICS **/
 html{
 	font-family: crimson, serif;
-	font-weight: 400;
 	font-size: calc(2vmin + 2pt);
 	margin: 0;
 }
@@ -76,16 +71,10 @@ body * {
 	box-sizing: border-box;
 	overflow-wrap: break-word;
 }
-em {
-	font-style: italic;
-}
-strong {
-	font-weight: 600;
-}
 /* RESET */
 h1,h2,h3,h4,h5,h6{
 	font-family: besley, monospace;
-	font-weight: 700;
+	font-weight: bold;
 	margin: 0;
 	line-height: 1.3;
 }
@@ -114,7 +103,6 @@ footer{
 img{
 	object-fit: cover;
 }
-
 h1 a{
 	color: inherit;
 	text-decoration: none;
@@ -313,7 +301,7 @@ main>footer{
 	display: none;
 }
 [layout=list] .snippet>h4{
-	font-weight: 500;
+	font-weight: normal;
 	font-size: 1.1rem;
 }
 /*//////////////////*/
@@ -344,8 +332,31 @@ body>footer{
 	.schedule {
 		display: none;
 	}
+	a::after{
+		content: ' (' attr(href) ') ';
+		font-size: 80%;
+		font-style: italic;
+		font-weight: normal;
+	}
+	a[href^=\/]::after{
+		content: ' (https://ahs.app' attr(href) ') ';
+	}
 	.category>h3,
 	.category .snippet {
 		border-color: transparent;
+	}
+	[layout]>.snippets {
+		grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)) !important;
+	}
+	[layout] .snippet {
+		display: flex;
+		flex-direction: column;
+	}
+	[layout] .snippet>.image{
+		display: none;
+	}
+	[layout] .snippet>h4{
+		font-weight: normal;
+		font-size: 1.1rem;
 	}
 }
