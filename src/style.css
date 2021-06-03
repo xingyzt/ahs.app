@@ -5,7 +5,7 @@
 	--highlight: #e0e0e0;
 	--text: black;
 	--link: #44a;
-	--fade: 0.7;
+	--fade: 0.8;
 }
 @media screen and (prefers-color-scheme: dark){
 	:root{
@@ -59,7 +59,7 @@
 /** BASICS **/
 html{
 	font-family: crimson, serif;
-	font-size: calc(2vmin + 2pt);
+	font-size: calc(1vmin + 8pt);
 	margin: 0;
 }
 body{
@@ -70,7 +70,7 @@ body{
 body * {
 	box-sizing: border-box;
 	overflow-wrap: break-word;
-	transition-property: color border-color opacity;
+	transition-property: color, border-color, opacity;
 	transition-duration: 100ms;
 }
 /* RESET */
