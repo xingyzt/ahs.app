@@ -12,10 +12,10 @@ def rot13: explode | map(
 | .[3] as $snippets
 | $locationIDs | map( . as $id | $locations[.] | [
 	( "<section id=location-"+$id+" class=location>" ),
-	( "<h2>"+.title+"</h2>" ),
+	( "<h2><a href=#location-"+$id+">"+.title+"</a></h2>" ),
 	( .categoryIDs | map( . as $id | $categories[.] | select( .visible ) | [
 		( "<section id=category-"+$id+" class=category style=--color:"+.color+" layout="+.layout+">" ),
-		( "<h3>"+.title+"</h3>" ),
+		( "<h3><a href=#category-"+$id+">"+.title+"</a></h3>" ),
 		( "<section class=snippets>" ),
 		( .articleIDs | .? | map( . as $id | $snippets[.] | [
 			( "<a href=/"
