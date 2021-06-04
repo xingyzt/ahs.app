@@ -66,7 +66,7 @@ async function show_article() {
 	)
 	const $related = $article.querySelector('.related')
 	$related.append(
-		...await Promise.all( article.relatedArticleIDs || [] ).map( async id => {
+		...await Promise.all(( article.relatedArticleIDs || [] ).map( async id => {
 			const snippet = await db('snippets',id)
 			const $snippet = clone_template('snippet')
 
@@ -80,7 +80,7 @@ async function show_article() {
 			const $image = $snippet.querySelector('img')
 			snippet.thumbURLs ? $image.src = snippet.thumbURLs[0] : $image.remove()
 			return $snippet
-		})
+		}))
 	)
 
 	return true
