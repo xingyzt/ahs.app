@@ -1,8 +1,8 @@
 'use strict'
 
-const Main = document.querySelector('main')
-const Canvas = document.createElement('canvas')
-Canvas.ctx = Canvas.getContext('2d')
+const $main = document.querySelector('main')
+const $canvas = document.createElement('canvas')
+$canvas.ctx = $canvas.getContext('2d')
 
 main()
 
@@ -14,7 +14,7 @@ async function main() {
 		.forEach(link=>link.addEventListener('click', internal_link))
 	
 	document.body
-		.querySelectorAll('.snippet>.image')
+		.querySelectorAll('.snippet>img')
 		.forEach(gradient_background)
 	
 	window.addEventListener('popstate', show_article)
@@ -22,60 +22,77 @@ async function main() {
 
 	highlight_schedule()
 
-	Canvas.width = Canvas.height = 1
-	Canvas.ctx.filter = 'saturate(500%)'
+	$canvas.width = $canvas.height = 1
+	$canvas.ctx.filter = 'saturate(500%)'
 }
 async function reset_title() {
 	document.title = 'ahs.app'
 }
 async function show_article() {
 
-	const Article = await clone_template('article')
-	Main.replaceChild(Article,Main.firstChild)
+	const $article = clone_template('article')
+	$main.replaceChild($article,$main.firstChild)
 	window.scrollTo(0,0)
 
-	Main.hidden = window.location.pathname==='/'
-	if(Main.hidden) return reset_title()
+	$main.hidden = window.location.pathname==='/'
+	if($main.hidden) return reset_title()
 
-	const id = await rot13(window.location.pathname.split('/').pop()) // Last portion of the path is the ciphered ID
+	const id = rot13(window.location.pathname.split('/').pop()) // Last portion of the path is the ciphered ID
 
 	const article = await db('articles/'+id)
 	if (!article) return reset_title()
 
 	document.title = article.title
-	Article.querySelector('h2').focus({preventScroll:true})
+	$article.querySelector('h2').focus({ preventScroll: true })
 	for (const property in article) {
-		const element = Article.querySelector('.' + property)
-		if (!element) continue
-		element.innerHTML = article[property]
+		const element = $article.querySelector('.' + property)
+		if (element) element.innerHTML = article[property]
 	}
 	
-	const Media = Article.querySelector('.media')
-	const media_cache = []
-	if(article.videoIDs) for (const id of article.videoIDs){
-		const embed = await clone_template('youtube')
-		embed.src = embed.src.replace('[URL]',id)
-		media_cache.push(embed)
-		embed.addEventListener('load',safe_center)
-	}
-	if(article.imageURLs) for (const url of article.imageURLs){
-		const image = await clone_template('image')
-		image.src = url
-		media_cache.push(image)
-		image.addEventListener('load',safe_center)
-	}
-	Media.style.alignContent = 'safe center'
-	Media.replaceChildren(...media_cache)
+	const $media = $article.querySelector('.media')
+	$media.style.alignContent = 'safe center'
+	$media.append(
+		...await Promise.all(( article.videoIDs || [] ).map( async id => {
+			const $embed = clone_template('youtube')
+			$embed.src = embed.src.replace('[URL]',id)
+			$embed.addEventListener('load',safe_center)
+			return $embed
+		}).concat(( article.imageURLs || [] ).map( async url => {
+			const $image = clone_template('image')
+			$image.src = url
+			$image.addEventListener('load',safe_center)
+			return $image
+		}))),
+	)
+	const $related = $article.querySelector('.related')
+	$related.append(
+		...await Promise.all( article.relatedArticleIDs || [] ).map( async id => {
+			const snippet = await db('snippets',id)
+			const $snippet = clone_template('snippet')
+
+			$snippet.href = '/' + slug(snippet.title) + '/' + rot13(id)
+
+			$snippet.querySelector('h4').innerHTML = snippet.title
+
+			const $blurb = $snippet.querySelector('p')
+			snippet.blurb ? $blurb.innerHTML = snippet.blurb : $blurb.remove()
+
+			const $image = $snippet.querySelector('img')
+			snippet.thumbURLs ? $image.src = snippet.thumbURLs[0] : $image.remove()
+			return $snippet
+		})
+	)
+
 	return true
 }
-async function safe_center(){
-	Media.style.alignContent = Media.scrollWidth > window.innerWidth ? 'flex-start' : 'safe center'
+async function safe_center() {
+	$media.style.alignContent = $media.scrollWidth > window.innerWidth ? 'flex-start' : 'safe center'
 }
 async function db(...path) {
 	const response = await fetch(`https://ahs-app.firebaseio.com/${path.join('/')}.json`)
 	return await response.json()
 }
-async function highlight_schedule(Cell){
+async function highlight_schedule(Cell) {
 	const Schedule = document.querySelector('.schedule')
 
 	const class_name = 'highlighted-period'
@@ -101,7 +118,7 @@ async function highlight_schedule(Cell){
 		Next
 	)
 }
-async function internal_link(event){
+async function internal_link(event) {
 	history.pushState({}, '', event.target.href)
 	show_article()
 	document.activeElement.blur()
@@ -110,20 +127,24 @@ async function internal_link(event){
 async function gradient_background(image) {
 	image.crossOrigin = 'Anonymous'
 	image.addEventListener('load', () => {
-		Canvas.ctx.drawImage(image, 0, 0, 1, 1)
-		const data = Canvas.ctx.getImageData(0, 0, 1, 1).data
+		$canvas.ctx.drawImage(image, 0, 0, 1, 1)
+		const data = $canvas.ctx.getImageData(0, 0, 1, 1).data
 		image.parentElement.style.setProperty('--color',`rgb(${data[0]}, ${data[1]}, ${data[2]})`)
 	})
 }
-async function clone_template(name) {
+function clone_template(name) {
 	return document.querySelector('.template-' + name)
 		.content.cloneNode(true)
 		.querySelector('*')
 } 
-async function rot13(str){
+function rot13(str) {
 	return str.replace( /[a-z]/gi, c =>
 		'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'[
 			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.indexOf(c)
 		]
 	)
 }
+function slug(title) {
+	return title.replace(/[^\w\d]+/g,'-')
+}
+

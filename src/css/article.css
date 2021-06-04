@@ -6,6 +6,7 @@ main[hidden]{
 	display: flex;
 	flex-direction: column;
 	animation: fade-in 200ms ease-out 200ms both;
+	font-size: 1.15rem;
 }
 @keyframes fade-in{
 	from { opacity: 0 }
@@ -51,7 +52,6 @@ main[hidden]{
 	content: ' · '
 }
 .article>.body{
-	font-size: 1.15rem;
 	line-height: 1.4;
 }
 .article>header{

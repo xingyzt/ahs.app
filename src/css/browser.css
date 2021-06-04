@@ -32,7 +32,7 @@
 .snippet:focus {
 	text-decoration: none;
 }
-.snippet>.image{
+.snippet>img{
 	max-width: 100%;
 	max-height: 100%;
 	justify-self: center;
@@ -43,10 +43,10 @@
 	text-decoration: underline;
 }
 /** LAYOUT SPECIFIC STYLING **/
-[layout=splash]>.snippets{
+[data-layout=splash]>.snippets{
 	grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
 }
-[layout=splash] .snippet{
+[data-layout=splash] .snippet{
 	display: grid;
 	width: 100%;
 	grid-template-columns: 1fr 2fr;
@@ -57,31 +57,31 @@
 	border-right: 0.2rem solid var(--color);
 	padding-right: 0.5rem;
 }
-[layout=splash] .snippet>img{
+[data-layout=splash] .snippet>img{
 	grid-area: img;
 }
-[layout=splash] .snippet>h4{
+[data-layout=splash] .snippet>h4{
 	font-size: 1.3rem;
 }
-[layout=splash] .snippet>p{
+[data-layout=splash] .snippet>p{
 	font-size: 1.1rem;
 }
 /*//////////////////*/
-[layout=list]>.snippets {
+[data-layout=list]>.snippets {
 	grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
 }
-[layout=list] .snippet>.image{
+[data-layout=list] .snippet>img{
 	display: none;
 }
-[layout=list] .snippet>h4{
+[data-layout=list] .snippet>h4{
 	font-weight: normal;
 	font-size: 1.1rem;
 }
 /*//////////////////*/
-[layout=row]>.snippets {
+[data-layout=row]>.snippets {
 	grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr))
 }
-[layout=row] .snippet{
+[data-layout=row] .snippet{
 	padding-bottom: 0.5rem;
 	border-bottom: 0.2rem solid var(--color);
 }
