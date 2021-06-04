@@ -54,7 +54,7 @@ async function show_article() {
 	$media.append(
 		...await Promise.all(( article.videoIDs || [] ).map( async id => {
 			const $embed = clone_template('youtube')
-			$embed.src = embed.src.replace('[URL]',id)
+			$embed.src = $embed.src.replace('[URL]',id)
 			$embed.addEventListener('load',safe_center)
 			return $embed
 		}).concat(( article.imageURLs || [] ).map( async url => {
