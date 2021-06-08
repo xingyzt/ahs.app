@@ -1,12 +1,3 @@
-'use strict'
-
-const $main = document.querySelector('main')
-const $canvas = document.createElement('canvas')
-$canvas.ctx = $canvas.getContext('2d')
-
-main()
-
-async function main() {
 	show_article()
 
 	document.body
@@ -15,7 +6,7 @@ async function main() {
 	
 	document.body
 		.querySelectorAll('.snippet>img')
-		.forEach(gradient_background)
+		.forEach(matching_color)
 	
 	window.addEventListener('popstate', show_article)
 	window.addEventListener('resize', safe_center)
@@ -128,8 +119,7 @@ async function internal_link(event) {
 	document.activeElement.blur()
 	event.preventDefault()
 }
-async function gradient_background(image) {
-	image.crossOrigin = 'Anonymous'
+async function matching_color(image) {
 	image.addEventListener('load', () => {
 		$canvas.ctx.drawImage(image, 0, 0, 1, 1)
 		const data = $canvas.ctx.getImageData(0, 0, 1, 1).data

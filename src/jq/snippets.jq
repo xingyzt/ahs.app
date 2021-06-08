@@ -20,7 +20,7 @@ def rot13: explode | map(
 		( .articleIDs | .? | map( . as $id | $snippets[.] | [
 			( "<a href=/"+(.title|slug)+"/"+($id|rot13)+" class=snippet>" ),
 			( if .thumbURLs
-				then "<img src="+.thumbURLs[0]+" loading=lazy>"
+				then "<img src="+.thumbURLs[0]+" crossorigin=anonymous loading=lazy>"
 				else empty end
 			),
 			( "<h4>"+.title+"</h4>" ),

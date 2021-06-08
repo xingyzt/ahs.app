@@ -2,29 +2,35 @@ self.addEventListener('fetch', event => event.respondWith(response(event.request
 self.addEventListener('install', event => event.waitUntil(self.skipWaiting()))
 self.addEventListener('activate', event => event.waitUntil(self.clients.claim()))
 
-const version = 1
+const version = 2
 
 const response = async request => {
 
 	const cache = await caches.open(version)
-	const cachedResponse = await cache.match(request)
+	const cached_response = await cache.match(request)
 
 	const now = Date.now()
 	const second = 1000
 	const minute = 60 * second
-	const hour = 60 * minute
-	const timeout = request.url.endsWith('.json') ? 10 * minute : 24 * hour
-	
-	const headerName = 'ahs-app-last-fetched'
+	const timeout = 10 * minute
+	const header_name = 'ahs-app-last-fetched'
 
-	if (cachedResponse && now - parseInt(cachedResponse.headers.get(headerName)) < timeout)
-		return cachedResponse
+	const forever = !request.url.endsWith('.json')
+
+	if ( cached_response &&
+		( forever || (now - parseInt(cached_response.headers.get(header_name)) < timeout) )
+	) return cached_response
 	
-	const freshResponse = await fetch(request)
-	const clonedResponse = freshResponse.clone()
-	const headers = new Headers(clonedResponse.headers)
-	headers.append(headerName,now.toString())
-	cache.put(request, new Response(clonedResponse.body, { headers }))
-	return freshResponse
+	const fresh_response = await fetch(request)
+	const cloned_response = fresh_response.clone()
+
+	if (forever) {
+		cache.put(request, cloned_response)
+	} else {
+		const headers = new Headers(cloned_response.headers)
+		headers.append(header_name, now.toString())
+		cache.put(request, new Response(cloned_response.body, { headers }))
+	}
+	return fresh_response
 
 }
