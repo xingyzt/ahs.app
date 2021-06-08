@@ -19,7 +19,7 @@ schedule=$(jq -sfr src/jq/schedule.jq /tmp/weekID.json /tmp/weeks.json /tmp/sche
 
 time=$(date +"%l:%M %P Pacific Time")
 
-printf "$html" "$schedule" "$snippets" "$time"> dist/index.html
+printf "$html" "$schedule" "$snippets" "$time" > dist/index.html
 
 echo "
 built site"
