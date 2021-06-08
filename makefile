@@ -1,6 +1,6 @@
 build:
 	sh build.sh
 deploy: build
-	firebase deploy
+	cp -r dist/* /var/www/html/	
 host: build
 	python3 server.py 8000
