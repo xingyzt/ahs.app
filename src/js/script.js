@@ -24,6 +24,8 @@ async function main() {
 
 	$canvas.width = $canvas.height = 1
 	$canvas.ctx.filter = 'saturate(500%)'
+
+	if('serviceWorker' in navigator) navigator.serviceWorker.register('/worker.js')
 }
 async function reset_title() {
 	document.title = 'ahs.app'
@@ -64,6 +66,7 @@ async function show_article() {
 			return $image
 		}))),
 	)
+	/*
 	const $related = $article.querySelector('.related')
 	$related.append(
 		...await Promise.all(( article.relatedArticleIDs || [] ).map( async id => {
@@ -82,10 +85,11 @@ async function show_article() {
 			return $snippet
 		}))
 	)
-
+	*/
 	return true
 }
 async function safe_center() {
+	const $media = document.querySelector('main>.article>.media')
 	$media.style.alignContent = $media.scrollWidth > window.innerWidth ? 'flex-start' : 'safe center'
 }
 async function db(...path) {
