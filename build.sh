@@ -2,9 +2,13 @@
 
 export TZ=US/Pacific date
 
-# merge scripts and styles into single files
+mkdir -p dist
+
+# merge styles into single file
 cat src/css/* > dist/style.css
-cat src/js/* > dist/script.js
+
+# copy scripts
+cp -R src/js/* dist/
 
 # copy static assets
 cp -R src/static/* dist/
