@@ -15,7 +15,7 @@ const response = async request => {
 	const timeout = 10 * minute
 	const header_name = 'ahs-app-last-fetched'
 
-	const forever = !request.url.endsWith('.json')
+	const forever = !['application/json','text/html'].includes(request.headers.get('Content-Type'))
 
 	if ( cached_response &&
 		( forever || (now - parseInt(cached_response.headers.get(header_name)) < timeout) )

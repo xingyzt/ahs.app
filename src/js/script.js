@@ -93,11 +93,15 @@ async function safe_center() {
 	$media.style.alignContent = $media.scrollWidth > window.innerWidth ? 'flex-start' : 'safe center'
 }
 async function db(...path) {
-	const response = await fetch(`https://ahs-app.firebaseio.com/${path.join('/')}.json`)
+	const response = await fetch(
+		`https://ahs-app.firebaseio.com/${path.join('/')}.json`,
+		{ headers: { 'Content-Type': 'application/json' } },
+	)
 	return await response.json()
 }
-async function highlight_schedule(Cell) {
-	const Schedule = document.querySelector('.schedule')
+async function highlight_schedule($cell) {
+	const $schedule = document.querySelector('.schedule')
+	if(!$schedule) return
 
 	const class_name = 'highlighted-period'
 
@@ -105,21 +109,22 @@ async function highlight_schedule(Cell) {
 	const minutes = date.getHours()*60 + date.getMinutes()
 	const seconds = minutes*60 + date.getSeconds()
 
-	if(!Cell) Cell = Array.from(Schedule.querySelectorAll('td'))
+	if(!$cell)
+		$cell = Array.from($schedule.querySelectorAll('td'))
 			.reverse()
 			.find(x=>parseInt(x.id)<=minutes)
 
-	if(Cell) {
-		Cell.classList.add(class_name)
-		const Prev = Cell.previousElementSibling
+	if($cell) {
+		$cell.classList.add(class_name)
+		const Prev = $cell.previousElementSibling
 		if(Prev) Prev.classList.remove(class_name)
 	}
 
-	const Next = Cell.nextElementSibling
-	if(Next) setTimeout(
+	const $next = $cell.nextElementSibling
+	if($next) setTimeout(
 		highlight_schedule,
-		(Next.id*60 - seconds)*1000,
-		Next
+		($next.id*60 - seconds)*1000,
+		$next
 	)
 }
 async function internal_link(event) {
