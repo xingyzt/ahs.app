@@ -1,3 +1,12 @@
+'use strict'
+
+const $main = document.querySelector('main')
+const $canvas = document.createElement('canvas')
+$canvas.ctx = $canvas.getContext('2d')
+
+main()
+
+async function main() {
 	show_article()
 
 	document.body
@@ -6,7 +15,7 @@
 	
 	document.body
 		.querySelectorAll('.snippet>img')
-		.forEach(matching_color)
+		.forEach(match_color)
 	
 	window.addEventListener('popstate', show_article)
 	window.addEventListener('resize', safe_center)
@@ -119,7 +128,7 @@ async function internal_link(event) {
 	document.activeElement.blur()
 	event.preventDefault()
 }
-async function matching_color(image) {
+async function match_color(image) {
 	image.addEventListener('load', () => {
 		$canvas.ctx.drawImage(image, 0, 0, 1, 1)
 		const data = $canvas.ctx.getImageData(0, 0, 1, 1).data
@@ -141,4 +150,3 @@ function rot13(str) {
 function slug(title) {
 	return title.replace(/[^\w\d]+/g,'-')
 }
-
