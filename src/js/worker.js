@@ -2,7 +2,7 @@ self.addEventListener('fetch', event => event.respondWith(response(event.request
 self.addEventListener('install', event => event.waitUntil(self.skipWaiting()))
 self.addEventListener('activate', event => event.waitUntil(self.clients.claim()))
 
-const version = 3
+const version = 5
 
 const response = async request => {
 
@@ -18,7 +18,7 @@ const response = async request => {
 	const forever = !['application/json','text/html'].includes(request.headers.get('Content-Type'))
 
 	if ( cached_response &&
-		( forever || (now - parseInt(cached_response.headers.get(header_name)) < timeout) )
+		( forever || !navigator.onLine || (now - parseInt(cached_response.headers.get(header_name)) < timeout) )
 	) return cached_response
 	
 	const fresh_response = await fetch(request)

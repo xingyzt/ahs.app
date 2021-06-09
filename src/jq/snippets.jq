@@ -13,21 +13,17 @@ def rot13: explode | map(
 | $locationIDs | map( . as $id | $locations[.] | [
 	( "<section id=L-"+$id+" class=location>" ),
 	( "<h2><a href=#L-"+$id+">"+.title+"</a></h2>" ),
-	( .categoryIDs | map( . as $id | $categories[.] | select( .visible ) | [
-		( "<section id=C-"+$id+" class=category style=--color:"+.color+" data-layout="+.layout+">" ),
+	( .categoryIDs | map( . as $id | $categories[.] | select( .visible ) | .layout as $layout | [
+		( "<section id=C-"+$id+" class=category style=--color:"+.color+" data-layout="+$layout+">" ),
 		( "<h3><a href=#C-"+$id+">"+.title+"</a></h3>" ),
 		( "<section class=snippets>" ),
 		( .articleIDs | .? | map( . as $id | $snippets[.] | [
 			( "<a href=/"+(.title|slug)+"/"+($id|rot13)+" class=snippet>" ),
-			( if .thumbURLs
-				then "<img src="+.thumbURLs[0]+" crossorigin=anonymous loading=lazy>"
-				else empty end
-			),
+			( select(.thumbURLs and $layout != "list")
+			| "<img src="+.thumbURLs[0]+" crossorigin=anonymous loading=lazy width=180 height=180 alt>" ),
 			( "<h4>"+.title+"</h4>" ),
-			( if .blurb
-				then "<p>"+.blurb+"</p>"
-				else empty end
-			),
+			( select(.blurb and .blurb != "")
+			| "<p>"+.blurb+"</p>" ),
 			( "</a>" )
 		] |n) |n),
 		( "</section>" ),
