@@ -1,5 +1,5 @@
 def n: join("\n");
-def slug: gsub("[^\\w\\d]+";"-");
+def slug: gsub("[^\\w\\d]+";"-") | gsub("^-|-$";"");
 def rot13: explode | map(
 	if 65 <= . and . <= 90 then ((. - 52) % 26) + 65
         elif 97 <= . and . <= 122 then (. - 84) % 26 + 97
