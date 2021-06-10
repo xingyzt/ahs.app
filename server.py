@@ -11,7 +11,7 @@ import os
 import sys
 
 os.chdir(os.path.join(os.path.dirname(__file__),'dist'))
-port = int(sys.argv[1]) or 8000
+port = int(sys.argv[1])
 HOST = ('0.0.0.0', port)
 
 class Handler(http.server.SimpleHTTPRequestHandler):
