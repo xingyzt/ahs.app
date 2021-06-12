@@ -30,6 +30,10 @@ main[hidden]{
 	padding-block: 1rem;
 	align-content: safe center;
 }
+.article>.carousel>*{
+	background-color: var(--color);
+	min-width: 1rem;
+}
 .article>.carousel>.youtube{
 	width: 28.44rem;
 }
