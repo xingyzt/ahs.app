@@ -1,8 +1,5 @@
 'use strict'
 
-const $main = document.querySelector('main')
-const $canvas = document.createElement('canvas')
-$canvas.ctx = $canvas.getContext('2d')
 
 main()
 
@@ -10,27 +7,22 @@ async function main() {
 	show_article()
 
 	document.body
-		.querySelectorAll('[href^="/"]')
+		.querySelectorAll('a[href^="/"]')
 		.forEach(link=>link.addEventListener('click', internal_link))
-	
-	document.body
-		.querySelectorAll('.snippet>img')
-		.forEach(match_color)
 	
 	window.addEventListener('popstate', show_article)
 	window.addEventListener('resize', safe_center)
 
 	highlight_schedule()
 
-	$canvas.width = $canvas.height = 1
-	$canvas.ctx.filter = 'saturate(500%)'
-
-	if('serviceWorker' in navigator) navigator.serviceWorker.register('/worker.js')
+	if('serviceWorker' in navigator)
+		navigator.serviceWorker.register('/worker.js')
 }
 async function reset_title() {
 	document.title = 'ahs.app'
 }
 async function show_article() {
+	const $main = document.body.querySelector('main')
 
 	const $article = clone_template('article')
 	$main.replaceChild($article,$main.firstChild)
@@ -73,85 +65,5 @@ async function show_article() {
 			const snippet = await db('snippets',id)
 			const $snippet = clone_template('snippet')
 
-			$snippet.href = '/' + slug(snippet.title) + '/' + rot13(id)
-
-			$snippet.querySelector('h4').innerHTML = snippet.title
-
-			const $blurb = $snippet.querySelector('p')
-			snippet.blurb ? $blurb.innerHTML = snippet.blurb : $blurb.remove()
-
-			const $image = $snippet.querySelector('img')
-			snippet.thumbURLs ? $image.src = snippet.thumbURLs[0] : $image.remove()
-			return $snippet
-		}))
-	)
-	*/
-	return true
-}
-async function safe_center() {
-	const $media = document.querySelector('main>.article>.media')
-	$media.style.alignContent = $media.scrollWidth > window.innerWidth ? 'flex-start' : 'safe center'
-}
-async function db(...path) {
-	const response = await fetch(
-		`https://ahs-app.firebaseio.com/${path.join('/')}.json`,
-		{ headers: { 'Content-Type': 'application/json' } },
-	)
-	return await response.json()
-}
-async function highlight_schedule($cell) {
-	const $schedule = document.querySelector('.schedule')
-	if(!$schedule) return
-
-	const class_name = 'highlighted-period'
-
-	const date = new Date()
-	const minutes = date.getHours()*60 + date.getMinutes()
-	const seconds = minutes*60 + date.getSeconds()
-
-	if(!$cell)
-		$cell = Array.from($schedule.querySelectorAll('td'))
-			.reverse()
-			.find(x=>parseInt(x.id)<=minutes)
-
-	if($cell) {
-		$cell.classList.add(class_name)
-		const Prev = $cell.previousElementSibling
-		if(Prev) Prev.classList.remove(class_name)
-	}
-
-	const $next = $cell.nextElementSibling
-	if($next) setTimeout(
-		highlight_schedule,
-		($next.id*60 - seconds)*1000,
-		$next
-	)
-}
-async function internal_link(event) {
-	history.pushState({}, '', event.target.href)
-	show_article()
-	document.activeElement.blur()
-	event.preventDefault()
-}
-async function match_color(image) {
-	image.addEventListener('load', () => {
-		$canvas.ctx.drawImage(image, 0, 0, 1, 1)
-		const data = $canvas.ctx.getImageData(0, 0, 1, 1).data
-		image.parentElement.style.setProperty('--color',`rgb(${data[0]}, ${data[1]}, ${data[2]})`)
-	})
-}
-function clone_template(name) {
-	return document.querySelector('.template-' + name)
-		.content.cloneNode(true)
-		.querySelector('*')
-} 
-function rot13(str) {
-	return str.replace( /[a-z]/gi, c =>
-		'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'[
-			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.indexOf(c)
-		]
-	)
-}
-function slug(title) {
-	return title.replace(/[^\w\d]+/g,'-')
+			$snippet.href = '/' + 
 }
