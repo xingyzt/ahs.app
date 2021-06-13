@@ -2,7 +2,7 @@ self.addEventListener('fetch', event => event.respondWith(response(event.request
 self.addEventListener('install', event => event.waitUntil(self.skipWaiting()))
 self.addEventListener('activate', event => event.waitUntil(self.clients.claim()))
 
-const version = 'pickles'
+const version = 'fern'
 
 const response = async request => {
 

@@ -1,6 +1,9 @@
 .week, .schedule {
 	margin: 1rem 0;
 }
+.schedule p {
+	text-align: center;
+}
 .schedule table {
 	margin: 2rem 0;
 }
@@ -29,12 +32,12 @@
 	opacity: var(--fade);
 }
 
-#C-Student_ID>section>output {
+#id>section>output {
 	font-family: Courier, Monospace;
 	color: var(--text);
 	font-size: 16vmin;
 	transform-origin: top left;
-	transform: scale(0.05,1);
+	transform: scale(0.02,1);
 	white-space: nowrap;
 	display: block;
 	user-select: all;

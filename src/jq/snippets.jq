@@ -11,11 +11,11 @@ def rot13: explode | map(
 | .[2] as $categories
 | .[3] as $snippets
 | $locationIDs | map( . as $id | $locations[.] | [
-	( "<section id=L-"+$id+" class=location>" ),
-	( "<h2><a href=#L-"+$id+">"+.title+"</a></h2>" ),
+	( "<section id="+$id+" class=location>" ),
+	( "<h2><a href=#"+$id+">"+.title+"</a></h2>" ),
 	( .categoryIDs | map( . as $id | $categories[.] | select( .visible ) | .layout as $layout | [
-		( "<section id=C-"+$id+" style=--color:"+.color+" data-layout="+$layout+" class=category>" ),
-		( "<h3><a href=#C-"+$id+">"+.title+"</a></h3>" ),
+		( "<section id="+$id+" style=--color:"+.color+" data-layout="+$layout+" class=category>" ),
+		( "<h3><a href=#"+$id+">"+.title+"</a></h3>" ),
 		( "<section class=snippets>" ),
 		( .articleIDs | .? | map( . as $id | $snippets[.] | [
 			( "<a href=/"+(.title|slug)+"/"+($id|rot13)+" style=--color:"+.color+" class=snippet>" ),

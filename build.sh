@@ -19,11 +19,12 @@ html=$(cat src/index.html)
 curl -ZL "db.ahs.app/{locationIDs,locations,categories,snippets,weekID,weeks,schedules,days}.json" -o "/tmp/#1.json"
 
 snippets=$(jq -sfr src/jq/snippets.jq /tmp/locationIDs.json /tmp/locations.json /tmp/categories.json /tmp/snippets.json)
-schedule=$(jq -sfr src/jq/schedule.jq /tmp/weekID.json /tmp/weeks.json /tmp/schedules.json /tmp/days.json)
+schedule=$(jq -sfr src/jq/schedule.jq /tmp/weekID.json /tmp/weeks.json /tmp/schedules.json)
+schedules=$(jq -sfr src/jq/schedules.jq /tmp/weeks.json /tmp/schedules.json /tmp/days.json)
 
 time=$(date +"%l:%M %P Pacific Time")
 
-printf "$html" "$schedule" "$snippets" "$time" > dist/index.html
+printf "$html" "$schedule" "$snippets" "$schedules" "$time" > dist/index.html
 
 echo "
 built site"

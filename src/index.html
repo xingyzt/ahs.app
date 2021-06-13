@@ -31,27 +31,26 @@
 		<footer> ⋮ </footer>
 	</main>
 	<nav>
-		<section id=L-tools class=location>
-			<h2><a href=#L-tools>Tools</a></h2>
-			<section id=C-Schedule style=--color:#888 data-layout=tool class=category>
-				<h3><a href=#C-Schedule>Schedule</a></h3>
-				<section>
-					<input id=schedule-toggle type=checkbox>
-					<label for=schedule-toggle>
-						View other schedules
-					</label>
-					%s
-				</section>
-			</section>
-			<section id=C-Student_ID style=--color:#888 data-layout=tool class=category>
-				<h3><a href=#C-Student_ID>ID Card</a></h3>
+		<a href=#schedules><section class=schedule>
+			%s
+		</section></a>
+		%s
+		<section id=tools class=location>
+			<h2><a href=#tools>Tools</a></h2>
+			<section id=id style=--color:#888 data-layout=tool class=category>
+				<h3><a href=#id>ID Card</a></h3>
 				<section>
 					<input id=student-id type=number min=10000 max=99999> 
 					<output for=student-id></output>
 				</section>
 			</section>
+			<section id=schedules style=--color:#888 data-layout=tool class=category>
+				<h3><a href=#schedules>Schedules</a></h3>
+				<section>
+					%s
+				</section>
+			</section>
 		</section>
-		%s
 	</nav>
 	<footer class=footer><article>
 		<strong>ahs.app</strong>

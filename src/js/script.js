@@ -31,7 +31,7 @@ async function show_article() {
 	$main.replaceChild($article,$main.firstChild)
 	window.scrollTo(0,0)
 
-	$main.hidden = location.pathname==='/'
+	$main.hidden = '/'.includes(location.pathname)
 	if($main.hidden) return reset_title()
 
 	const id = rot13(location.pathname.split('/').pop())
@@ -45,7 +45,7 @@ async function show_article() {
 		const element = $article.querySelector('.' + property)
 		if (element) element.innerHTML = article[property]
 	}
-	// $article.style.setProperty('--color',article.color)
+	$article.style.setProperty('--color',article.color)
 	
 	const $media = $article.querySelector('.media')
 	$media.style.alignContent = 'safe center'
@@ -107,11 +107,11 @@ async function internal_link(event) {
 	event.preventDefault()
 }
 async function generate_student_id() {
-	const $form = document.getElementById('C-Student_ID')
+	const $form = document.getElementById('id')
 	const $input = $form.querySelector('input')
 	const $output = $form.querySelector('output')
 	$input.addEventListener('input', () => {
-		const digits = $input.value.toString().replace(/\D/g,'')
+		const digits = $input.value.replace(/\D/g,'')
 		$output.textContent = digits ? code39(digits) : ''
 	})
 }
@@ -146,7 +146,7 @@ function code39(digits) {
 		'1 1001', // *
 	][digit])
 	.join('')
-	.replace(/0/g,'â–â–‡â–‡â–‡')
-	.replace(/1/g,'â–â–‡')
-	.replace(/ /g,'â–â–')
+	.replace(/0/g,'▁▇▇▇')
+	.replace(/1/g,'▁▇')
+	.replace(/ /g,'▁▁')
 }
