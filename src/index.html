@@ -35,17 +35,18 @@
 			<h2><a href=#L-tools>Tools</a></h2>
 			<section id=C-Schedule style=--color:#888 data-layout=tool class=category>
 				<h3><a href=#C-Schedule>Schedule</a></h3>
-				%s
+				<section>
+					<input id=schedule-toggle type=checkbox>
+					<label for=schedule-toggle>
+						View other schedules
+					</label>
+					%s
+				</section>
 			</section>
 			<section id=C-Student_ID style=--color:#888 data-layout=tool class=category>
 				<h3><a href=#C-Student_ID>ID Card</a></h3>
 				<section>
 					<input id=student-id type=number min=10000 max=99999> 
-					<input id=student-id-confirmation type=checkbox>
-					<label for=student-id-confirmation>
-						I understand that identity theft is not a joke.
-						<sup>Millions of families suffer every year.</sup>
-					</label>
 					<output for=student-id></output>
 				</section>
 			</section>
@@ -108,7 +109,7 @@
 	<template class=template-article>
 		<article class=article>
 			<h2 class=title heading tabindex=0>
-				Loading article&hellip;
+				Loading article…
 			</h2>
 			<section class='media carousel'></section>
 			<section class=metadata>

@@ -9,8 +9,7 @@ body * {
 	transition-property: color, border-color, opacity;
 	transition-duration: 100ms;
 }
-.schedule,
-.snippets,
+.category>section,
 .footer {
 	padding: 0 2rem;
 }
@@ -19,4 +18,7 @@ footer{
 }
 body>footer{
 	margin: 50vh 0;
+}
+label {
+	user-select: none;
 }

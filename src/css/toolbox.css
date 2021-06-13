@@ -1,8 +1,8 @@
-#C-Schedule>p {
-	text-align: center;
+.week, .schedule {
+	margin: 1rem 0;
 }
-.schedule{
-	margin: 3rem 0;
+.schedule table {
+	margin: 2rem 0;
 }
 .schedule td{
 	position: relative;
@@ -23,6 +23,12 @@
 .schedule td.highlighted-period{
 	background: var(--text)
 }
+#schedule-toggle:checked ~ .week[hidden],
+#schedule-toggle:checked ~ .week > .schedule[hidden] {
+	display: block;
+	opacity: var(--fade);
+}
+
 #C-Student_ID>section>output {
 	font-family: Courier, Monospace;
 	color: var(--text);
@@ -30,11 +36,8 @@
 	transform-origin: top left;
 	transform: scale(0.05,1);
 	white-space: nowrap;
-	display: none;
+	display: block;
 	user-select: all;
 	cursor: cell;
-}
-#student-id-confirmation:checked ~ output {
-	display: block;
 }
 

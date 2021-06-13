@@ -26,6 +26,9 @@ h3 {
 h4 {
 	font-size: 1rem;
 }
+h5, h6 {
+	font-weight: normal;
+}
 img {
 	object-fit: cover;
 }

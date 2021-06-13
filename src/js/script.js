@@ -7,12 +7,15 @@ async function main() {
 
 	document.body
 		.querySelectorAll('a[href^="/"]')
-		.forEach(link=>link.addEventListener('click', internal_link))
+		.forEach($link=>$link.addEventListener('click', internal_link))
 	
 	window.addEventListener('popstate', show_article)
 	window.addEventListener('resize', safe_center)
 
-	highlight_schedule()
+	document.body
+		.querySelectorAll('.schedule')
+		.forEach($schedule=>highlight_schedule({$schedule}))
+
 	generate_student_id()
 
 	if('serviceWorker' in navigator)
@@ -72,33 +75,30 @@ async function db(...path) {
 	)
 	return await response.json()
 }
-async function highlight_schedule($cell) {
-	const $schedule = document.querySelector('.schedule')
-	if(!$schedule) return
-
+async function highlight_schedule({ $schedule, $cell }) {
 	const class_name = 'highlighted-period'
 
 	const date = new Date()
 	const minutes = date.getHours()*60 + date.getMinutes()
 	const seconds = minutes*60 + date.getSeconds()
 
-	if(!$cell)
-		$cell = Array.from($schedule.querySelectorAll('td'))
-			.reverse()
-			.find(x=>parseInt(x.id)<=minutes)
+	if(!$cell) $cell = Array.from($schedule.querySelectorAll('td'))
+		.reverse()
+		.find(x=>parseInt(x.id)<=minutes)
 
-	if($cell) {
-		$cell.classList.add(class_name)
-		const Prev = $cell.previousElementSibling
-		if(Prev) Prev.classList.remove(class_name)
-	}
+	if(!$cell) return
+
+	$cell.classList.add(class_name)
+
+	const $prev = $cell.previousElementSibling
+	if($prev) $prev.classList.remove(class_name) 
 
 	const $next = $cell.nextElementSibling
-	if($next) setTimeout(
-		highlight_schedule,
-		($next.id*60 - seconds)*1000,
-		$next
-	)
+	 if($next) setTimeout(
+		 highlight_schedule,
+	 	( $next.id*60 - seconds ) * 1000,
+		{ $cell: $next }
+	 )
 }
 async function internal_link(event) {
 	history.pushState({}, '', event.target.href)
@@ -146,7 +146,7 @@ function code39(digits) {
 		'1 1001', // *
 	][digit])
 	.join('')
-	.replace(/0/g,'▁▇▇▇')
-	.replace(/1/g,'▁▇')
-	.replace(/ /g,'▁▁')
+	.replace(/0/g,'â–â–‡â–‡â–‡')
+	.replace(/1/g,'â–â–‡')
+	.replace(/ /g,'â–â–')
 }
