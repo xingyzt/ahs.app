@@ -111,7 +111,7 @@ async function generate_student_id() {
 	const $input = $form.querySelector('input')
 	const $output = $form.querySelector('output')
 	$input.addEventListener('input', () => {
-		const digits = $input.value.replace(/\D/g,'')
+		const digits = $input.value.toString().replace(/\D/g,'')
 		$output.textContent = digits ? code39(digits) : ''
 	})
 }
@@ -131,7 +131,7 @@ function slug(title) {
 	return title.replace(/[^\w\d]+/g,'-')
 }
 function code39(digits) {
-	return [ 10, ...digits.split(''), 10 ]
+	return [ 10, ...digits.substr(0,5).padEnd(5,0).split(''), 10 ]
 	.map(digit=>[
 		'11 001', // 0..9
 		'01 110',

@@ -31,8 +31,8 @@
 		<footer> ⋮ </footer>
 	</main>
 	<nav>
-		<section id=L-toolbox class=location>
-			<h2><a href=#L-toolbox>Tools</a></h2>
+		<section id=L-tools class=location>
+			<h2><a href=#L-tools>Tools</a></h2>
 			<section id=C-Schedule style=--color:#888 data-layout=tool class=category>
 				<h3><a href=#C-Schedule>Schedule</a></h3>
 				%s
@@ -40,7 +40,7 @@
 			<section id=C-Student_ID style=--color:#888 data-layout=tool class=category>
 				<h3><a href=#C-Student_ID>ID Card</a></h3>
 				<section>
-					<input id=student-id type=text inputmode=numeric pattern=[0-9]*>
+					<input id=student-id type=number min=10000 max=99999> 
 					<input id=student-id-confirmation type=checkbox>
 					<label for=student-id-confirmation>
 						I understand that identity theft is not a joke.

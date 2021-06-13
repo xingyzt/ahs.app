@@ -31,6 +31,8 @@
 	transform: scale(0.05,1);
 	white-space: nowrap;
 	display: none;
+	user-select: all;
+	cursor: cell;
 }
 #student-id-confirmation:checked ~ output {
 	display: block;
