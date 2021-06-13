@@ -23,4 +23,16 @@
 .schedule td.highlighted-period{
 	background: var(--text)
 }
+#C-Student_ID>section>output {
+	font-family: Courier, Monospace;
+	color: var(--text);
+	font-size: 16vmin;
+	transform-origin: top left;
+	transform: scale(0.05,1);
+	white-space: nowrap;
+	display: none;
+}
+#student-id-confirmation:checked ~ output {
+	display: block;
+}
 

@@ -28,12 +28,28 @@
 	<noscript> Please enable JavaScript in order to load full articles. </noscript>
 	<main hidden>
 		<article></article>
-		<footer>&vellip;</footer>
+		<footer> ⋮ </footer>
 	</main>
-	<aside class=category id=C-Schedule>
-		%s
-	</aside>
 	<nav>
+		<section id=L-toolbox class=location>
+			<h2><a href=#L-toolbox>Tools</a></h2>
+			<section id=C-Schedule style=--color:#888 data-layout=tool class=category>
+				<h3><a href=#C-Schedule>Schedule</a></h3>
+				%s
+			</section>
+			<section id=C-Student_ID style=--color:#888 data-layout=tool class=category>
+				<h3><a href=#C-Student_ID>ID Card</a></h3>
+				<section>
+					<input id=student-id type=text inputmode=numeric pattern=[0-9]*>
+					<input id=student-id-confirmation type=checkbox>
+					<label for=student-id-confirmation>
+						I understand that identity theft is not a joke.
+						<sup>Millions of families suffer every year.</sup>
+					</label>
+					<output for=student-id></output>
+				</section>
+			</section>
+		</section>
 		%s
 	</nav>
 	<footer class=footer><article>

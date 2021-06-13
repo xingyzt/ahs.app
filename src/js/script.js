@@ -13,6 +13,7 @@ async function main() {
 	window.addEventListener('resize', safe_center)
 
 	highlight_schedule()
+	generate_student_id()
 
 	if('serviceWorker' in navigator)
 		navigator.serviceWorker.register('/worker.js')
@@ -105,11 +106,13 @@ async function internal_link(event) {
 	document.activeElement.blur()
 	event.preventDefault()
 }
-async function match_color(image) {
-	image.addEventListener('load', () => {
-		$canvas.ctx.drawImage(image, 0, 0, 1, 1)
-		const data = $canvas.ctx.getImageData(0, 0, 1, 1).data
-		image.parentElement.style.setProperty('--color',`rgb(${data[0]}, ${data[1]}, ${data[2]})`)
+async function generate_student_id() {
+	const $form = document.getElementById('C-Student_ID')
+	const $input = $form.querySelector('input')
+	const $output = $form.querySelector('output')
+	$input.addEventListener('input', () => {
+		const digits = $input.value.replace(/\D/g,'')
+		$output.textContent = digits ? code39(digits) : ''
 	})
 }
 function clone_template(name) {
@@ -126,4 +129,24 @@ function rot13(str) {
 }
 function slug(title) {
 	return title.replace(/[^\w\d]+/g,'-')
+}
+function code39(digits) {
+	return [ 10, ...digits.split(''), 10 ]
+	.map(digit=>[
+		'11 001', // 0..9
+		'01 110',
+		'10 110',
+		'00 111',
+		'11 010',
+		'01 011',
+		'10 011',
+		'11 100',
+		'01 101',
+		'10 101',
+		'1 1001', // *
+	][digit])
+	.join('')
+	.replace(/0/g,'▁▇▇▇')
+	.replace(/1/g,'▁▇')
+	.replace(/ /g,'▁▁')
 }
