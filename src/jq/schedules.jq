@@ -7,11 +7,14 @@ def e: join("");
 | $weeks
 | to_entries
 | map( .key as $weekID | [ 
-	( "<section class=week>" ),
-	( "<h4>"+$weekID+"</h4>" ),
+	( "<section id="+$weekID+" class=week>" ),
+	( "<h4><a href=#"+$weekID+">"+$weekID+"</a></h4>" ),
 	( .value
 	| to_entries
-	| map( .key as $dayID | .value as $scheduleID | $schedules[.value] | [
+	| map( .key as $dayID
+	| select($dayID != 0 and $dayID != 6)
+	| .value as $scheduleID
+	| $schedules[.value] | [
 		( "<section class=schedule>" ),
 		( "<h5>"+$days[$dayID]+": "+$scheduleID+"</h5>" ),
 		( select(.)

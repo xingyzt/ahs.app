@@ -31,16 +31,13 @@
 	display: block;
 	opacity: var(--fade);
 }
-
 #id>section>output {
-	font-family: Courier, Monospace;
-	color: var(--text);
-	font-size: 16vmin;
-	transform-origin: top left;
-	transform: scale(0.02,1);
-	white-space: nowrap;
 	display: block;
-	user-select: all;
-	cursor: cell;
+	margin-top: 1rem;
+}
+#id>section>output>svg{
+	background: white;
+	border: 1rem solid white;
+	width: 80vmin;
 }
 

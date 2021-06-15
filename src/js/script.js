@@ -29,9 +29,10 @@ async function show_article() {
 
 	const $article = clone_template('article')
 	$main.replaceChild($article,$main.firstChild)
-	window.scrollTo(0,0)
 
-	$main.hidden = '/'.includes(location.pathname)
+	if(location.hash === '') window.scrollTo(0,0)
+
+	$main.hidden = location.pathname === '/'
 	if($main.hidden) return reset_title()
 
 	const id = rot13(location.pathname.split('/').pop())
@@ -112,7 +113,7 @@ async function generate_student_id() {
 	const $output = $form.querySelector('output')
 	$input.addEventListener('input', () => {
 		const digits = $input.value.replace(/\D/g,'')
-		$output.textContent = digits ? code39(digits) : ''
+		$output.innerHTML = digits ? code39(digits) : ''
 	})
 }
 function clone_template(name) {
@@ -131,7 +132,10 @@ function slug(title) {
 	return title.replace(/[^\w\d]+/g,'-')
 }
 function code39(digits) {
-	return [ 10, ...digits.substr(0,5).padEnd(5,0).split(''), 10 ]
+	return `
+	<svg viewBox="0 0 208 64">
+	 <path d="M0 0 ${
+	[ 10, ...digits.substr(0,5).padEnd(5,0).split(''), 10 ]
 	.map(digit=>[
 		'11 001', // 0..9
 		'01 110',
@@ -146,7 +150,10 @@ function code39(digits) {
 		'1 1001', // *
 	][digit])
 	.join('')
-	.replace(/0/g,'▁▇▇▇')
-	.replace(/1/g,'▁▇')
-	.replace(/ /g,'▁▁')
+	.replace(/ /g,'h4')
+	.replace(/0/g,'h2V64h5V0')
+	.replace(/1/g,'h2V64h2V0')
+	.substr(2)
+	} "/>
+</svg>`
 }
