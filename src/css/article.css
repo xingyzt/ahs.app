@@ -49,12 +49,6 @@ main[hidden]{
 .article>.metadata>.author:empty{
 	display: none;
 }
-.article>.metadata>.author::before{
-	content: 'by ';
-}
-.article>.metadata>.author::after{
-	content: ' · '
-}
 .article>.body{
 	line-height: 1.4;
 }

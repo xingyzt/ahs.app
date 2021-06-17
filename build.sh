@@ -16,11 +16,11 @@ cp -R src/static/* dist/
 # insert data into HTML
 html=$(cat src/index.html)
 
-curl -ZL "db.ahs.app/{locationIDs,locations,categories,snippets,weekID,weeks,schedules,days}.json" -o "/tmp/#1.json"
+curl -ZL "db.ahs.app/{locationIDs,locations,categories,snippets,weekID,weeks,schedules}.json" -o "/tmp/#1.json"
 
 snippets=$(jq -sfr src/jq/snippets.jq /tmp/locationIDs.json /tmp/locations.json /tmp/categories.json /tmp/snippets.json)
 schedule=$(jq -sfr src/jq/schedule.jq /tmp/weekID.json /tmp/weeks.json /tmp/schedules.json)
-schedules=$(jq -sfr src/jq/schedules.jq /tmp/weeks.json /tmp/schedules.json /tmp/days.json)
+schedules=$(jq -sfr src/jq/schedules.jq /tmp/schedules.json)
 
 time=$(date +"%l:%M %P Pacific Time")
 
