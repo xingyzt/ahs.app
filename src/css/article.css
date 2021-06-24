@@ -30,12 +30,47 @@ main[hidden]{
 	padding-block: 1rem;
 	align-content: safe center;
 }
-.article>.carousel>*{
+.article>.carousel>img{
 	background-color: var(--color);
 	min-width: 1rem;
 }
 .article>.carousel>.youtube{
 	width: 28.44rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.article>.carousel>.youtube>input:checked,
+.article>.carousel>.youtube>input:checked~label,
+.article>.carousel>.youtube>input:not(:checked)~iframe{
+	display: none;
+}
+.article>.carousel>.youtube>input{
+	cursor: pointer;
+	width: 5rem;
+	height: 5rem;
+}
+.article>.carousel>.youtube>input::before{
+	content: '▶';
+	transition: inherit;
+	display: block;
+	width: inherit;
+	height: inherit;
+	text-align: center;
+	font-size: 4rem;
+	color: var(--link);
+	background: var(--secondary);
+}
+.article>.carousel>.youtube>input:hover::before{
+	color: var(--text);
+}
+.article>.carousel>.youtube>label{
+	padding: 1rem;
+}
+.article>.carousel>.youtube>iframe{
+	width: 100%;
+	height: 100%;
 }
 .article>.carousel:empty{
 	display: none;

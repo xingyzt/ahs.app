@@ -69,10 +69,6 @@
 			It does not collect data from you and does not track you.
 			View its source code on
 			<a href='https://github.com/FlyOrBoom/ahs.app'>GitHub</a>.
-		</p><p>
-			However, if you use the embedded video players,
-			you must agree to
-			<a href='https://www.youtube.com/static?template=terms'>YouTube’s Terms of Use</a>.
 		</p><p><strong>
 			Get our native app, Arcadia High Mobile, for
 			<a href='https://apps.apple.com/us/app/id1305220468'>iOS</a>
@@ -88,12 +84,25 @@
 		</p>
 	</article></footer>
 	<template class=template-youtube>
-		<iframe class=youtube
-			src='https://www.youtube-nocookie.com/embed/[URL]?modestbranding=1&rel=0'
-			frameborder=0
-			allow='clipboard-write; encrypted-media; picture-in-picture'
-			allowfullscreen
-		></iframe>
+		<section class=youtube>
+			<input type=checkbox id=youtube-cosent>
+			<label for=youtube-consent>
+				I consent to the tracking and collection
+				of my personal information as outlined in
+				<a href=https://www.youtube.com/static?template=terms>YouTube’s Terms of Use</a>
+				and
+				<a href=https://policies.google.com/privacy?hl=en>Google’s Privacy Policy</a>.
+				Allow
+				<a href=/>ahs.app</a>
+				to load YouTube videos.
+			</label>
+			<iframe
+				data-src='https://www.youtube-nocookie.com/embed/[URL]?modestbranding=1&rel=0'
+				frameborder=0
+				allow='clipboard-write; encrypted-media; picture-in-picture'
+				allowfullscreen
+			></iframe>
+		</section>
 	</template>
 	<template class=template-image>
 		<img class=image>

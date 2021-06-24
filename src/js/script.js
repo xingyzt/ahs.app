@@ -58,8 +58,19 @@ async function show_article() {
 	$media.append(
 		...await Promise.all(( article.videoIDs || [] ).map( async id => {
 			const $embed = clone_template('youtube')
-			$embed.src = $embed.src.replace('[URL]',id)
-			$embed.addEventListener('load',safe_center)
+			const $checkbox = $embed.querySelector('input')
+			const $video = $embed.querySelector('iframe')
+
+			const load_video = () => $video.src = $video.dataset.src.replace('[URL]',id)
+			const save_consent = () => localStorage.setItem('youtube-consent','true')
+			$video.addEventListener('load',safe_center)
+			$checkbox.addEventListener('change',load_video)
+			$checkbox.addEventListener('change',save_consent)
+
+			if(localStorage.getItem('youtube-consent')==='true') {
+				$checkbox.checked = true
+				load_video()
+			}
 			return $embed
 		}).concat(( article.imageURLs || [] ).map( async url => {
 			const $image = clone_template('image')
