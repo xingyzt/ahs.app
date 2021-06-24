@@ -1,5 +1,7 @@
 build:
 	sh build.sh
+archives:
+	sh archives.sh
 deploy: build
 	cp -r dist/* /var/www/ahs.app/	
 host: build

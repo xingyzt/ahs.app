@@ -7,7 +7,7 @@ async function main() {
 
 	document.body
 		.querySelectorAll('a[href^="/"]')
-		.forEach($link=>$link.addEventListener('click', internal_link))
+		.forEach($link=>$link.addEventListener('click', internal_link_event))
 	
 	window.addEventListener('popstate', show_article)
 	window.addEventListener('resize', safe_center)
@@ -37,8 +37,13 @@ async function show_article() {
 
 	const id = rot13(location.pathname.split('/').pop())
 
-	const article = await db('articles/'+id)
-	if (!article) return reset_title()
+	const query = location.search.split('?').pop().split('&')
+	const domain = query.includes('archives') ? 'archive-' : ''
+
+	const article = await db(domain, 'articles', id)
+
+	if (!article && domain) return reset_title()
+	if (!article ) return internal_link(location.href + '?archives')
 
 	document.title = article.title
 	$article.querySelector('h2').focus({ preventScroll: true })
@@ -69,12 +74,12 @@ async function safe_center() {
 	const $media = document.querySelector('main>.article>.media')
 	$media.style.alignContent = $media.scrollWidth > window.innerWidth ? 'flex-start' : 'safe center'
 }
-async function db(...path) {
+async function db(domain, ...path) {
 	const response = await fetch(
-		`https://ahs-app.firebaseio.com/${path.join('/')}.json`,
+		`https://${domain}ahs-app.firebaseio.com/${path.join('/')}.json`,
 		{ headers: { 'Content-Type': 'application/json' } },
 	)
-	return await response.json()
+	return response.json()
 }
 async function highlight_schedule({ $schedule, $cell }) {
 	const class_name = 'highlighted-period'
@@ -101,11 +106,14 @@ async function highlight_schedule({ $schedule, $cell }) {
 		{ $cell: $next }
 	 )
 }
-async function internal_link(event) {
-	history.pushState({}, '', event.target.href)
+async function internal_link_event(event) {
+	internal_link(event.target.href)
+	event.preventDefault()
+}
+async function internal_link(url) {
+	history.pushState({}, '', url)
 	show_article()
 	document.activeElement.blur()
-	event.preventDefault()
 }
 async function generate_student_id() {
 	const $form = document.getElementById('id')
