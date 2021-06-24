@@ -65,3 +65,6 @@ article a:hover,
 article a:focus{
 	color: inherit;
 }
+article thead{
+	font-weight: bold;
+}

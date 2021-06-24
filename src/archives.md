@@ -1,7 +1,9 @@
 <table>
 	<thead>
-		<td> Title </td>
-		<td width=10ch> Date </td>
+		<tr>
+			<td> Title </td>
+			<td width=15%%> Date </td>
+		</tr>
 	</thead>
 	<tbody> %s </tbody>
 </table>
