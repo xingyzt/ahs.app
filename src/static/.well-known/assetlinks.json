@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.hsappdev.ahs",
+    "sha256_cert_fingerprints":
+    ["E0:6E:20:0A:CA:A4:6F:7B:81:7D:74:D6:F0:FC:C2:6B:97:9D:64:FB:4F:50:28:5F:35:A0:9D:50:5B:19:84:7F"]
+  }
+}]
