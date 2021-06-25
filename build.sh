@@ -8,10 +8,10 @@ mkdir -p dist
 cat src/css/* > dist/style.css
 
 # copy scripts
-cp -R src/js/* dist/
+cp -RT src/js dist
 
 # copy static assets
-cp -R src/static/* dist/
+cp -RT src/static dist
 
 # insert data into HTML
 html=$(cat src/index.html)
