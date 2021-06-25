@@ -43,7 +43,7 @@ async function show_article() {
 	const article = await db(domain, 'articles', id)
 
 	if (!article && domain) return reset_title()
-	if (!article ) return internal_link(location.href + '?archives')
+	if (!article ) return internal_link(location.href + '?archives', true)
 
 	document.title = article.title
 	$article.querySelector('h2').focus({ preventScroll: true })
@@ -118,11 +118,11 @@ async function highlight_schedule({ $schedule, $cell }) {
 	 )
 }
 async function internal_link_event(event) {
-	internal_link(event.target.href)
+	internal_link(event.target.href, false)
 	event.preventDefault()
 }
-async function internal_link(url) {
-	history.pushState({}, '', url)
+async function internal_link(url, in_place) {
+	history[in_place ? 'replaceState' : 'pushState']({}, '', url)
 	show_article()
 	document.activeElement.blur()
 }

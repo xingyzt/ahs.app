@@ -2,7 +2,7 @@ self.addEventListener('fetch', event => event.respondWith(response(event.request
 self.addEventListener('install', event => event.waitUntil(self.skipWaiting()))
 self.addEventListener('activate', event => event.waitUntil(self.clients.claim()))
 
-const version = 'consent'
+const version = 'pie'
 
 const response = async request => {
 
