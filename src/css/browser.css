@@ -22,7 +22,7 @@
 	color: inherit;
 	opacity: var(--fade);
 	user-select: none;
-	overflow: hidden;
+	overflow: visible;
 }
 .snippet>*{
 	pointer-events: none;
