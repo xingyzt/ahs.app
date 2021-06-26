@@ -5,15 +5,13 @@ main()
 async function main() {
 	show_article()
 
-	document.body
-		.querySelectorAll('a[href^="/"]')
+	document.body.querySelectorAll('a[href^="/"]')
 		.forEach($link=>$link.addEventListener('click', internal_link_event))
 	
 	window.addEventListener('popstate', show_article)
 	window.addEventListener('resize', safe_center)
 
-	document.body
-		.querySelectorAll('.schedule')
+	Array.from(document.getElementsByClassName('schedule'))
 		.forEach($schedule=>highlight_schedule({$schedule}))
 
 	generate_student_id()
@@ -25,19 +23,16 @@ async function reset_title() {
 	document.title = 'ahs.app'
 }
 async function show_article() {
-	const $main = document.body.querySelector('main')
-
-	const $article = clone_template('article')
-	$main.replaceChild($article,$main.firstChild)
+	const $article = document.getElementById('article')
 
 	if(location.hash === '') window.scrollTo(0,0)
 
-	$main.hidden = location.pathname === '/'
-	if($main.hidden) return reset_title()
+	$article.hidden = location.pathname === '/'
+	if($article.hidden) return reset_title()
 
 	const id = rot13(location.pathname.split('/').pop())
 
-	const query = location.search.split('?').pop().split('&')
+	const query = location.search.split('?').pop()
 	const domain = query.includes('archives') ? 'archive-' : ''
 
 	const article = await db(domain, 'articles', id)
@@ -46,20 +41,20 @@ async function show_article() {
 	if (!article ) return internal_link(location.href + '?archives', true)
 
 	document.title = article.title
-	$article.querySelector('h2').focus({ preventScroll: true })
+	document.getElementById('title').focus({ preventScroll: true })
 	for (const property in article) {
-		const element = $article.querySelector('.' + property)
+		const element = document.getElementById(property)
 		if (element) element.innerHTML = article[property]
 	}
 	$article.style.setProperty('--color',article.color)
 	
-	const $media = $article.querySelector('.media')
+	const $media = document.getElementById('media')
 	$media.style.alignContent = 'safe center'
 	$media.append(
 		...await Promise.all(( article.videoIDs || [] ).map( async id => {
 			const $embed = clone_template('youtube')
-			const $checkbox = $embed.querySelector('input')
-			const $video = $embed.querySelector('iframe')
+			const $checkbox = $embed.firstElementChild
+			const $video = $embed.lastElementChild
 
 			const load_video = () => $video.src = $video.dataset.src.replace('[URL]',id)
 			const save_consent = () => localStorage.setItem('youtube-consent','true')
@@ -73,7 +68,7 @@ async function show_article() {
 			}
 			return $embed
 		}).concat(( article.imageURLs || [] ).map( async url => {
-			const $image = clone_template('image')
+			const $image = document.createElement('img')
 			$image.src = url
 			$image.addEventListener('load',safe_center)
 			return $image
@@ -82,7 +77,7 @@ async function show_article() {
 	return true
 }
 async function safe_center() {
-	const $media = document.querySelector('main>.article>.media')
+	const $media = document.getElementById('media')
 	$media.style.alignContent = $media.scrollWidth > window.innerWidth ? 'flex-start' : 'safe center'
 }
 async function db(domain, ...path) {
@@ -112,8 +107,8 @@ async function highlight_schedule({ $schedule, $cell }) {
 
 	const $next = $cell.nextElementSibling
 	 if($next) setTimeout(
-		 highlight_schedule,
-	 	( $next.id*60 - seconds ) * 1000,
+		highlight_schedule,
+		( $next.id*60 - seconds ) * 1000,
 		{ $cell: $next }
 	 )
 }
@@ -128,17 +123,17 @@ async function internal_link(url, in_place) {
 }
 async function generate_student_id() {
 	const $card = document.getElementById('card')
-	const $input = $card.querySelector('input')
-	const $path = $card.querySelector('output>svg>path')
+	const $input = $card.firstElementChild
+	const $path = $card.lastElementChild.firstElementChild.firstElementChild
 	$input.addEventListener('input', async () => {
 		const digits = $input.value.replace(/\D/g,'')
 		if(digits) $path.setAttribute('d', code39(digits))
 	})
 }
 function clone_template(name) {
-	return document.querySelector('.template-' + name)
+	return document.getElementById('template-' + name)
 		.content.cloneNode(true)
-		.querySelector('*')
+		.firstElementChild
 } 
 function rot13(str) {
 	return str.replace( /[a-z]/gi, c =>

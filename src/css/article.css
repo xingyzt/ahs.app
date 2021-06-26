@@ -1,8 +1,8 @@
 
-main[hidden]{
+#article[hidden]{
 	display: none;
 }
-.article{
+#article{
 	display: flex;
 	flex-direction: column;
 	animation: fade-in 200ms ease-out 200ms both;
@@ -12,46 +12,46 @@ main[hidden]{
 	from { opacity: 0 }
 	to { opacity: 1 }
 }
-.article>*{
+#article>*{
 	margin-inline: auto;
 	margin-bottom: 1rem;
 	padding: 0 2rem;
 	width: 40rem;
 	max-width: 100vw;
 }
-.article>h2{
+#title{
 	line-height: 1.2;
 }
-.article>h2:focus{
+#title:focus{
 	outline: 0;
 }
-.article>.carousel{
+#media{
 	width: 100vw;
 	padding-block: 1rem;
 	align-content: safe center;
 }
-.article>.carousel>img{
+#media>img{
 	background-color: var(--color);
 	min-width: 1rem;
 }
-.article>.carousel>.youtube{
+#media>.youtube{
 	width: 28.44rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
-.article>.carousel>.youtube>input:checked,
-.article>.carousel>.youtube>input:checked~label,
-.article>.carousel>.youtube>input:not(:checked)~iframe{
+#media>.youtube>input:checked,
+#media>.youtube>input:checked~label,
+#media>.youtube>input:not(:checked)~iframe{
 	display: none;
 }
-.article>.carousel>.youtube>input{
+#media>.youtube>input{
 	cursor: pointer;
 	width: 5rem;
 	height: 5rem;
 }
-.article>.carousel>.youtube>input::before{
+#media>.youtube>input::before{
 	content: '▶';
 	transition: inherit;
 	display: block;
@@ -62,44 +62,44 @@ main[hidden]{
 	color: var(--link);
 	background: var(--secondary);
 }
-.article>.carousel>.youtube>input:hover::before{
+#media>.youtube>input:hover::before{
 	color: var(--text);
 }
-.article>.carousel>.youtube>label{
+#media>.youtube>label{
 	padding: 1rem;
 }
-.article>.carousel>.youtube>iframe{
+#media>.youtube>iframe{
 	width: 100%;
 	height: 100%;
 }
-.article>.carousel:empty{
+#media:empty{
 	display: none;
 }
-.article>.metadata{
+#article>.metadata{
 	font-style: italic;
 }
-.article>.metadata>.author{
+#author{
 	display: inline;
 }
-.article>.metadata>.author:empty{
+#author:empty{
 	display: none;
 }
-.article>.body{
+#body{
 	line-height: 1.4;
 }
-.article>header{
+#article>header{
 	display: none;
 }
 main>footer{
 	margin: 10rem 0;
 }
-article a{
+#article a{
 	color: var(--link);
 }
-article a:hover,
-article a:focus{
+#article a:hover,
+#article a:focus{
 	color: inherit;
 }
-article thead{
+#article thead{
 	font-weight: bold;
 }

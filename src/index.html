@@ -26,8 +26,24 @@
 <body>
 	<h1><a href=/ > ahs.app </a></h1>
 	<noscript> Please enable JavaScript in order to load full articles. </noscript>
-	<main hidden>
-		<article></article>
+	<main hidden id=article>
+		<h2 id=title tabindex=0>
+			Loading article…
+		</h2>
+		<section id=media class=carousel></section>
+		<section id=metadata>
+			<span>by</span>
+			<address id=author></address>
+			<span>·</span>
+			<time id=date></time>
+		</section>
+		<section id=body>
+			<p> If it’s taking too long, you may have been sent a broken link. </p>
+		</section>
+		<section class=category id=related data-layout=list hidden>
+			<h3>Related</h3>
+			<section class=snippets></section>
+		</section>
 		<footer> ⋮ </footer>
 	</main>
 	<nav>
@@ -87,7 +103,7 @@
 			Articles fetched at <time>%s</time>.
 		</p>
 	</article></footer>
-	<template class=template-youtube>
+	<template id=template-youtube>
 		<section class=youtube>
 			<input type=checkbox id=youtube-cosent>
 			<label for=youtube-consent>
@@ -108,38 +124,12 @@
 			></iframe>
 		</section>
 	</template>
-	<template class=template-image>
-		<img class=image>
-	</template>
-	<template class=template-snippet>
+	<template id=template-snippet>
 		<a class=snippet>
 			<img class=image>
 			<h4></h4>
 			<p></p>
 		</a>
-	</template>
-	<template class=template-article>
-		<article class=article>
-			<h2 class=title heading tabindex=0>
-				Loading article…
-			</h2>
-			<section class='media carousel'></section>
-			<section class=metadata>
-				<span>by</span>
-				<address class=author></address>
-				<span>·</span>
-				<time class=date></time>
-			</section>
-			<section class=body>
-				<p> If it’s taking too long, you may have been sent a broken link. </p>
-			</section>
-			<section class=category id=C-Related data-layout=list hidden>
-				<h3>Related</h3>
-				<section class='related snippets'>
-					
-				</section>
-			</section>
-		</article>
 	</template>
 </body>
 </html>
