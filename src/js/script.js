@@ -33,6 +33,8 @@ async function write_article() {
 		if (element) element.innerHTML = article[property]
 	}
 
+	document.title = article.title
+
 	document.getElementById('article').style.setProperty('--color',article.color)
 	
 	$media.style.alignContent = 'safe center'
@@ -80,7 +82,6 @@ async function show_article() {
 	if (!article) return internal_link(location.href + '?archives', true)
 
 	history.replaceState(article, '')
-	document.title = article.title
 	document.getElementById('title').focus({ preventScroll: true })
 
 	write_article(article)
