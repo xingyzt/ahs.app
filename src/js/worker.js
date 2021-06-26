@@ -2,7 +2,7 @@ self.addEventListener('fetch', event => event.respondWith(response(event.request
 self.addEventListener('install', event => event.waitUntil(self.skipWaiting()))
 self.addEventListener('activate', event => event.waitUntil(self.clients.claim()))
 
-const version = 'cherry'
+const version = 'locusts'
 
 const response = async request => {
 
@@ -27,7 +27,7 @@ const response = async request => {
 		'image/png': year,
 	}
 
-	const cached_time_url = request.url + '?cache_time'
+	const cached_time_url = request.url.split('#').shift() + '?cache_time'
 	let cached_time_response = await cache.match(cached_time_url)
 	const cached_time = cached_time_response ? parseInt(await cached_time_response.text()) : 0
 	cached_time_response = new Response(now.toString())
