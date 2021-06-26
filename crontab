@@ -1,0 +1,2 @@
+*/10 7-23 * * * cd $HOME/ahs.app && git pull && make deploy
+0 0 * * * cd $HOME/ahs.app && git pull && make deploy
