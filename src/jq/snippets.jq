@@ -20,7 +20,7 @@ def rot13: explode | map(
 		( .articleIDs | .? | map( . as $id | $snippets[.] | [
 			( "<a href=/"+(.title|slug)+"/"+($id|rot13)+" style=--color:"+.color+" class=snippet>" ),
 			( select(.thumbURLs and $layout != "list")
-			| "<img src="+.thumbURLs[0]+" crossorigin=anonymous loading=lazy width=180 height=180 alt>" ),
+			| "<img src="+.thumbURLs[0]+" crossorigin loading=lazy width=180 height=180 alt>" ),
 			( "<h4>"+.title+"</h4>" ),
 			( select(.blurb and .blurb != "")
 			| "<p>"+.blurb+"</p>" ),
