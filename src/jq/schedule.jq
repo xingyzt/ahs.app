@@ -1,7 +1,13 @@
 def e: join("");
 
-.[0] as $weekID
-| .[1][$weekID] as $week
+.[0] as $weekIDs
+| .[1] as $weeks
+| $weekIDs[
+	now
+	| strflocaltime("%V")
+	| tonumber - 1
+] as $weekID
+| $weeks[$weekID] as $week
 | $week[
 	now
 	| strflocaltime("%w")
