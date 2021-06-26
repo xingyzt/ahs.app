@@ -130,7 +130,7 @@ async function generate_student_id() {
 	const $card = document.getElementById('card')
 	const $input = $card.querySelector('input')
 	const $path = $card.querySelector('output>svg>path')
-	$input.addEventListener('input', () => {
+	$input.addEventListener('input', async () => {
 		const digits = $input.value.replace(/\D/g,'')
 		if(digits) $path.setAttribute('d', code39(digits))
 	})
