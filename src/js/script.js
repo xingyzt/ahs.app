@@ -127,12 +127,12 @@ async function internal_link(url, in_place) {
 	document.activeElement.blur()
 }
 async function generate_student_id() {
-	const $form = document.getElementById('id')
-	const $input = $form.querySelector('input')
-	const $output = $form.querySelector('output')
+	const $card = document.getElementById('card')
+	const $input = $card.querySelector('input')
+	const $path = $card.querySelector('output>svg>path')
 	$input.addEventListener('input', () => {
 		const digits = $input.value.replace(/\D/g,'')
-		$output.innerHTML = digits ? code39(digits) : ''
+		if(digits) $path.setAttribute('d', code39(digits))
 	})
 }
 function clone_template(name) {
@@ -151,10 +151,7 @@ function slug(title) {
 	return title.replace(/[^\w\d]+/g,'-')
 }
 function code39(digits) {
-	return `
-	<svg viewBox="0 0 208 64">
-	 <path d="M0 0 ${
-	[ 10, ...digits.substr(0,5).padEnd(5,0).split(''), 10 ]
+	return 'M0 0 ' + [ 10, ...digits.substr(0,5).padEnd(5,0).split(''), 10 ]
 	.map(digit=>[
 		'11 001', // 0..9
 		'01 110',
@@ -173,6 +170,4 @@ function code39(digits) {
 	.replace(/0/g,'h2V64h5V0')
 	.replace(/1/g,'h2V64h2V0')
 	.substr(2)
-	} "/>
-</svg>`
 }

@@ -31,11 +31,14 @@
 	display: block;
 	opacity: var(--fade);
 }
-#id>section>output {
+#card>section>input:placeholder-shown~output {
+	display: none;
+}
+#card>section>output {
 	display: block;
 	margin-top: 1rem;
 }
-#id>section>output>svg{
+#card>section>output>svg{
 	background: white;
 	border: 1rem solid white;
 	width: 80vmin;
