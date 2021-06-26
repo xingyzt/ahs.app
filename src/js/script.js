@@ -1,5 +1,10 @@
 'use strict'
 
+let article = history.state || {}
+
+const $article = document.getElementById('article')
+const $media = document.getElementById('media')
+
 main()
 
 async function main() {
@@ -22,35 +27,16 @@ async function main() {
 async function reset_title() {
 	document.title = 'ahs.app'
 }
-async function show_article() {
-	const $article = document.getElementById('article')
-
-	if(location.hash === '') window.scrollTo(0,0)
-
-	$article.hidden = location.pathname === '/'
-	if($article.hidden) return reset_title()
-
-	const id = rot13(location.pathname.split('/').pop())
-
-	const query = location.search.split('?').pop()
-	const domain = query.includes('archives') ? 'archive-' : ''
-
-	const article = await db(domain, 'articles', id)
-
-	if (!article && domain) return reset_title()
-	if (!article ) return internal_link(location.href + '?archives', true)
-
-	document.title = article.title
-	document.getElementById('title').focus({ preventScroll: true })
+async function write_article() {
 	for (const property in article) {
 		const element = document.getElementById(property)
 		if (element) element.innerHTML = article[property]
 	}
-	$article.style.setProperty('--color',article.color)
+
+	document.getElementById('article').style.setProperty('--color',article.color)
 	
-	const $media = document.getElementById('media')
 	$media.style.alignContent = 'safe center'
-	$media.append(
+	$media.replaceChildren(
 		...await Promise.all(( article.videoIDs || [] ).map( async id => {
 			const $embed = clone_template('youtube')
 			const $checkbox = $embed.firstElementChild
@@ -74,6 +60,30 @@ async function show_article() {
 			return $image
 		}))),
 	)
+}
+async function show_article() {
+	if(location.hash === '') window.scrollTo(0,0)
+
+	$article.hidden = location.pathname === '/'
+	if($article.hidden) return reset_title()
+
+	write_article(article)
+
+	const id = rot13(location.pathname.split('/').pop())
+
+	const query = location.search.split('?').pop()
+	const domain = query.includes('archives') ? 'archive-' : ''
+
+	article = await db(domain, 'articles', id)
+
+	if (!article && domain) return reset_title()
+	if (!article) return internal_link(location.href + '?archives', true)
+
+	history.replaceState(article, '')
+	document.title = article.title
+	document.getElementById('title').focus({ preventScroll: true })
+
+	write_article(article)
 	return true
 }
 async function safe_center() {
@@ -113,11 +123,24 @@ async function highlight_schedule({ $schedule, $cell }) {
 	 )
 }
 async function internal_link_event(event) {
+
+
+	const $title = event.target.querySelector('h4')
+	const $image = event.target.querySelector('img')
+	const $blurb = event.target.querySelector('p')
+
+	article = {
+		title: $title ? $title.textContent : 'Loading article',
+		imageURLs: $image ? [ $image.src ] : [],
+		body: $blurb ? $blurb.textContent : '',
+	}
+	article.color = event.target.style.getPropertyValue('--color')
+
 	internal_link(event.target.href, false)
 	event.preventDefault()
 }
 async function internal_link(url, in_place) {
-	history[in_place ? 'replaceState' : 'pushState']({}, '', url)
+	history[in_place ? 'replaceState' : 'pushState'](article, '', url)
 	show_article()
 	document.activeElement.blur()
 }
