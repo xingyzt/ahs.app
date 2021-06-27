@@ -28,17 +28,20 @@ async function reset_title() {
 	document.title = 'ahs.app'
 }
 async function write_article() {
+
+	document.title = article.title
+
 	for (const property in article) {
 		const element = document.getElementById(property)
 		if (element) element.innerHTML = article[property]
 	}
 
-	document.title = article.title
-
 	document.getElementById('article').style.setProperty('--color',article.color)
 	
 	$media.style.alignContent = 'safe center'
-	$media.replaceChildren(
+
+	while($media.firstChild) $media.firstChild.remove()
+	$media.append(
 		...await Promise.all(( article.videoIDs || [] ).map( async id => {
 			const $embed = clone_template('youtube')
 			const $checkbox = $embed.firstElementChild
