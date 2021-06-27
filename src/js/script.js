@@ -149,9 +149,8 @@ async function internal_link(url, in_place) {
 	document.activeElement.blur()
 }
 async function generate_student_id() {
-	const $card = document.getElementById('card')
-	const $input = $card.firstElementChild
-	const $path = $card.lastElementChild.firstElementChild.firstElementChild
+	const $input = document.getElementById('student-id')
+	const $path = document.getElementById('barcode-path')
 	$input.addEventListener('input', async () => {
 		const digits = $input.value.replace(/\D/g,'')
 		if(digits) $path.setAttribute('d', code39(digits))
