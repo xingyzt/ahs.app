@@ -82,18 +82,8 @@
 #body{
 	line-height: 1.4;
 }
-#article>header{
-	display: none;
-}
-main>footer{
+#article>footer{
 	margin: 10rem 0;
-}
-#article a{
-	color: var(--link);
-}
-#article a:hover,
-#article a:focus{
-	color: inherit;
 }
 #article thead{
 	font-weight: bold;

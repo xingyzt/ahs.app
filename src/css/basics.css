@@ -22,3 +22,7 @@ body>footer{
 label {
 	user-select: none;
 }
+#article a,
+#footer a {
+	color: var(--link);
+}

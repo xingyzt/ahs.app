@@ -9,6 +9,7 @@ a:hover,
 a:focus {
 	text-decoration: underline;
 	--color: var(--text) !important;
+	color: inherit;
 	outline: 0;
 	opacity: 1 !important;
 }
