@@ -127,8 +127,6 @@ async function highlight_schedule({ $schedule, $cell }) {
 	 )
 }
 async function internal_link_event(event) {
-
-
 	const $title = event.target.querySelector('h4')
 	const $image = event.target.querySelector('img')
 	const $blurb = event.target.querySelector('p')
@@ -152,8 +150,8 @@ async function generate_student_id() {
 	const $input = document.getElementById('student-id')
 	const $path = document.getElementById('barcode-path')
 	$input.addEventListener('input', async () => {
-		const digits = $input.value.replace(/\D/g,'')
-		if(digits) $path.setAttribute('d', code39(digits))
+		const digits = parseInt($input.value) || 0
+		$path.setAttribute('d', code39(digits))
 	})
 }
 function clone_template(name) {
@@ -172,23 +170,44 @@ function slug(title) {
 	return title.replace(/[^\w\d]+/g,'-')
 }
 function code39(digits) {
-	return 'M0 0 ' + [ 10, ...digits.substr(0,5).padEnd(5,0).split(''), 10 ]
-	.map(digit=>[
-		'11 001', // 0..9
-		'01 110',
-		'10 110',
-		'00 111',
-		'11 010',
-		'01 011',
-		'10 011',
-		'11 100',
-		'01 101',
-		'10 101',
-		'1 1001', // *
-	][digit])
-	.join('')
-	.replace(/ /g,'h4')
-	.replace(/0/g,'h2V64h5V0')
-	.replace(/1/g,'h2V64h2V0')
-	.substr(2)
+	const length = 5
+	const size = 6
+	// Represent each digit as a set of narrow bands,
+	// wide bands, and spaces.
+	//
+	// Each of those occupies two digits in a binary
+	// integer.
+	//
+	// 00 = 0: white space
+	// 01 = 1: narrow band
+	// 10 = 2: wide band
+	const delimiter = 0b01_00_01_10_10_01
+	const code = [
+		0b01_01_00_10_10_01,
+		0b10_01_00_01_01_10,
+		0b01_10_00_01_01_10,
+		0b10_10_00_01_01_01,
+		0b01_01_00_10_01_10,
+		0b10_01_00_10_01_01,
+		0b01_10_00_10_01_01,
+		0b01_01_00_01_10_10,
+		0b10_01_00_01_10_01,
+		0b01_10_00_01_10_01,
+	]
+	const pattern = new Uint16Array(length+2)
+	pattern[0] = pattern[length+1] = delimiter
+	let path = ''
+	for(let i = length; i > 0; i--){
+	 pattern[i] = code[digits % 10]
+	 digits = Math.floor(digits/10)
+	}
+	for(let i = 0; i < length + 2; i++){
+	  const digit = pattern[i]
+	  for(let j = size-1; j >= 0; j--){
+		 const type = digit >> 2*j & 0b11
+		 path += ['h4','h2V64h2V0','h2V64h5V0'][type]
+	  }
+	}
+	path = path.substr(2)
+	return 'M0,0' + path
 }

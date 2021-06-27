@@ -31,14 +31,15 @@
 	display: block;
 	opacity: var(--fade);
 }
-#card>section>input:placeholder-shown~output {
+#student-id{
+	text-align: right;
+}
+#student-id:placeholder-shown~#barcode {
 	display: none;
 }
-#card>section>output {
+#barcode {
 	display: block;
 	margin-top: 1rem;
-}
-#card>section>output>svg{
 	background: white;
 	border: 1rem solid white;
 	width: 80vmin;

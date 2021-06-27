@@ -83,7 +83,7 @@
 	line-height: 1.4;
 }
 #article>footer{
-	margin: 10rem 0;
+	margin: 10rem auto;
 }
 #article thead{
 	font-weight: bold;

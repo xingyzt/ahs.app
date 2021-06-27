@@ -10,7 +10,7 @@ body * {
 	transition-duration: 100ms;
 }
 .category>section,
-.footer {
+#footer {
 	padding: 0 2rem;
 }
 footer{
