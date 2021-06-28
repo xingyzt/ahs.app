@@ -1,4 +1,4 @@
-def e: join("");
+def n: join("");
 
 .[0] as $weekIDs
 | .[1] as $weeks
@@ -18,21 +18,15 @@ def e: join("");
 ( $schedule.timestamps
 | ( .[-1] - .[0] ) as $span
 | to_entries
-| [ "<table><td id=0></td>" ]
-+ map([
-	( "<td id=" ),
-	( .value ),
-	( " width=" ),
-	( 
+| "<table><td id=0></td>"
++ map("
+	<td id=\(.value) width=\( 
 		( ($schedule.timestamps + [.value])[.key+1] - .value )
 		/ $span * 100 * 100
 		| floor / 100
-	),
-	( "%%>" ),
-	( "<time>" ),
-	( .value*60 | strftime("%l:%M" ) ),
-	( "</time>" ),
-	( "</td>" )
-] |e )
-+ [ "</table>" ]
-|e ) else "<p>"+$scheduleID+"</p>" end
+	) %%>
+		<time>\( .value*60 | strftime("%l:%M" ) )</time>
+	</td>
+") |n
++ "</table>"
+|n ) else "<p>"+$scheduleID+"</p>" end
