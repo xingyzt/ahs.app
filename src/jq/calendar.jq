@@ -1,23 +1,23 @@
 def n: join("\n");
 def e: join("");
 
-.[0] as $scheduleIDs
-| .[1] as $schedules
-| $scheduleIDs | map( . as $id | $schedules[.] | [
-	( "<section id="+$id+" class=schedule>" ),
-	( "<h4><a href=#"+$id+">"+.title+"</a></h4>" ),
-	( .timestamps 
-	| . as $timestamps
+.[0] as $schedules
+| $schedules
+| to_entries
+| map( .key as $scheduleID | .value | [
+	( "<section id="+$scheduleID+" class=schedule>" ),
+	( "<h4><a href=#"+$scheduleID+">"+$scheduleID+"</a></h4>" ),
+	( . as $schedule
 	| ( .[-1] - .[0] ) as $span
 	| to_entries
 	| [
-		( "<table><td data-timestamp=0></td>" ),
+		( "<table><td id=0></td>" ),
 		( . | map( [
-			( "<td data-timestamp=" ),
+			( "<td id=" ),
 			( .value ),
 			( " width=" ),
 			( 
-				( ($timestamps + [.value])[.key+1] - .value )
+				( ($schedule + [.value])[.key+1] - .value )
 				/ $span * 100 * 100
 				| floor / 100
 			),
