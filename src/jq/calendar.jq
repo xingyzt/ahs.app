@@ -1,33 +1,16 @@
 def n: join("\n");
 def e: join("");
 
-.[0] as $schedules
-| $schedules
-| to_entries
-| map( .key as $scheduleID | .value | [
-	( "<section id="+$scheduleID+" class=schedule>" ),
-	( "<h4><a href=#"+$scheduleID+">"+$scheduleID+"</a></h4>" ),
-	( . as $schedule
-	| ( .[-1] - .[0] ) as $span
-	| to_entries
-	| [
-		( "<table><td id=0></td>" ),
-		( . | map( [
-			( "<td id=" ),
-			( .value ),
-			( " width=" ),
-			( 
-				( ($schedule + [.value])[.key+1] - .value )
-				/ $span * 100 * 100
-				| floor / 100
-			),
-			( "%%>" ),
-			( "<time>" ),
-			( .value*60 | strftime("%l:%M" ) ),
-			( "</time>" ),
-			( "</td>" )
-		] |e ) |e ),
-	( "</table>" )
-	] |e ),
-	( "</section>" )
+.[0] as $weekIDs
+| .[1] as $weeks
+| .[2] as $schedules
+| $weekIDs | to_entries
+| map( $weeks[.value].scheduleIDs | to_entries | [
+	( "<tr class=week>" ),
+	( . | to_entries | map([
+		( "<td class=day>" ),
+		( .key ),
+		( "</td>" )
+	] |n ) | n ),
+	( "</tr>" )
 ] |n ) |n
