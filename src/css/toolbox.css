@@ -44,4 +44,9 @@
 	border: 1rem solid white;
 	width: 80vmin;
 }
-
+#calendar td{
+	width: 5rem;
+	background-color: var(--color);
+	color: white;
+	text-align: center;
+}

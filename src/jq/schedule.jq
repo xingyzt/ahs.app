@@ -13,9 +13,10 @@ def n: join("");
 	| strflocaltime("%w")
 	| tonumber
 ] as $scheduleID
-| .[2][$scheduleID] as $schedule
-| if $schedule then 
-( $schedule.timestamps
+| .[2][$scheduleID]
+| . as $schedule
+| if .timestamps then 
+( .timestamps
 | ( .[-1] - .[0] ) as $span
 | to_entries
 | "<table><td id=0></td>"
@@ -29,4 +30,4 @@ def n: join("");
 	</td>
 ") |n
 + "</table>"
-|n ) else "<p>"+$scheduleID+"</p>" end
+|n ) else "<p>"+.title+"</p>" end

@@ -4,10 +4,18 @@ def n: join("");
 | .[1] as $weeks
 | .[2] as $schedules
 | $weekIDs | to_entries
-| map( $weeks[.value].scheduleIDs | to_entries | "
+| map( .key as $weekN | $weeks[.value] | "
 	<tr class=week>
-	\( . | to_entries | map("
-		<td class=day>\(.key)</td>
+	\( .scheduleIDs | to_entries | map( .key as $dayN | .value as $weekID | $schedules[.value] | "
+		<td class=day title='\(.title)' style=--color:\(.color)>
+			\(if .timestamps then "<a href=#\($weekID)>" else "" end)
+			\([
+				2021, 0,
+				$weekN*7 + $dayN- ( [ 2021, 0, 3, 0, 0, 0, 0, 0] | mktime | strftime("%u") | tonumber - 3 ),
+				0, 0, 0, 0, 0
+			] | mktime | strftime("%e"))
+			\(if .timestamps then "</a>" else "" end)
+		</td>
 	") |n )
 	</tr>
 ") |n
