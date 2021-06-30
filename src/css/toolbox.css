@@ -1,6 +1,9 @@
 .schedule{
 	margin: 1rem 0;
 }
+.schedule h4{
+	font-weight: normal;
+}
 .schedule p {
 	text-align: center;
 }
@@ -47,6 +50,7 @@
 #calendar>section>*{
 	display: grid;
 	grid-template-columns: repeat(7, 2rem) 1fr;
+	max-width: 20rem;
 	grid-gap: 0.2rem;
 }
 #calendar-labels>*{
@@ -62,7 +66,7 @@
 .day{
 	display: flex;
 	justify-content: center;
-	text-align: center;
+	align-items: center;
 	border: 0.1rem dashed var(--color);
 	background: transparent;
 	scroll-snap-align: none;

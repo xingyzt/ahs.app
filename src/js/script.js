@@ -110,7 +110,7 @@ async function highlight_schedule({ $schedule, $cell }) {
 
 	if(!$cell) $cell = Array.from($schedule.querySelectorAll('td'))
 		.reverse()
-		.find(x=>parseInt(x.id)<=minutes)
+		.find(x=>parseInt(x.dataset.timestamp)<=minutes)
 
 	if(!$cell) return
 
@@ -122,7 +122,7 @@ async function highlight_schedule({ $schedule, $cell }) {
 	const $next = $cell.nextElementSibling
 	 if($next) setTimeout(
 		highlight_schedule,
-		( $next.id*60 - seconds ) * 1000,
+		( parseInt($next.dataset.timestamp)*60 - seconds ) * 1000,
 		{ $cell: $next }
 	 )
 }

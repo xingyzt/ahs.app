@@ -12,7 +12,7 @@ def n: join("");
 | ( now | strftime("%w") | tonumber ) as $now_DoW
 | ( $now_Y - ( if $now_MoY < 6 then 1 else 0 end ) ) as $start_Y
 | ( [ $start_Y, 6, 1, 0, 0, 0, 0, 0 ] | mktime | strftime("%w") | tonumber | 1 - . ) as $start_day 
-| ( [ range($start_day;365) ] | map([ $start_Y, 6, ., 0, 0, 0, 0, 0 ] | mktime ) ) as $day_timestamps
+| ( [ range($start_day;$start_day+49*7) ] | map([ $start_Y, 6, ., 0, 0, 0, 0, 0 ] | mktime ) ) as $day_timestamps
 | $day_timestamps
 | map( .
 	| ( strftime("%m") | tonumber ) as $MoY
