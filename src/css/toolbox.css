@@ -45,8 +45,11 @@
 	width: 80vmin;
 }
 #calendar td{
-	width: 5rem;
+	width: 2rem;
 	background-color: var(--color);
 	color: white;
 	text-align: center;
+}
+#calendar td>a[href]{
+	color: black;
 }

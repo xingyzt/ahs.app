@@ -1,4 +1,4 @@
-build: download cache-build
+build: download build-cache
 	:
 
 build-cache:

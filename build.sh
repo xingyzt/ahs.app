@@ -19,7 +19,7 @@ schedule=$(jq -sfr src/jq/schedule.jq /tmp/weekIDs.json /tmp/weeks.json /tmp/sch
 schedules=$(jq -sfr src/jq/schedules.jq /tmp/scheduleIDs.json /tmp/schedules.json)
 calendar=$(jq -sfr src/jq/calendar.jq /tmp/weekIDs.json /tmp/weeks.json /tmp/schedules.json)
 
-time=$(TZ="US/Pacific date date" date +"%l:%M %P Pacific Time")
+time=$(TZ="US/Pacific" date +"%l:%M %P Pacific Time")
 
 printf "$html" "$schedule" "$snippets" "$schedules" "$calendar" "$time" > dist/index.html
 
