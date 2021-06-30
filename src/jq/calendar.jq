@@ -24,17 +24,16 @@ def n: join("");
 	| . as $scheduleID
 	| $schedules[.]
 	| "
-	\( if $DoW == 0 then "<tr>" else "" end )
-		<td><a
-			class='day
-			\( if $MoY % 2 == 0 then "even-month" else "" end)
-			\( if $DoY == $now_DoY then "current-day" else "" end)
-			'
-			title='\(.title)'
-			style=--color:\(.color)
-			\(if .timestamps then "href=#\($scheduleID)" else "" end)
-		>
-			\( $DoM )
-		</a></td>
-	\( if $DoW == 6 then "</tr>" else "" end )
+	<a
+		class='day
+		\( if $MoY % 2 == 0 then "even-month" else "" end)
+		\( if $DoY == $now_DoY then "current-day" else "" end)
+		\( if $DoM == 1 then "first-day" else "" end)
+		'
+		title='\(.title)'
+		style='--color:\(.color);--image:url(\(.iconURL))'
+		\(if .timestamps then "href=#\($scheduleID)" else "" end)
+	>
+		\( $DoM )
+	</a>
 ") |n

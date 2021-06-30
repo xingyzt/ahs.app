@@ -1,4 +1,4 @@
-.week, .schedule {
+.schedule{
 	margin: 1rem 0;
 }
 .schedule p {
@@ -44,27 +44,48 @@
 	border: 1rem solid white;
 	width: 80vmin;
 }
-#calendar table{
-	border-spacing: 0.2rem;
+#calendar>section>*{
+	display: grid;
+	grid-template-columns: repeat(7, 2rem);
+}
+#calendar-labels>*{
+	text-align: center;
+}
+#calendar-days{
+	height: 10rem;
+	overflow: hidden scroll;
+	grid-auto-rows: 2rem;
+	scroll-snap-type: y mandatory;
+	overflow-y: scroll;
 }
 .day{
+	display: flex;
+	justify-content: center;
 	text-align: center;
+	border: 0.1rem solid var(--color);
+	background: transparent;
+	margin: 0.1rem;
+	scroll-snap-align: none;
+}
+.day:hover,
+.day:focus,
+.day.current-day{
+	border-width: 0.2rem;
+	background: var(--color) !important;
+	color: transparent !important;
+	mask-size: cover;
+	mask-repeat: no-repeat;
+	mask-position: center;
+	mask-size: 90%;
+	mask-image: var(--image);
+	-webkit-mask-position: center;
+	-webkit-mask-repeat: no-repeat;
+	-webkit-mask-size: 90%;
+	-webkit-mask-image: var(--image);
 }
 .day.even-month{
 	background: var(--highlight);
 }
-.day{
-	display: block;
-	text-align: center;
-	width: 2rem;
-	height: 2rem;
-	line-height: 1.8rem;
-	border: 0.1rem solid var(--color);
-}
-.day.current-day,
-.day:hover,
-.day:focus-within{
-	border-width: 0.2rem;
-	line-height: 1.6rem;
-	border-color: var(--color) !important;
+.day.first-day{
+	scroll-snap-align: start;
 }
