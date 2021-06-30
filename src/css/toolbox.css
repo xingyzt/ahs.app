@@ -44,12 +44,27 @@
 	border: 1rem solid white;
 	width: 80vmin;
 }
-#calendar td{
-	width: 2rem;
-	background-color: var(--color);
-	color: white;
+#calendar table{
+	border-spacing: 0.2rem;
+}
+.day{
 	text-align: center;
 }
-#calendar td>a[href]{
-	color: black;
+.day.even-month{
+	background: var(--highlight);
+}
+.day{
+	display: block;
+	text-align: center;
+	width: 2rem;
+	height: 2rem;
+	line-height: 1.8rem;
+	border: 0.1rem solid var(--color);
+}
+.day.current-day,
+.day:hover,
+.day:focus-within{
+	border-width: 0.2rem;
+	line-height: 1.6rem;
+	border-color: var(--color) !important;
 }

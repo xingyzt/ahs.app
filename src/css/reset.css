@@ -5,10 +5,10 @@ a {
 	color: inherit;
 	text-decoration: none;
 }
-a:hover,
-a:focus {
+a[href]:hover,
+a[href]:focus {
 	text-decoration: underline;
-	--color: var(--text) !important;
+	border-color: var(--text);
 	color: inherit;
 	outline: 0;
 	opacity: 1 !important;
