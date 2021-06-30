@@ -32,7 +32,7 @@ def n: join("");
 		\( if $DoY == $now_DoY then "current-day" else "" end)
 		\( if $DoM == 1 then "first-day" else "" end)
 		'
-		title='\(.title)'
+		aria-label='\(.title)'
 		style='--color:\(.color);--image:url(\(.iconURL))'
 		\( if .timestamps then "href=#\($scheduleID)" else "" end )
 	>
