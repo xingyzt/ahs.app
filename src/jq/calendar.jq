@@ -19,7 +19,9 @@ def n: join("");
 	| ( strftime("%U") | tonumber ) as $WoY
 	| ( strftime("%j") | tonumber ) as $DoY
 	| ( strftime("%d") | tonumber ) as $DoM
+	| ( ( $DoM - 1 ) / 7 | floor) as $WoM
 	| ( strftime("%w") | tonumber ) as $DoW
+	| ( strftime("%b ’%y") ) as $MoY_name
 	| $weeks[ $weekIDs[ $WoY ] ].scheduleIDs[ $DoW ]
 	| . as $scheduleID
 	| $schedules[.]
@@ -32,8 +34,13 @@ def n: join("");
 		'
 		title='\(.title)'
 		style='--color:\(.color);--image:url(\(.iconURL))'
-		\(if .timestamps then "href=#\($scheduleID)" else "" end)
+		\( if .timestamps then "href=#\($scheduleID)" else "" end )
 	>
 		\( $DoM )
 	</a>
+	\( if $DoW == 6 then "
+	<label>
+		\( if $WoM == 0 then $MoY_name else "" end )
+	</label>
+	" else "" end )
 ") |n

@@ -21,7 +21,8 @@ calendar=$(jq -sfr src/jq/calendar.jq /tmp/weekIDs.json /tmp/weeks.json /tmp/sch
 
 time=$(TZ="US/Pacific" date +"%l:%M %P Pacific Time")
 
-printf "$html" "$schedule" "$snippets" "$schedules" "$calendar" "$time" > dist/index.html
+printf "$html" "$schedule" "$snippets" "$schedules" "$calendar" "$time" | sed 's/	*//g' \
+	> dist/index.html
 
 echo "
 built site"
