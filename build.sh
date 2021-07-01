@@ -21,7 +21,9 @@ schedules=$(jq -sfr src/jq/schedules.jq /tmp/scheduleIDs.json /tmp/schedules.jso
 
 time=$(TZ="US/Pacific" date +"%l:%M %P Pacific Time")
 
-printf "$html" "$schedule" "$snippets" "$calendar" "$schedules" "$time" | sed 's/	*//g' \
+printf "$html" "$schedule" "$snippets" "$calendar" "$schedules" "$time" \
+	| tr -d '\t' \
+	| tr -s '\n' ' ' \
 	> dist/index.html
 
 echo "
