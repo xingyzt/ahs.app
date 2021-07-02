@@ -1,16 +1,18 @@
-#calendar>section>*{
+#calendar-labels,
+#calendar-days {
 	display: grid;
 	grid-template-columns: repeat(7, 2rem) 1fr;
 	max-width: 24rem;
 	grid-gap: 0.2rem;
 }
-#calendar-labels>*{
+#calendar-labels {
+	grid-template-rows: 1fr;
 	text-align: center;
 }
 #calendar-days{
 	height: 11rem;
 	overflow: hidden scroll;
-	grid-auto-rows: 2rem;
+	grid-template-rows: repeat(49, 2rem);
 	scroll-snap-type: y mandatory;
 	overflow-y: scroll;
 }
