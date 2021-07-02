@@ -1,4 +1,4 @@
-const version = 'garlic'
+const version = 'cardinal'
 
 self.addEventListener('fetch', event => event.respondWith(response(event.request)))
 self.addEventListener('install', event => event.waitUntil(self.skipWaiting()))
@@ -7,7 +7,7 @@ self.addEventListener('activate', event => event.waitUntil(self.clients.claim())
 self.addEventListener('activate', event => event.waitUntil(
 	 caches.keys().then( keys => Promise.all(
 		keys.filter(key => key !== version)
-		.map(caches.delete)
+		.map(caches.delete.bind(caches))
     ))
 ))
 

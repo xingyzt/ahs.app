@@ -54,14 +54,16 @@
 			<h2><a href=#tools>Tools</a></h2>
 			<section id=card style=--color:#888 data-layout=tool class=category>
 				<h3><a href=#card>ID Card</a></h3>
-				<section>
-					<input id=student-id type=number min=10000 max=99999 placeholder=12345> 
-					<output for=student-id>
-						<svg id='barcode' viewBox='0 0 208 64'>
-							<path id='barcode-path' d=''/>
+				<button id=card-button>
+					<label id=card-canvas>
+						<input readonly id=card-given-name placeholder='Digital ID card'>
+						<input readonly id=card-family-name placeholder='Tap to sign in'>
+						<svg id=card-barcode viewbox='0 0 208 64' width=208 height=64>
+							<path id='card-barcode-path' d='M0,0V64h2V0h4h2V64h2V0h2V64h5V0h2V64h5V0h2V64h2V0h2V64h2V0h2V64h2V0h4h2V64h5V0h2V64h5V0h2V64h2V0h2V64h2V0h2V64h2V0h4h2V64h5V0h2V64h5V0h2V64h2V0h2V64h2V0h2V64h2V0h4h2V64h5V0h2V64h5V0h2V64h2V0h2V64h2V0h2V64h2V0h4h2V64h5V0h2V64h5V0h2V64h2V0h2V64h2V0h2V64h2V0h4h2V64h5V0h2V64h5V0h2V64h2V0h2V64h2V0h4h2V64h2V0h2V64h5V0h2V64h5V0h2V64h2V0'/>
 						</svg>
-					</output>
-				</section>
+						<img id=card-photo src=/icon.png width=64 height=64>
+					</label>
+				</button>
 			</section>
 			<section id=calendar style=--color:#986cc9 data-layout=tool class=category>
 				<h3><a href=#calendar>Calendar</a></h3>

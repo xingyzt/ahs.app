@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang=en-US dir=ltr>
+<head>
+	<meta charset=utf-8>
+
+	<title>Signing in...</title>
+	<meta name=color-scheme content='light dark'>
+	<link rel=icon type=image/png href=/icon.png>
+	<link rel=preload href=/fonts/besley-700.ttf as=font crossorigin>
+
+	<style>
+@font-face {
+	font-family: besley;
+	src: url('/fonts/besley-700.ttf');
+	font-weight: bold;
+	font-display: swap;
+}
+html {
+	font-size: calc(1vmin + 8pt);
+	background: #f8f8f8;
+	color: black;
+}
+@media screen and (prefers-color-scheme: dark){
+	html {
+		background: #112;
+		color: #eee;
+	}
+}
+body {
+	max-width: 32rem;
+	margin: 0 auto;
+}
+h1 {
+	font-family: besley, monospace;
+	font-weight: bold;
+	line-height: 1.3;
+}
+	</style>
+	<script src=/sign-in-with-google.js async defer></script>
+</head>
+<body>
+	<h1> Signing in... </h1>
+</body>
+</html>

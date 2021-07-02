@@ -147,12 +147,62 @@ async function internal_link(url, in_place) {
 	document.activeElement.blur()
 }
 async function generate_student_id() {
-	const $input = document.getElementById('student-id')
-	const $path = document.getElementById('barcode-path')
-	$input.addEventListener('input', async () => {
-		const digits = parseInt($input.value) || 0
-		$path.setAttribute('d', code39(digits))
+	const $button = document.getElementById('card-button')
+	const $barcode = document.getElementById('card-barcode-path')
+	const $photo = document.getElementById('card-photo')
+	const $given_name = document.getElementById('card-given-name')
+	const $family_name = document.getElementById('card-family-name')
+
+	let signed_in = false
+
+	$button.addEventListener('click', async () => {
+		if(signed_in) {
+			$given_name.value = $family_name.value = ''
+			$photo.src = '/icon.png'
+			$barcode.setAttribute('d',code39(0))
+		} else {
+			const { email, given_name, family_name, picture } = JSON.parse(await google_sign_in())
+
+			$given_name.value = given_name || ''
+			$family_name.value = family_name || ''
+
+			const email_match = email.match(/^(\d{5})@students\.ausd\.net$/)
+			if(email_match === null) return 'Student ID not found in email address'
+			const student_id = parseInt(email_match[1])
+			$barcode.setAttribute('d',code39(student_id))
+
+			const photoURL = picture || '/icon.png'
+			$photo.src = photoURL
+		}
+		signed_in = !signed_in
 	})
+}
+async function google_sign_in() {
+	const endpoint = "https://accounts.google.com/o/oauth2/v2/auth?"
+	const params = {
+		scope: [ 'email', 'profile' ].map( x => "https://www.googleapis.com/auth/userinfo." + x ).join(' '),
+		response_type: 'token',
+		redirect_uri: 'https://ahs.app/sign-in-with-google.html',
+		client_id: '654225823864-s4jptjh81bomn3dl99v7c04dpr8sqoqs.apps.googleusercontent.com',
+		hd: 'students.ausd.net',
+	}
+	const url = endpoint + Object.entries(params)
+	.map( ([key,value]) => key + '=' + encodeURIComponent(value) ).join('&')
+
+	const storage_key = 'google-user-info'
+	localStorage.removeItem(storage_key)
+	window.open(url, '_blank')
+
+	return new Promise(resolve => {
+		const refresh = setInterval(() => {
+			const user_info = localStorage.getItem(storage_key)
+			if(user_info === null) return false
+			clearInterval(refresh)
+			resolve(user_info)
+		}, 100)
+	})
+}
+async function google_sign_out(){
 }
 function clone_template(name) {
 	return document.getElementById('template-' + name)
