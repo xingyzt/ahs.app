@@ -38,6 +38,7 @@
 #card-given-name::placeholder,
 #card-family-name::placeholder {
 	color: inherit;
+	opacity: 1;
 }
 #card-given-name {
 	top: 3vmin;

@@ -163,16 +163,20 @@ async function generate_student_id() {
 		} else {
 			const { email, given_name, family_name, picture } = JSON.parse(await google_sign_in())
 
-			$given_name.value = given_name || ''
-			$family_name.value = family_name || ''
 
 			const email_match = email.match(/^(\d{5})@students\.ausd\.net$/)
-			if(email_match === null) return 'Student ID not found in email address'
-			const student_id = parseInt(email_match[1])
-			$barcode.setAttribute('d',code39(student_id))
+			if(email_match === null) {
+				$given_name.value = ':('
+				$family_name.value = 'Cannot find ID'
+			} else {
+				$given_name.value = given_name || ''
+				$family_name.value = family_name || ''
 
-			const photoURL = picture || '/icon.png'
-			$photo.src = photoURL
+				const student_id = parseInt(email_match[1])
+				$barcode.setAttribute('d',code39(student_id))
+
+				if(picture) $photo.src = picture.replace(/=s\d+-c$/,'=s256-c')
+			}
 		}
 		signed_in = !signed_in
 	})
@@ -198,6 +202,7 @@ async function google_sign_in() {
 			const user_info = localStorage.getItem(storage_key)
 			if(user_info === null) return false
 			clearInterval(refresh)
+			localStorage.removeItem(storage_key)
 			resolve(user_info)
 		}, 100)
 	})
