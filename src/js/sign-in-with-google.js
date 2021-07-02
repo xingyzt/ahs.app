@@ -1,5 +1,7 @@
 'use strict'
 
+main()
+
 async function main() {
 	const access_token = location.hash.split('=')[1].split('&')[0]
 	const endpoint = 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json'
@@ -10,5 +12,3 @@ async function main() {
 	window.localStorage.setItem('google-user-info', user_info)
 	window.close()
 }
-main()
-
