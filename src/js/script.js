@@ -148,12 +148,24 @@ async function internal_link(url, in_place) {
 }
 async function generate_student_id() {
 	const $button = document.getElementById('card-button')
-	const $barcode = document.getElementById('card-barcode')
-	const $barcode_path = document.getElementById('card-barcode-path')
-	const $photo = document.getElementById('card-photo')
-	const $text = document.getElementById('card-text')
+	const $canvas = document.getElementById('card-canvas')
+	const $shadow = $canvas.attachShadow({ mode: 'closed' })
 
-	$barcode.id = $barcode_path.id = $photo.id = $text.id = ''
+	const svgNS = 'http://www.w3.org/2000/svg'
+
+	const $barcode = document.createElementNS(svgNS, 'svg')
+	$barcode.setAttribute('viewBox', '0 0 208 64')
+	$barcode.setAttribute('width', '208')
+	$barcode.setAttribute('height', '64')
+
+	const $barcode_path = document.createElementNS(svgNS, 'path')
+	$barcode.append($barcode_path)
+
+	const $photo = document.createElement('img')
+	const $text = document.createElement('section')
+
+	const $$children = [ $barcode, $photo, $text ]
+	$shadow.append(...$$children)
 
 	let email = ''
 	let given_name = 'Digital ID card'
@@ -169,11 +181,10 @@ async function generate_student_id() {
 	$text.style.left = '4em'
 
 	$barcode.style.border = $photo.style.border = '2em solid white'
-
 	$barcode.style.backgroundColor = $photo.style.backgroundColor = 'white'
 
-	$barcode.style.width = '56em'
-	$barcode.style.height = '20em'
+	$barcode.style.width = '52em'
+	$barcode.style.height = '16em'
 	$barcode.style.borderRadius = '1em'
 	$barcode.style.bottom = '4em'
 	$barcode.style.left = '4em'
@@ -182,9 +193,11 @@ async function generate_student_id() {
 	$photo.style.height = '24em'
 	$photo.style.top = '4em'
 	$photo.style.right = '4em'
-	$photo.style.borderRadius = '12em'
+	$photo.style.borderRadius = '24em'
 	$photo.style.borderWidth = '1em'
 
+	$$children.forEach( $child => $child.style.position = 'absolute')
+	
 	async function google_sign_in() {
 		const endpoint = "https://accounts.google.com/o/oauth2/v2/auth?"
 		const params = {
@@ -265,7 +278,6 @@ async function generate_student_id() {
 			$element.textContent = text
 			$element.style.fontSize = '6em'
 			$element.style.margin = '0'
-			$element.contentEditable = false
 			return $element
 		}))
 		$text.lastChild.style.fontSize = '3em'
