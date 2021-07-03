@@ -14,7 +14,7 @@ def rot13: explode | map(
 	<section id=\($id) class=location>
 		<h2><a href=#\($id)>\(.title)</a></h2>
 		\( .categoryIDs | map( . as $id | $categories[.] | select( .visible ) | .layout as $layout | "
-			<section id=\($id) style=--color:\(.color) data-layout=\($layout) class=category>
+			<section id=\($id) style=--color:\(.color) class='category layout-\($layout)'>
 				<h3><a href=#\($id)>\(.title)</a></h3>
 				<section class=snippets>
 				\( .articleIDs | .? | map( . as $id | $snippets[.] | "

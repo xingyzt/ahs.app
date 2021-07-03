@@ -2,6 +2,7 @@ body {
 	margin: 2rem 0;
 	background: var(--primary);
 	color: var(--text);
+	overscroll-behavior: none;
 }
 body * {
 	box-sizing: border-box;
@@ -18,9 +19,6 @@ footer{
 }
 body>footer{
 	margin: 50vh 0;
-}
-label {
-	user-select: none;
 }
 #article a,
 #footer a {

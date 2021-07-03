@@ -1,4 +1,4 @@
-const version = 'cardinal'
+const version = 'sardines'
 
 self.addEventListener('fetch', event => event.respondWith(response(event.request)))
 self.addEventListener('install', event => event.waitUntil(self.skipWaiting()))
@@ -61,8 +61,10 @@ const response = async request => {
 	const fresh_response = await fetch(request)
 	const cloned_response = fresh_response.clone()
 
-	cache.put(request_url, cloned_response)
-	cache.put(cached_time_url, cached_time_response)
+	await Promise.all([
+	    cache.put(request_url, cloned_response),
+	    cache.put(cached_time_url, cached_time_response),
+	])
 	return fresh_response
 
 }

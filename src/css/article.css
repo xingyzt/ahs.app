@@ -1,4 +1,3 @@
-
 #article[hidden]{
 	display: none;
 }
@@ -8,21 +7,21 @@
 	font-size: 1.15rem;
 }
 #article>*{
-	margin-inline: auto;
-	margin-bottom: 1rem;
+	margin: 0 auto 1rem auto;
 	padding: 0 2rem;
 	width: 40rem;
-	max-width: 100vw;
+	max-width: 100%;
 }
 #title{
 	line-height: 1.2;
+	margin-top: 2rem;
 }
 #title:focus{
 	outline: 0;
 }
 #media{
-	width: 100vw;
-	padding-block: 1rem;
+	width: 100%;
+	padding: 1rem 2rem;
 	align-content: safe center;
 }
 #media>img{
@@ -70,8 +69,9 @@
 #media:empty{
 	display: none;
 }
-#article>.metadata{
+#metadata{
 	font-style: italic;
+	margin-bottom: 0;
 }
 #author{
 	display: inline;
