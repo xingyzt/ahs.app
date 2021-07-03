@@ -148,14 +148,43 @@ async function internal_link(url, in_place) {
 }
 async function generate_student_id() {
 	const $button = document.getElementById('card-button')
-	const $barcode = document.getElementById('card-barcode-path')
+	const $barcode = document.getElementById('card-barcode')
+	const $barcode_path = document.getElementById('card-barcode-path')
 	const $photo = document.getElementById('card-photo')
-	const $given_name = document.getElementById('card-given-name')
-	const $family_name = document.getElementById('card-family-name')
-	const $time = document.getElementById('card-time')
+	const $text = document.getElementById('card-text')
 
+	$barcode.id = $barcode_path.id = $photo.id = $text.id = ''
+
+	let email = ''
+	let given_name = 'Digital ID card'
+	let family_name = 'Tap to sign in'
+	let picture = '/icon.png'
+	let student_id = 0
+	let time = '00:00 AM'
 	let signed_in = false
-	
+
+	$text.style.color = 'inherit'
+	$text.style.fontFamily = 'inherit'
+	$text.style.top = '3em'
+	$text.style.left = '4em'
+
+	$barcode.style.border = $photo.style.border = '2em solid white'
+
+	$barcode.style.backgroundColor = $photo.style.backgroundColor = 'white'
+
+	$barcode.style.width = '56em'
+	$barcode.style.height = '20em'
+	$barcode.style.borderRadius = '1em'
+	$barcode.style.bottom = '4em'
+	$barcode.style.left = '4em'
+
+	$photo.style.width = '24em'
+	$photo.style.height = '24em'
+	$photo.style.top = '4em'
+	$photo.style.right = '4em'
+	$photo.style.borderRadius = '12em'
+	$photo.style.borderWidth = '1em'
+
 	async function google_sign_in() {
 		const endpoint = "https://accounts.google.com/o/oauth2/v2/auth?"
 		const params = {
@@ -226,36 +255,49 @@ async function generate_student_id() {
 		return 'M0,0' + path
 	}
 
-	setInterval(()=>{
-		$time.textContent = new Date().toLocaleTimeString('en-GB')
-	},1000)
+	async function draw(){
+		while($text.firstChild) $text.firstChild.remove()
+
+		time = new Date().toLocaleTimeString('en-US')
+
+		$text.append(...[given_name,family_name,time].map(text=>{
+			const $element = document.createElement('p')
+			$element.textContent = text
+			$element.style.fontSize = '6em'
+			$element.style.margin = '0'
+			$element.contentEditable = false
+			return $element
+		}))
+		$text.lastChild.style.fontSize = '3em'
+
+		$barcode_path.setAttribute('d',code39(student_id))
+		$photo.src = picture
+	}
+	draw()
+	setInterval(draw,1000)
 
 	$button.addEventListener('click', async () => {
 		if(signed_in) {
 
-			$given_name.value = $family_name.value = ''
-			$photo.src = '/icon.png'
-			$barcode.setAttribute('d',code39(0))
+			given_name = 'Digital ID card'
+			family_name = 'Tap to sign in'
+			picture = '/icon.png'
+			student_id = 0
 
 		} else {
 
-			const { email, given_name, family_name, picture } = JSON.parse(await google_sign_in())
+			({ email, given_name, family_name, picture } = JSON.parse(await google_sign_in()))
 			const email_match = email.match(/^(\d{5})@students\.ausd\.net$/)
 
 			if(email_match === null) {
 
-				$given_name.value = ':('
-				$family_name.value = 'Cannot find ID'
+				given_name = ':('
+				family_name = 'Cannot find ID'
 
 			} else {
 				
-				$given_name.value = given_name || ''
-				$family_name.value = family_name || ''
-
-				const student_id = parseInt(email_match[1])
-				$barcode.setAttribute('d',code39(student_id))
-
-				if(picture) $photo.src = picture.replace(/=s\d+-c$/,'=s256-c')
+				student_id = parseInt(email_match[1])
+				if(picture !== '/icon.png') picture = picture.replace(/=s\d+-c$/,'=s256-c')
 
 			}
 		}

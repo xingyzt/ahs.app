@@ -2,8 +2,9 @@
 	all: unset;
 	display: block;
 	margin: 1rem 2rem 0 2rem;
-	width: calc(100vmin - 4rem);
-	height: calc((100vmin - 4rem)/16*9);
+	font-size: calc(1vmin - 0.04rem);
+	width: 100em;
+	height: calc(100em/16*9);
 	cursor: pointer;
 }
 #card-canvas {
@@ -12,7 +13,7 @@
 	width: 100%;
 	height: 100%;
 	background-image: linear-gradient(90deg, #c76046, #d67d45);
-	border-radius: 3vmin;
+	border-radius: 3em;
 	transition-property: transform;
 	transition-duration: 100ms;
 	pointer-events: none;
@@ -24,53 +25,4 @@
 }
 #card-canvas>*{
 	position: absolute;
-}
-#card-given-name,
-#card-family-name,
-#card-time {
-	display: block;
-	background-color: transparent;
-	border: 0;
-	padding: 0;
-	color: inherit;
-	font-family: inherit;
-	left: 4vmin;
-	font-size: 6vmin;
-}
-
-#card-given-name::placeholder,
-#card-family-name::placeholder {
-	color: inherit;
-	opacity: 1;
-}
-#card-given-name {
-	top: 3vmin;
-}
-#card-family-name {
-	top: 10vmin;
-}
-#card-barcode,
-#card-photo {
-	border: 2vmin solid white;
-	background-color: white;
-}
-#card-barcode {
-	width: 56vmin;
-	height: 20vmin;
-	border-radius: 1vmin;
-	bottom: 4vmin;
-	left: 4vmin;
-}
-#card-photo {
-	width: 24vmin;
-	height: 24vmin;
-	top: 4vmin;
-	right: 4vmin;
-	border-radius: 12vmin;
-	border-width: 1vmin;
-}
-#card-time {
-	font-size: 3vmin;
-	font-weight: bold;
-	top: 19vmin;
 }
