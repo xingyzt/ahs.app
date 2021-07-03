@@ -156,6 +156,76 @@ async function generate_student_id() {
 
 	let signed_in = false
 	
+	async function google_sign_in() {
+		const endpoint = "https://accounts.google.com/o/oauth2/v2/auth?"
+		const params = {
+			scope: [ 'email', 'profile' ].map( x => "https://www.googleapis.com/auth/userinfo." + x ).join(' '),
+			response_type: 'token',
+			redirect_uri: 'https://ahs.app/sign-in-with-google.html',
+			client_id: '654225823864-s4jptjh81bomn3dl99v7c04dpr8sqoqs.apps.googleusercontent.com',
+			hd: 'students.ausd.net',
+		}
+		const url = endpoint + Object.entries(params)
+		.map( ([key,value]) => key + '=' + encodeURIComponent(value) ).join('&')
+
+		const storage_key = 'google-user-info'
+		localStorage.removeItem(storage_key)
+		window.open(url, '_blank')
+
+		return new Promise(resolve => {
+			const refresh = setInterval(() => {
+				const user_info = localStorage.getItem(storage_key)
+				if(user_info === null) return false
+				clearInterval(refresh)
+				localStorage.removeItem(storage_key)
+				resolve(user_info)
+			}, 100)
+		})
+	}
+
+	function code39(digits) {
+		const length = 5
+		const size = 6
+		// Represent each digit as a set of narrow bands,
+		// wide bands, and spaces.
+		//
+		// Each of those occupies two digits in a binary
+		// integer.
+		//
+		// 00 = 0: white space
+		// 01 = 1: narrow band
+		// 10 = 2: wide band
+		const delimiter = 0b010001101001 // 01_00_01_10_10_01
+		const code = [
+			0b010100101001, // 01_01_00_10_10_01
+			0b100100010110, // 10_01_00_01_01_10
+			0b011000010110, // 01_10_00_01_01_10
+			0b101000010101, // 10_10_00_01_01_01
+			0b010100100110, // 01_01_00_10_01_10
+			0b100100100101, // 10_01_00_10_01_01
+			0b011000100101, // 01_10_00_10_01_01
+			0b010100011010, // 01_01_00_01_10_10
+			0b100100011001, // 10_01_00_01_10_01
+			0b011000011001, // 01_10_00_01_10_01
+		]
+		const pattern = new Uint16Array(length+2)
+		pattern[0] = pattern[length+1] = delimiter
+		let path = ''
+		for(let i = length; i > 0; i--){
+		 pattern[i] = code[digits % 10]
+		 digits = Math.floor(digits/10)
+		}
+		for(let i = 0; i < length + 2; i++){
+			const digit = pattern[i]
+			for(let j = size-1; j >= 0; j--){
+				const type = digit >> 2*j & 0b11
+				path += ['h4','h2V64h2V0','h2V64h5V0'][type]
+			}
+		}
+		path = path.substr(2)
+		return 'M0,0' + path
+	}
+
 	setInterval(()=>{
 		$time.textContent = new Date().toLocaleTimeString('en-GB')
 	},1000)
@@ -192,34 +262,6 @@ async function generate_student_id() {
 		signed_in = !signed_in
 	})
 }
-async function google_sign_in() {
-	const endpoint = "https://accounts.google.com/o/oauth2/v2/auth?"
-	const params = {
-		scope: [ 'email', 'profile' ].map( x => "https://www.googleapis.com/auth/userinfo." + x ).join(' '),
-		response_type: 'token',
-		redirect_uri: 'https://ahs.app/sign-in-with-google.html',
-		client_id: '654225823864-s4jptjh81bomn3dl99v7c04dpr8sqoqs.apps.googleusercontent.com',
-		hd: 'students.ausd.net',
-	}
-	const url = endpoint + Object.entries(params)
-	.map( ([key,value]) => key + '=' + encodeURIComponent(value) ).join('&')
-
-	const storage_key = 'google-user-info'
-	localStorage.removeItem(storage_key)
-	window.open(url, '_blank')
-
-	return new Promise(resolve => {
-		const refresh = setInterval(() => {
-			const user_info = localStorage.getItem(storage_key)
-			if(user_info === null) return false
-			clearInterval(refresh)
-			localStorage.removeItem(storage_key)
-			resolve(user_info)
-		}, 100)
-	})
-}
-async function google_sign_out(){
-}
 function clone_template(name) {
 	return document.getElementById('template-' + name)
 		.content.cloneNode(true)
@@ -234,46 +276,4 @@ function rot13(str) {
 }
 function slug(title) {
 	return title.replace(/[^\w\d]+/g,'-')
-}
-function code39(digits) {
-	const length = 5
-	const size = 6
-	// Represent each digit as a set of narrow bands,
-	// wide bands, and spaces.
-	//
-	// Each of those occupies two digits in a binary
-	// integer.
-	//
-	// 00 = 0: white space
-	// 01 = 1: narrow band
-	// 10 = 2: wide band
-	const delimiter = 0b010001101001 // 01_00_01_10_10_01
-	const code = [
-		0b010100101001, // 01_01_00_10_10_01
-		0b100100010110, // 10_01_00_01_01_10
-		0b011000010110, // 01_10_00_01_01_10
-		0b101000010101, // 10_10_00_01_01_01
-		0b010100100110, // 01_01_00_10_01_10
-		0b100100100101, // 10_01_00_10_01_01
-		0b011000100101, // 01_10_00_10_01_01
-		0b010100011010, // 01_01_00_01_10_10
-		0b100100011001, // 10_01_00_01_10_01
-		0b011000011001, // 01_10_00_01_10_01
-	]
-	const pattern = new Uint16Array(length+2)
-	pattern[0] = pattern[length+1] = delimiter
-	let path = ''
-	for(let i = length; i > 0; i--){
-	 pattern[i] = code[digits % 10]
-	 digits = Math.floor(digits/10)
-	}
-	for(let i = 0; i < length + 2; i++){
-	  const digit = pattern[i]
-	  for(let j = size-1; j >= 0; j--){
-		 const type = digit >> 2*j & 0b11
-		 path += ['h4','h2V64h2V0','h2V64h5V0'][type]
-	  }
-	}
-	path = path.substr(2)
-	return 'M0,0' + path
 }
