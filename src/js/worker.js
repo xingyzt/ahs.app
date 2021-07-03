@@ -1,4 +1,4 @@
-const version = 'sardines'
+const version = 'bumblebee'
 
 self.addEventListener('fetch', event => event.respondWith(response(event.request)))
 self.addEventListener('install', event => event.waitUntil(self.skipWaiting()))

@@ -157,28 +157,35 @@ async function generate_student_id() {
 	$barcode.setAttribute('viewBox', '0 0 208 64')
 	$barcode.setAttribute('width', '208')
 	$barcode.setAttribute('height', '64')
-
 	const $barcode_path = document.createElementNS(svgNS, 'path')
 	$barcode.append($barcode_path)
 
 	const $photo = document.createElement('img')
-	const $text = document.createElement('section')
 
-	const $$children = [ $barcode, $photo, $text ]
+	const $text = document.createElement('section')
+	const $given_name = document.createElement('p')
+	const $family_name = document.createElement('p')
+	$text.append($given_name,$family_name)
+
+	const $time = document.createElement('time')
+
+	const $$children = [ $barcode, $photo, $text, $time ]
 	$shadow.append(...$$children)
 
-	let email = ''
-	let given_name = 'Digital ID card'
-	let family_name = 'Tap to sign in'
-	let picture = '/icon.png'
-	let student_id = 0
-	let time = '00:00 AM'
 	let signed_in = false
 
 	$text.style.color = 'inherit'
 	$text.style.fontFamily = 'inherit'
 	$text.style.top = '3em'
 	$text.style.left = '4em'
+	$given_name.style.fontSize = $family_name.style.fontSize = '6em'
+	$given_name.style.margin = $family_name.style.margin = '0'
+
+	$time.style.fontSize = '4em'
+	$time.style.bottom = '1em'
+	$time.style.right = '1em'
+	$time.style.whiteSpace = 'pre'
+	$time.style.textAlign = 'right'
 
 	$barcode.style.border = $photo.style.border = '2em solid white'
 	$barcode.style.backgroundColor = $photo.style.backgroundColor = 'white'
@@ -268,52 +275,39 @@ async function generate_student_id() {
 		return 'M0,0' + path
 	}
 
-	async function draw(){
-		while($text.firstChild) $text.firstChild.remove()
-
-		time = new Date().toLocaleTimeString('en-US')
-
-		$text.append(...[given_name,family_name,time].map(text=>{
-			const $element = document.createElement('p')
-			$element.textContent = text
-			$element.style.fontSize = '6em'
-			$element.style.margin = '0'
-			return $element
-		}))
-		$text.lastChild.style.fontSize = '3em'
-
+	async function draw(
+		given_name = 'Digital ID card',
+		family_name = 'Tap to sign in',
+		photo_url = '/icon.png',
+		student_id = 0,
+	){
+		$given_name.textContent = given_name
+		$family_name.textContent = family_name
+		$photo.src = photo_url
 		$barcode_path.setAttribute('d',code39(student_id))
-		$photo.src = picture
 	}
+
 	draw()
-	setInterval(draw,1000)
+
+	setInterval(()=>{
+		$time.textContent = new Date().toLocaleString('en-US').replace(', ','\r\n')
+	},1000)
 
 	$button.addEventListener('click', async () => {
-		if(signed_in) {
 
-			given_name = 'Digital ID card'
-			family_name = 'Tap to sign in'
-			picture = '/icon.png'
-			student_id = 0
-
-		} else {
-
-			({ email, given_name, family_name, picture } = JSON.parse(await google_sign_in()))
-			const email_match = email.match(/^(\d{5})@students\.ausd\.net$/)
-
-			if(email_match === null) {
-
-				given_name = ':('
-				family_name = 'Cannot find ID'
-
-			} else {
-				
-				student_id = parseInt(email_match[1])
-				if(picture !== '/icon.png') picture = picture.replace(/=s\d+-c$/,'=s256-c')
-
-			}
-		}
 		signed_in = !signed_in
+
+		if(!signed_in) return draw()
+
+		const { email, given_name, family_name, picture } = JSON.parse(await google_sign_in())
+		const email_match = email.match(/^(\d{5})@students\.ausd\.net$/)
+
+		if(email_match === null) return draw(':(','Cannot find ID')
+
+		let student_id = parseInt(email_match[1])
+		let photo_url = picture ? picture.replace(/=s\d+-c$/,'=s256-c') : null
+
+		return draw(given_name, family_name, photo_url, student_id)
 	})
 }
 function clone_template(name) {
