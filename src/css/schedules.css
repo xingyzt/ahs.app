@@ -24,13 +24,13 @@
 	font-weight: bold;
 }
 .schedule td:nth-child(even){
-	background: var(--highlight);
+	background-color: var(--highlight);
 }
 .schedule td:nth-child(even) time{
 	transform: translate(-50%, -100%);
 }
 .schedule td.highlighted-period{
-	background: var(--color);
+	background-color: var(--color);
 }
 #schedule-toggle:checked ~ .week[hidden],
 #schedule-toggle:checked ~ .week > .schedule[hidden] {

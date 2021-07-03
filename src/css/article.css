@@ -54,7 +54,7 @@
 	text-align: center;
 	font-size: 4rem;
 	color: var(--link);
-	background: var(--secondary);
+	background-color: var(--secondary);
 }
 #media>.youtube>input:hover::before{
 	color: var(--text);

@@ -1,6 +1,6 @@
 body {
 	margin: 2rem 0;
-	background: var(--primary);
+	background-color: var(--primary);
 	color: var(--text);
 	overscroll-behavior: none;
 }

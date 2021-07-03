@@ -22,7 +22,7 @@
 	justify-content: center;
 	align-items: center;
 	border: 0.1rem dashed var(--color);
-	background: transparent;
+	background-color: transparent;
 	scroll-snap-align: none;
 	position: relative;
 	cursor: cell;
@@ -54,14 +54,14 @@
 	width: max-content;
 	height: 1.5rem;
 	padding: 0 0.1rem 0 1.5rem;
-	background: var(--primary) !important;
+	background-color: var(--primary) !important;
 	color: var(--text);
 	content: attr(aria-label);
 	left: 2.1rem;
 	font-size: 0.9rem;
 }
 .day::after{
-	background: var(--color) !important;
+	background-color: var(--color) !important;
 	display: block;
 	mask-size: cover;
 	-webkit-mask-position: center;
@@ -84,7 +84,7 @@
 	cursor: pointer;
 }
 .day.even-month{
-	background: var(--highlight);
+	background-color: var(--highlight);
 }
 .day.first-day{
 	scroll-snap-align: start;
