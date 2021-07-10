@@ -8,7 +8,6 @@ async function main() {
 	const url = endpoint + '&access_token=' + access_token
 	const response = await fetch(url)
 	const user_info = await response.text()
-	console.log(user_info)
 	window.localStorage.setItem('google-user-info', user_info)
 	window.close()
 }

@@ -1,6 +1,6 @@
 'use strict'
 
-let article = history.state || {}
+let article = window.history.state || {}
 
 const $article = document.getElementById('article')
 const $media = document.getElementById('media')
@@ -48,12 +48,12 @@ async function write_article() {
 			const $video = $embed.lastElementChild
 
 			const load_video = () => $video.src = $video.dataset.src.replace('[URL]',id)
-			const save_consent = () => localStorage.setItem('youtube-consent','true')
+			const save_consent = () => window.localStorage.setItem('youtube-consent','true')
 			$video.addEventListener('load',safe_center)
 			$checkbox.addEventListener('change',load_video)
 			$checkbox.addEventListener('change',save_consent)
 
-			if(localStorage.getItem('youtube-consent')==='true') {
+			if(window.localStorage.getItem('youtube-consent')==='true') {
 				$checkbox.checked = true
 				load_video()
 			}
@@ -84,7 +84,7 @@ async function show_article() {
 	if (!article && domain) return reset_title()
 	if (!article) return internal_link(location.href + '?archives', true)
 
-	history.replaceState(article, '')
+	window.history.replaceState(article, '')
 	document.getElementById('title').focus({ preventScroll: true })
 
 	write_article(article)
@@ -146,7 +146,7 @@ async function internal_link_event(event) {
 	event.preventDefault()
 }
 async function internal_link(url, in_place) {
-	history[in_place ? 'replaceState' : 'pushState'](article, '', url)
+	window.history[in_place ? 'replaceState' : 'pushState'](article, '', url)
 	show_article()
 	document.activeElement.blur()
 }
@@ -233,15 +233,15 @@ async function generate_student_id() {
 		.map( ([key,value]) => key + '=' + encodeURIComponent(value) ).join('&')
 
 		const storage_key = 'google-user-info'
-		localStorage.removeItem(storage_key)
+		window.localStorage.removeItem(storage_key)
 		window.open(url, '_blank')
 
 		return new Promise(resolve => {
-			const refresh = setInterval(() => {
-				const user_info = localStorage.getItem(storage_key)
+			const refresh = window.setInterval(() => {
+				const user_info = window.localStorage.getItem(storage_key)
 				if(user_info === null) return false
-				clearInterval(refresh)
-				localStorage.removeItem(storage_key)
+				window.clearInterval(refresh)
+				window.localStorage.removeItem(storage_key)
 				resolve(user_info)
 			}, 100)
 		})
@@ -308,8 +308,7 @@ async function generate_student_id() {
 
 	draw()
 	time()
-	setInterval(time,1000)
-
+	window.setInterval(time,1000)
 
 	$button.addEventListener('click', async () => {
 
