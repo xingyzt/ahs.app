@@ -104,13 +104,17 @@ async function db(domain, ...path) {
 async function highlight_schedule({ $schedule, $cell }) {
 	const class_name = 'highlighted-period'
 
-	const date = new Date()
-	const minutes = date.getHours()*60 + date.getMinutes()
-	const seconds = minutes*60 + date.getSeconds()
+	const seconds = new Date()
+	.toLocaleTimeString( 'en-US', {
+		timeZone: 'US/Pacific',
+		hour12: false,
+	}) // hours : minutes : seconds
+	.split(':')
+	.reduce( (sum, hand) => sum*60 + parseInt(hand) ) // let sum = 0, multiply sum by 60, add hand, repeat
 
-	if(!$cell) $cell = Array.from($schedule.querySelectorAll('td'))
+	$cell = $cell || Array.from($schedule.querySelectorAll('td'))
 		.reverse()
-		.find(x=>parseInt(x.dataset.timestamp)<=minutes)
+		.find( x => parseInt(x.dataset.timestamp)*60 <= seconds )
 
 	if(!$cell) return
 
@@ -124,7 +128,7 @@ async function highlight_schedule({ $schedule, $cell }) {
 		highlight_schedule,
 		( parseInt($next.dataset.timestamp)*60 - seconds ) * 1000,
 		{ $cell: $next }
-	 )
+	)
 }
 async function internal_link_event(event) {
 	const $title = event.target.querySelector('h4')
