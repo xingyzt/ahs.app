@@ -178,30 +178,41 @@ async function generate_student_id() {
 	$text.style.fontFamily = 'inherit'
 	$text.style.top = '3em'
 	$text.style.left = '4em'
-	$given_name.style.fontSize = $family_name.style.fontSize = '6em'
-	$given_name.style.margin = $family_name.style.margin = '0'
+
+	$given_name.style.fontSize =
+	$family_name.style.fontSize = '6em'
+
+	$given_name.style.margin =
+	$family_name.style.margin = '0'
 
 	$time.style.fontSize = '4em'
-	$time.style.bottom = '1em'
+
+	$time.style.bottom =
 	$time.style.right = '1em'
+
 	$time.style.whiteSpace = 'pre'
 	$time.style.textAlign = 'right'
 
-	$barcode.style.border = $photo.style.border = '2em solid white'
-	$barcode.style.backgroundColor = $photo.style.backgroundColor = 'white'
+	$barcode.style.border =
+	$photo.style.border = '2em solid white'
+
+	$barcode.style.backgroundColor =
+	$photo.style.backgroundColor = 'white'
 
 	$barcode.style.width = '52em'
+
 	$barcode.style.height = '16em'
+
 	$barcode.style.borderRadius = '1em'
-	$barcode.style.bottom = '4em'
+
+	$photo.style.top =
+	$photo.style.right =
+	$barcode.style.bottom =
 	$barcode.style.left = '4em'
 
-	$photo.style.width = '24em'
-	$photo.style.height = '24em'
-	$photo.style.top = '4em'
-	$photo.style.right = '4em'
+	$photo.style.width =
+	$photo.style.height =
 	$photo.style.borderRadius = '24em'
-	$photo.style.borderWidth = '1em'
 
 	$$children.forEach( $child => $child.style.position = 'absolute')
 	
@@ -287,11 +298,14 @@ async function generate_student_id() {
 		$barcode_path.setAttribute('d',code39(student_id))
 	}
 
-	draw()
-
-	setInterval(()=>{
+	async function time(){
 		$time.textContent = new Date().toLocaleString('en-US').replace(', ','\r\n')
-	},1000)
+	}
+
+	draw()
+	time()
+	setInterval(time,1000)
+
 
 	$button.addEventListener('click', async () => {
 
