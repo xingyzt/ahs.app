@@ -60,11 +60,15 @@ dt {
 dd {
 	margin-bottom: 1rem;
 }
-a, dt {
+a {
 	border-bottom: 2px dotted #888;
+	scroll-margin: 6rem;
 }
-a:hover, a:focus, dt:target {
+a:hover, a:focus {
 	border-bottom: 2px solid #888;
+}
+a:target, dt:target, dt:target + dd {
+	background: #8882;
 }
 	</style>
 </head>
@@ -82,12 +86,12 @@ a:hover, a:focus, dt:target {
 
 	<p> We only collect basic usage information in the form of logs from all
 	visitors. When you visit this website, we log your
-	<a href=#ip-address>IP address</a>,
+	<a href=#ip-address id=ip-address-use>IP address</a>,
 	the page you are visiting, and the time of your visit. We may also capture information
 	about your computer system, such as your
-	<a href=#web-browser>web browser</a>
+	<a href=#web-browser id=web-browser-use>web browser</a>
 	and
-	<a href=#operating-system>operating system</a>
+	<a href=#operating-system id=operating-system-use>operating system</a>
 	types.
 	</p>
 
@@ -107,15 +111,15 @@ a:hover, a:focus, dt:target {
 	<h2> 4. Definitions </h2>
 
 	<dl>
-		<dt id=ip-address> IP address </dt>
+		<dt id=ip-address><a href=#ip-address-use> IP address </a></dt>
 		<dd> A sequence of letters and numbers that can identify
 		your computer network and its approximate geographic location. </dd>
 
-		<dt id=web-browser> Web browser </dt>
+		<dt id=web-browser><a href=#web-browser-use> Web browser </a></dt>
 		<dd> A computer application that reads and displays pages from the
 		internet. </dd>
 
-		<dt id=operating-system> Operating system </dt>
+		<dt id=operating-system><a href=#operating-system-use> Operating system </a></dt>
 		<dd> A piece of software, such Windows or ChromeOS, that performs system
 		tasks and provides basic services for your computer. </dd>
 	</dl>
