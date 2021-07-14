@@ -2,6 +2,10 @@
 
 mkdir -p dist
 
+
+# set time zone
+TZ="US/Pacific" 
+
 # merge styles into single file
 cat src/css/* > dist/style.css
 
@@ -19,7 +23,7 @@ schedule=$(jq -sfr src/jq/schedule.jq /tmp/weekIDs.json /tmp/weeks.json /tmp/sch
 calendar=$(jq -sfr src/jq/calendar.jq /tmp/weekIDs.json /tmp/weeks.json /tmp/schedules.json)
 schedules=$(jq -sfr src/jq/schedules.jq /tmp/scheduleIDs.json /tmp/schedules.json)
 
-time=$(TZ="US/Pacific" date +"%l:%M %P Pacific Time")
+time=$(date +"%l:%M %P Pacific Time")
 
 printf "$html" "$schedule" "$snippets" "$calendar" "$schedules" "$time" \
 	| tr -d '\t' \
