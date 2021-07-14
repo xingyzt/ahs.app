@@ -26,3 +26,6 @@
 #card-canvas>*{
 	position: absolute;
 }
+#card-description {
+	max-width: 80ch;
+}

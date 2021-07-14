@@ -10,7 +10,7 @@
 	text-align: center;
 }
 #calendar-days{
-	height: 11rem;
+	height: 10.8rem;
 	overflow: hidden scroll;
 	grid-template-rows: repeat(49, 2rem);
 	-ms-scroll-snap-type: y mandatory;
