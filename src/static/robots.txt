@@ -1,7 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /sign-in-with-google.html
-Disallow: /privacy.html
 
 User-agent: MJ12bot
 Disallow: /
