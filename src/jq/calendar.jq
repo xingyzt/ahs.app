@@ -22,7 +22,7 @@ def n: join("");
 	| ( ( $DoM - 1 ) / 7 | floor) as $WoM
 	| ( strflocaltime("%w") | tonumber ) as $DoW
 	| ( strflocaltime("%b ’%y") ) as $MoY_name
-	| $weeks[ $weekIDs[ $WoY ] ].scheduleIDs[ $DoW ]
+	| $weeks[ $weekIDs[ $WoY - 1 ] ].scheduleIDs[ $DoW ]
 	| . as $scheduleID
 	| $schedules[.]
 	| "

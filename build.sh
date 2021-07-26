@@ -2,9 +2,8 @@
 
 mkdir -p dist
 
-
 # set time zone
-TZ="US/Pacific" 
+export TZ="US/Pacific" 
 
 # merge styles into single file
 cat src/css/* > dist/style.css
