@@ -19,6 +19,8 @@ async function main() {
 	Array.from(document.getElementsByClassName('schedule'))
 		.forEach($schedule=>highlight_schedule({$schedule}))
 
+	document.getElementsByClassName('current-day')[0].scrollIntoView()
+
 	generate_student_id()
 
 	if('serviceWorker' in navigator)
