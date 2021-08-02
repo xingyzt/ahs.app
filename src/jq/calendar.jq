@@ -27,11 +27,10 @@ def n: join("");
 	| $schedules[.]
 	| "
 	<a
+		\( if $DoY == $now_DoY then "id=current-day" else "" end)
 		class='day
 		\( if $MoY % 2 == 0 then "even-month" else "" end)
-		\( if $DoY == $now_DoY then "current-day" else "" end)
-		\( if $DoM == 1 then "first-day" else "" end)
-		'
+		\( if $DoM == 1 then "first-day" else "" end)'
 		aria-label='\(.title)'
 		style='--color:\(.color);--image:url(\(.iconURL))'
 		\( if .timestamps then "href=#\($scheduleID)" else "" end )

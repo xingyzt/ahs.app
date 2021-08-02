@@ -19,7 +19,7 @@ async function main() {
 	Array.from(document.getElementsByClassName('schedule'))
 		.forEach($schedule=>highlight_schedule({$schedule}))
 
-	document.getElementsByClassName('current-day')[0].scrollIntoView()
+	scroll_calendar()
 
 	generate_student_id()
 
@@ -28,6 +28,11 @@ async function main() {
 }
 async function reset_title() {
 	document.title = 'ahs.app'
+}
+async function scroll_calendar() {
+	const $calendar = document.getElementById('calendar-days')
+	const $current_day = document.getElementById('current-day')
+	$calendar.scrollTo(0,floor($current_day.offsetTop,$calendar.offsetHeight))
 }
 async function write_article() {
 
@@ -344,3 +349,7 @@ function rot13(str) {
 function slug(title) {
 	return title.replace(/[^\w\d]+/g,'-')
 }
+function floor(number, precision = 1) {
+	return precision * Math.floor( number / precision )
+}
+
