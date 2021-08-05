@@ -35,6 +35,7 @@
 	max-height: 100%;
 	justify-self: center;
 	align-self: center;
+	background-color: var(--color);
 }
 .snippet:hover>h4,
 .snippet:focus>h4{
