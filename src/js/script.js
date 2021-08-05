@@ -145,7 +145,7 @@ async function internal_link_event(event) {
 	article = {
 		title: $title ? $title.textContent : 'Loading article',
 		imageURLs: $image ? [ $image.src ] : [],
-		body: $blurb ? $blurb.textContent : '',
+		body: $blurb ? `<p>${$blurb.textContent}</p>` : '',
 	}
 	article.color = event.target.style.getPropertyValue('--color')
 
