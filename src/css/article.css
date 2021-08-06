@@ -24,7 +24,14 @@
 	padding: 1rem 2rem;
 	align-content: safe center;
 }
-#media>img{
+#media>a{
+	border-width: 0;
+}
+#media>a>img{
+	white-space: inherit;
+	margin-right: inherit;
+	height: inherit;
+	max-width: inherit;
 	background-color: var(--color);
 	min-width: 1rem;
 }

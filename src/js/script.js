@@ -47,31 +47,32 @@ async function write_article() {
 	
 	$media.style.alignContent = 'safe center'
 
+	const media = await Promise.all(( article.videoIDs || [] ).map( async id => {
+		const $embed = clone_template('youtube')
+		const $checkbox = $embed.firstElementChild
+		const $video = $embed.lastElementChild
+
+		const load_video = () => $video.src = $video.dataset.src.replace('[URL]',id)
+		const save_consent = () => window.localStorage.setItem('youtube-consent','true')
+		$video.addEventListener('load',safe_center)
+		$checkbox.addEventListener('change',load_video)
+		$checkbox.addEventListener('change',save_consent)
+
+		if(window.localStorage.getItem('youtube-consent')==='true') {
+			$checkbox.checked = true
+			load_video()
+		}
+		return $embed
+	}).concat(( article.imageURLs || [] ).map( async url => {
+		const $link = document.createElement('a')
+		const $image = document.createElement('img')
+		$link.href = $image.src = url
+		$link.append($image)
+		$image.addEventListener('load',safe_center)
+		return $link
+	})))
 	while($media.firstChild) $media.firstChild.remove()
-	$media.append(
-		...await Promise.all(( article.videoIDs || [] ).map( async id => {
-			const $embed = clone_template('youtube')
-			const $checkbox = $embed.firstElementChild
-			const $video = $embed.lastElementChild
-
-			const load_video = () => $video.src = $video.dataset.src.replace('[URL]',id)
-			const save_consent = () => window.localStorage.setItem('youtube-consent','true')
-			$video.addEventListener('load',safe_center)
-			$checkbox.addEventListener('change',load_video)
-			$checkbox.addEventListener('change',save_consent)
-
-			if(window.localStorage.getItem('youtube-consent')==='true') {
-				$checkbox.checked = true
-				load_video()
-			}
-			return $embed
-		}).concat(( article.imageURLs || [] ).map( async url => {
-			const $image = document.createElement('img')
-			$image.src = url
-			$image.addEventListener('load',safe_center)
-			return $image
-		}))),
-	)
+	$media.append(...media)
 }
 async function show_article() {
 	if(location.hash === '') window.scrollTo(0,0)
