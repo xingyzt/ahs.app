@@ -5,6 +5,8 @@ let article = window.history.state || {}
 const $article = document.getElementById('article')
 const $media = document.getElementById('media')
 
+const LOADING = 'Loading article…'
+
 main()
 
 async function main() {
@@ -36,7 +38,7 @@ async function scroll_calendar() {
 }
 async function write_article() {
 
-	document.title = article.title
+	document.title = article.title || LOADING
 
 	for (const property in article) {
 		const element = document.getElementById(property)
@@ -144,7 +146,7 @@ async function internal_link_event(event) {
 	const $blurb = event.target.querySelector('p')
 
 	article = {
-		title: $title ? $title.textContent : 'Loading article',
+		title: $title ? $title.textContent : LOADING,
 		imageURLs: $image ? [ $image.src ] : [],
 		body: $blurb ? `<p>${$blurb.textContent}</p>` : '',
 	}
