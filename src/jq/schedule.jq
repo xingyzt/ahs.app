@@ -15,19 +15,22 @@ def n: join("");
 ] as $scheduleID
 | .[2][$scheduleID]
 | . as $schedule
-| if .timestamps then 
-( .timestamps
-| ( .[-1] - .[0] ) as $span
-| to_entries
-| "<table><td id=0></td>"
-+ map("
-	<td id=\(.value) width=\( 
-		( ($schedule.timestamps + [.value])[.key+1] - .value )
-		/ $span * 100 * 100
-		| floor / 100
-	) %%>
-		<time>\( .value*60 | strftime("%l:%M" ) )</time>
-	</td>
-") |n
-+ "</table>"
-|n ) else "<p>"+.title+"</p>" end
+| if . then "
+<section class=schedule>
+	<table>
+		<td data-timestamp=0></td>
+		\( .timestamps 
+		| . as $timestamps
+		| ( .[-1] - .[0] ) as $span
+		| to_entries | map( "
+		<td data-timestamp=\(.value) width=\(
+			( ($timestamps + [.value])[.key+1] - .value )
+			/ $span * 100 * 100
+			| floor / 100
+		)%%>
+			<time>\( .value*60 | strftime("%l:%M" ) )</time>
+		</td>
+		") |n )
+	</table>
+</section>
+" else "<p>\(.title)</p>" end
