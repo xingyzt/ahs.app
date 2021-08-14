@@ -20,7 +20,7 @@ def n: join("");
 | "<p>
 	<span id=current-schedule-title>\(.title)</span>
 	<span id=current-schedule-status></span>
-</p>" + if . then "
+</p>" + if .periodIDs then "
 	<table style=--color:\(.color)>
 		<td data-timestamp=0></td>
 		\( $timestamps

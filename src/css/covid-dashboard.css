@@ -1,0 +1,24 @@
+#covid-chart {
+	width: 24rem;
+	max-width: 100%;
+	margin: 1rem;
+}
+#covid-chart g.hidden {
+	opacity: 0;
+}
+#covid-chart path {
+	fill: none;
+	stroke: var(--text);
+	stroke-width: 2rem;
+	opacity: 0.5;
+}
+#covid-chart text {
+	font: 3rem crimson;
+}
+#covid-chart text.label {
+	opacity: 0;
+}
+#covid-chart:not(:hover) text.label.totals.current-confirmed-cases-students,
+#covid-chart:hover path:hover + text.label {
+	opacity: 1;
+}
