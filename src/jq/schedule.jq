@@ -15,15 +15,18 @@ def n: join("");
 ] as $scheduleID
 | .[2][$scheduleID]
 | . as $schedule
-| if . then "
-<section class=schedule>
-	<table>
+| .periodIDs as $periodIDs
+| .timestamps as $timestamps
+| "<p>
+	<span id=current-schedule-title>\(.title)</span>
+	<span id=current-schedule-status></span>
+</p>" + if . then "
+	<table style=--color:\(.color)>
 		<td data-timestamp=0></td>
-		\( .timestamps 
-		| . as $timestamps
+		\( $timestamps
 		| ( .[-1] - .[0] ) as $span
 		| to_entries | map( "
-		<td data-timestamp=\(.value) width=\(
+		<td data-timestamp=\(.value) title=\($periodIDs[.key]) width=\(
 			( ($timestamps + [.value])[.key+1] - .value )
 			/ $span * 100 * 100
 			| floor / 100
@@ -32,5 +35,4 @@ def n: join("");
 		</td>
 		") |n )
 	</table>
-</section>
-" else "<p>\(.title)</p>" end
+" else "" end

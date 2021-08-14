@@ -1,4 +1,4 @@
-const version = 'peak'
+const version = 'bald'
 
 self.addEventListener('fetch', event => event.respondWith(response(event.request)))
 self.addEventListener('install', event => event.waitUntil(self.skipWaiting()))

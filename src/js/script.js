@@ -6,6 +6,7 @@ const $article = document.getElementById('article')
 const $media = document.getElementById('media')
 
 const LOADING = 'Loading article…'
+const HIGHLIGHTED_PERIOD = 'highlighted-period'
 
 main()
 
@@ -20,6 +21,8 @@ async function main() {
 
 	Array.from(document.getElementsByClassName('schedule'))
 		.forEach($schedule=>highlight_schedule({$schedule}))
+	
+	//setInterval(tick_current_schedule,1000)
 
 	scroll_calendar()
 
@@ -111,9 +114,13 @@ async function db(domain, ...path) {
 	)
 	return response.json()
 }
+async function tick_current_schedule(){
+	const $schedule = document.getElementById('current-schedule')
+	const $status = document.getElementById('current-schedule-status')
+	const $cell = $schedule.getElementsByClassName(HIGHLIGHTED_PERIOD)[0]
+	$status.textContent = $cell.title || ''
+}
 async function highlight_schedule({ $schedule, $cell }) {
-	const class_name = 'highlighted-period'
-
 	const seconds = new Date()
 	.toLocaleTimeString( 'en-US', {
 		timeZone: 'US/Pacific',
@@ -128,10 +135,10 @@ async function highlight_schedule({ $schedule, $cell }) {
 
 	if(!$cell) return
 
-	$cell.classList.add(class_name)
+	$cell.classList.add(HIGHLIGHTED_PERIOD)
 
 	const $prev = $cell.previousElementSibling
-	if($prev) $prev.classList.remove(class_name) 
+	if($prev) $prev.classList.remove(HIGHLIGHTED_PERIOD) 
 
 	const $next = $cell.nextElementSibling
 	 if($next) setTimeout(
