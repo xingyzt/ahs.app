@@ -1,11 +1,18 @@
 def n: join("");
 def value_list: .value | map(.);
 def current_value: value_list | last;
-def previous_value: value_list | .[length-2];
-def modified_weight: 4;
-def modified_value: ( ( modified_weight - 1 ) * current_value + 1 * previous_value ) / modified_weight;
 
 .[0]
+| to_entries
+| sort_by( current_value )
+| map( select( current_value > 0 ) )
+| map( select( .key | startswith("totals-") | not) )
+| . as $label_raw_axis
+| reverse
+| to_entries
+| . as $y | map(.key as $k0 | .value.key as $k1 | .value.value as $v1 | {key: $k1, value: ($v1|keys|map(. as $k2|{key: $k2, value: ($y[0:$k0+1]|map(.value.value[$k2])|add)})|from_entries)})
+| . as $label_stacked_axis
+| from_entries
 | (map(map(.)|max)|max) as $max_value
 | (map(keys|map(tonumber)|max)|max) as $max_key
 | (map(keys|map(tonumber)|min)|min) as $min_key
@@ -14,10 +21,7 @@ def modified_value: ( ( modified_weight - 1 ) * current_value + 1 * previous_val
 | ([range($key_span/$key_step+1)]) as $key_axis
 | ([range($max_value+1)]) as $value_axis
 | to_entries
-| ( sort_by( modified_value )
-	| map( select( modified_value > 0 ) )
-	| ( ({ "others": { "0" : 0 } } | to_entries) + . )
-) as $label_raw_axis
+| ( ({ "others": { "0" : 0 } } | to_entries) + . )
 | ( $label_raw_axis | map ( "
 	<tspan>
 			\( current_value )
@@ -37,13 +41,13 @@ def modified_value: ( ( modified_weight - 1 ) * current_value + 1 * previous_val
 	") | reverse | n ) </text>
 	<text y='\(-1000/$label_n)'> \( $label_axis | map ( "
 		<tspan x='1200' dy='\(1000/$label_n)'>\(.)</tspan>
-	") | reverse | n ) </text>
+	") | n ) </text>
 " + "
 	<path class='label-connector' d='\(
-		$label_raw_axis
+		$label_stacked_axis
 		| to_entries
-		| map( "M\(1000 - 1000 / modified_weight / $key_span * $key_step),
-			\( ( 1 - (.value | modified_value ) / $max_value) * 1000 )
+		| map( "M\(1000),
+			\( ( 1 - (.value | current_value ) / $max_value) * 1000 )
 			L1180,
 			\( ( 1 - .key / $label_n ) * 1000)
 		" ) | n

@@ -29,7 +29,6 @@
 }
 #media>a>img{
 	white-space: inherit;
-	margin-right: inherit;
 	height: inherit;
 	max-width: inherit;
 	background-color: var(--color);
