@@ -2,7 +2,8 @@ def n: join("");
 def value_list: .value | map(.);
 def current_value: value_list | last;
 def previous_value: value_list | .[length-2];
-def modified_value: 0.8 * current_value + 0.2 * previous_value;
+def modified_weight: 4;
+def modified_value: ( ( modified_weight - 1 ) * current_value + 1 * previous_value ) / modified_weight;
 
 .[0]
 | (map(map(.)|max)|max) as $max_value
@@ -41,7 +42,7 @@ def modified_value: 0.8 * current_value + 0.2 * previous_value;
 	<path class='label-connector' d='\(
 		$label_raw_axis
 		| to_entries
-		| map( "M1030,
+		| map( "M\(1000 - 1000 / modified_weight / $key_span * $key_step),
 			\( ( 1 - (.value | modified_value ) / $max_value) * 1000 )
 			L1180,
 			\( ( 1 - .key / $label_n ) * 1000)
