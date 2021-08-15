@@ -10,6 +10,9 @@
 	stroke-width: 0.2rem;
 	stroke-linecap: round;
 }
+#covid-chart path {
+	mix-blend-mode: multiply;
+}
 #covid-chart text {
 	font: 3rem crimson;
 }
