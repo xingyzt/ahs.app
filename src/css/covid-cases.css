@@ -15,6 +15,7 @@
 }
 #covid-chart text {
 	font: 3rem crimson;
+	fill: var(--text);
 }
 #covid-chart tspan.label {
 	font: 2rem crimson;

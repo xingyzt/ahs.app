@@ -20,7 +20,7 @@ footer{
 body>footer{
 	margin: 50vh 0;
 }
-#article a,
+p a,
 #footer a {
 	color: var(--link);
 }
