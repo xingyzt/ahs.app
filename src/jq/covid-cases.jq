@@ -6,8 +6,8 @@ def current_value: .value | map(.) | last;
 | (map(keys|map(tonumber)|max)|max) as $max_key
 | (map(keys|map(tonumber)|min)|min) as $min_key
 | ( $max_key - $min_key ) as $key_span
-| 4 as $key_n | 6 as $value_n
-| ([range($min_key+24*60*60;$max_key;$key_span/$key_n)]) as $key_axis
+| 3 as $key_n | 6 as $value_n
+| ([range($min_key;$max_key+24*60*60;$key_span/$key_n | ceil)]) as $key_axis
 | ([range(0;$max_value+1;$max_value/$value_n | ceil)]) as $value_axis
 | to_entries
 | ( sort_by( current_value )
@@ -23,8 +23,8 @@ def current_value: .value | map(.) | last;
 ) as $label_axis
 | ( $label_axis | length ) as $label_n
 | "
-	<text x='\(-1000/$key_n)'> \( $key_axis | map ( "
-		<tspan y='1100' dx='\(1000/$key_n)'>\(. | strftime("%m/%d"))</tspan>
+	<text x='\(-1000/$key_n)'> \( $key_axis | to_entries | map ( "
+		<tspan y='1100' x='\(1000*.key/$key_n)'>\(.value | strflocaltime("%m/%d"))</tspan>
 	") | n ) </text>
 	<text y='\(-1000/$value_n)'> \( $value_axis | map ( "
 		<tspan x='-50' dy='\(1000/$value_n)'>\(.)</tspan>
@@ -43,12 +43,11 @@ def current_value: .value | map(.) | last;
 		" ) | n
 	)'
 " + ( map( .key as $location | .value | to_entries | "
-		<path id='covid-cases-\($location)' d='M\(
-			map ( "
+		<path fill='url(#\($location | split("-") | last))' d='M1000,1000H0\(
+			map ( "L
 				\( (.key | tonumber - $min_key ) / $key_span * 1000 ),
 				\( ( 1 - .value/$max_value ) * 1000 )
-			" )
-			| join("L")
+			" ) |n
 		)'/>
 	" ) |n
 )

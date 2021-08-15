@@ -1,23 +1,14 @@
 #covid-chart {
 	width: 24rem;
-	max-width: 70%;
+	max-width: 50%;
 	margin: 1rem;
 }
-#covid-chart path {
+#covid-chart path.label-connector {
 	fill: none;
 	stroke: var(--text);
-	stroke-width: 1rem;
-	stroke-linecap: round;
 	opacity: 0.5;
-}
-#covid-chart path#covid-cases-totals-students, 
-#covid-chart path#covid-cases-totals-staff {
-	stroke-width: 2rem;
-	stroke-dasharray: none;
-}
-#covid-chart path.label-connector {
 	stroke-width: 0.2rem;
-	stroke: var(--link);
+	stroke-linecap: round;
 }
 #covid-chart text {
 	font: 3rem crimson;

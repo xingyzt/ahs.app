@@ -94,7 +94,7 @@
 				</section>
 			</section>
 			<section id=covid-cases style=--color:#6384f2 data-layout=tool class=category>
-				<h3><a href=#covid-dashboard>Confirmed COVID Cases</a></h3>
+				<h3><a href=#covid-cases>Confirmed COVID Cases</a></h3>
 				<section>
 					<p>
 						Data updated daily from the official
@@ -103,6 +103,16 @@
 						</a>.
 					</p>
 					<svg id='covid-chart' viewBox='0 0 1000 1000' overflow='visible'>
+						<defs>
+							<linearGradient id='staff' x1='0' x2='0' y1='0' y2='1'>
+								<stop offset='0' stop-color='#0f8a'/>
+								<stop offset='100%%' stop-color='#0f82' />
+							</linearGradient>
+							<linearGradient id='students' x1='0' x2='0' y1='0' y2='1'>
+								<stop offset='0' stop-color='#80fa'/>
+								<stop offset='100%%' stop-color='#80f2' />
+							</linearGradient>
+						</defs>					
 						%s
 					</svg>
 				</section>
