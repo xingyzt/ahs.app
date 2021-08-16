@@ -1,4 +1,4 @@
-const version = 'mammoth'
+const version = 'goliath'
 
 self.addEventListener('fetch', event => event.respondWith(response(event.request)))
 self.addEventListener('install', event => event.waitUntil(self.skipWaiting()))
@@ -13,6 +13,8 @@ self.addEventListener('activate', event => event.waitUntil(
 
 
 const response = async request => {
+
+	if (request.cache === 'only-if-cached' && request.mode !== 'same-origin') return
 
 	const now = Date.now()
 
