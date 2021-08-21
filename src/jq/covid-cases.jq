@@ -28,7 +28,14 @@ def cumulative_value: value_list | add;
 	<text y='\(-1000/$value_n)'> \( $value_axis | map ( "
 		<tspan x='-50' dy='\(1000/$value_n)'>\(.)</tspan>
 	") | n ) </text>
-" + ( to_entries | reverse | map( (.key/($value_n-1)) as $n | .value | .key as $location | .value | to_entries | "
+" + ( to_entries | reverse | map( .
+		| .key as $k
+		| ($k/($value_n-1)) as $n
+		| .value
+		| .key as $location
+		| .value
+		| to_entries
+		| "
 		<path
 			fill='hsl(\(360*$n)deg,50%,50%)'
 			id='\($location)'
@@ -47,7 +54,7 @@ def cumulative_value: value_list | add;
 				\($location | gsub("-|elementary|middle|school|students|staff";" ") | ascii_upcase )
 			</tspan>
 			<tspan class='people' x='1150' dy='50'>
-				\( last.value ) \($location | split("-") | last)
+				\( $y[$k].value.value|map(.)|last ) \($location | split("-") | last)
 			</tspan>
 		</text>
 	" ) |n
