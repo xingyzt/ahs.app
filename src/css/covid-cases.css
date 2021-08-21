@@ -3,20 +3,15 @@
 	max-width: 50%;
 	margin: 1rem;
 }
-#covid-chart path.label-connector {
-	fill: none;
+#covid-chart path {
 	stroke: var(--text);
-	opacity: 0.5;
 	stroke-width: 0.2rem;
 	stroke-linecap: round;
-}
-#covid-chart path {
-	mix-blend-mode: multiply;
 }
 #covid-chart text {
 	font: 3rem crimson;
 	fill: var(--text);
 }
-#covid-chart tspan.label {
+#covid-chart tspan.location {
 	font: 2rem crimson;
 }

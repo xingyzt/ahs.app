@@ -1,4 +1,4 @@
-const version = 'goliath'
+const version = 'pecans'
 
 self.addEventListener('fetch', event => event.respondWith(response(event.request)))
 self.addEventListener('install', event => event.waitUntil(self.skipWaiting()))
