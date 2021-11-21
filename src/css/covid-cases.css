@@ -1,7 +1,7 @@
 #covid-chart {
-	width: 24rem;
-	max-width: 70%;
-	margin: 10rem 1rem 1rem 1rem;
+	width: 36rem;
+	max-width: 100%;
+	margin: 1rem;
 }
 #covid-chart path {
 	stroke: var(--text);
@@ -9,14 +9,16 @@
 	stroke-linecap: round;
 	transition-duration: 100ms;
 }
-#covid-chart path:hover,
-#covid-chart text:hover+path {
+#covid-chart path:hover {
 	fill: var(--text);
 }
+#covid-chart path:hover+text {
+	opacity: 1;
+}
 #covid-chart text {
-	font: 3rem crimson;
+	font: 2rem crimson;
 	fill: var(--text);
 }
 #covid-chart tspan.location {
-	font: 2rem crimson;
+	font: 1.5rem crimson;
 }

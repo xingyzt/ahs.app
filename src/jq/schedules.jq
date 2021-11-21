@@ -2,7 +2,7 @@ def n: join("");
 
 .[0] as $scheduleIDs
 | .[1] as $schedules
-| $scheduleIDs | map( . as $id | $schedules[.] | "
+| $scheduleIDs | map( . as $id | $schedules[.] | select(.periodIDs) | "
 	<section id=\($id) style=--color:\(.color) class=schedule>
 		<h4><a href=#\($id)>\(.title)</a></h4>
 		<table>
