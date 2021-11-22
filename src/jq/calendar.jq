@@ -28,7 +28,7 @@ def n: join("");
 	| "
 	<a
 		\( if $DoY == $now_DoY then "id=current-day" else "" end)
-		class='day
+		class='day dot-\( .dot )
 		\( if $MoY % 2 == 0 then "even-month" else "" end)
 		\( if $DoM == 1 then "first-day" else "" end)'
 		aria-label='\(.title)'

@@ -3,7 +3,7 @@
 	display: grid;
 	grid-template-columns: repeat(7, 2rem) 1fr;
 	max-width: 24rem;
-	grid-gap: 0.2rem;
+	grid-gap: 2px;
 }
 #calendar-labels {
 	grid-template-rows: 1fr;
@@ -11,7 +11,7 @@
 }
 #calendar-days {
 	position: relative;
-	height: 10.8rem;
+	height: 10.3rem;
 	overflow: hidden scroll;
 	grid-template-rows: repeat(49, 2rem);
 	-ms-scroll-snap-type: y mandatory;
@@ -21,13 +21,49 @@
 .day{
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	border: 0.15rem dotted var(--color);
+	align-items: top;
 	background-color: transparent;
 	scroll-snap-align: none;
 	position: relative;
 	cursor: cell;
 }
+.day.dot-0{
+	background-image: radial-gradient(circle at 50% 75%, transparent 4%, var(--color) 5%, var(--color) 8%, transparent 9%);
+}
+.day.dot-1{
+	background-image: radial-gradient(circle at 50% 75%, var(--color) 7%, transparent 8%);
+}
+.day.dot-2{
+	background-image:
+		radial-gradient(circle at 40% 75%, var(--color) 7%, transparent 8%),
+		radial-gradient(circle at 60% 75%, var(--color) 7%, transparent 8%)
+	;
+}
+.day.dot-3{
+	background-image:
+		radial-gradient(circle at 30% 75%, var(--color) 7%, transparent 8%),
+		radial-gradient(circle at 50% 75%, var(--color) 7%, transparent 8%),
+		radial-gradient(circle at 70% 75%, var(--color) 7%, transparent 8%)
+	;
+}
+.day.dot-4{
+	background-image:
+		radial-gradient(circle at 20% 75%, var(--color) 7%, transparent 8%),
+		radial-gradient(circle at 40% 75%, var(--color) 7%, transparent 8%),
+		radial-gradient(circle at 60% 75%, var(--color) 7%, transparent 8%),
+		radial-gradient(circle at 80% 75%, var(--color) 7%, transparent 8%)
+	;
+}
+.day.dot-5{
+	background-image:
+		radial-gradient(circle at 10% 75%, var(--color) 7%, transparent 8%),
+		radial-gradient(circle at 30% 75%, var(--color) 7%, transparent 8%),
+		radial-gradient(circle at 50% 75%, var(--color) 7%, transparent 8%),
+		radial-gradient(circle at 70% 75%, var(--color) 7%, transparent 8%)
+		radial-gradient(circle at 90% 75%, var(--color) 7%, transparent 8%),
+	;
+}
+
 .day:hover,
 .day:focus{
 	border-color: var(--color) !important;
@@ -47,7 +83,7 @@
 	opacity: 0;
 	pointer-events: none;
 	transition: inherit;
-	border: inherit;
+	border: 0.15rem solid var(--color);
 	box-sizing: border-box;
 }
 .day::before{
@@ -80,7 +116,6 @@
 	opacity: 1;
 }
 .day[href]{
-	border-style: solid;
 	cursor: pointer;
 }
 .day.even-month{
@@ -90,8 +125,7 @@
 	scroll-snap-align: start;
 }
 #current-day{
-	border-style: double !important;
-	border-width: 0.3rem;
+	outline: 2px solid var(--color);
 }
 #current-day::before,
 #current-day::after{
